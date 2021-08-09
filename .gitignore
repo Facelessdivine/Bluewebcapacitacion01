@@ -1,5 +1,4 @@
 build/
 dist/
 test/
-.vscode/
 build.xml
