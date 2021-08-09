@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cliente</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        Hello from CLIENTES
+        <p:linkButton outcome="index" value="Home" style="margin-right:20px;" styleClass="button">
+
+        </p:linkButton>
+        <p:dataTable var="client" value="#{cliente.clientList}" filteredValue="#{cliente.clienteFilter}" paginator="true" rows="10">
+            <p:column headerText="Id" filterBy="#{client.id}" filterMatchMode="contains">
+                    <h:outputText value="#{client.id}" />
+                </p:column>
+            <p:column headerText="Numero Cliente" filterBy="#{client.numero}" filterMatchMode="contains">
+                    <h:outputText value="#{client.numero}" />
+                </p:column>
+
+            <p:column headerText="Nombre Cliente" filterBy="#{client.nombre}" filterMatchMode="contains">
+                    <h:outputText value="#{client.nombre}" />
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Ciudad</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            Hello from CIUDAD
+            <p:linkButton outcome="index" value="Home" style="margin-right:20px;" styleClass="button">
+
+            </p:linkButton>
+
+            <p:dataTable var="city" value="#{ciudad.listaCiudad}" filteredValue="#{ciudad.filtroCiudad}" paginator="true" rows="10">
+                <p:column headerText="Id" filterBy="#{city.id}" filterMatchMode="contains">
+                    <h:outputText value="#{city.id}" />
+                </p:column>
+
+                <p:column headerText="codigo" filterBy="#{city.codigo}" filterMatchMode="contains">
+                    <h:outputText value="#{city.codigo}" />
+                </p:column>
+
+                <p:column headerText="descripcion" filterBy="#{city.descripcion}" filterMatchMode="contains">
+                    <h:outputText value="#{city.descripcion}" />
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+

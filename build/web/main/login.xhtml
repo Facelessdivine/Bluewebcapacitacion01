@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login</title>
+       
+    </h:head>
+    <h:body>
+        <div class="card-">
+            <h:form>
+                <p:fieldset legend="Inicio de Sesión" >
+                    <p:growl id="msgs" showDetail="true"/>
+                    <h:panelGrid columns="3" cellpadding="7" styleClass="p-mb-3">
+                        <p:outputLabel for="username" value="Username"/>
+                        <p:inputText id="username" value="#{logger.user.usuario}" required="true" label="Username">
+                            <f:validateLength minimum="6" maximum="20"/>
+                        </p:inputText>
+                        <p:message for="username" display="icon"/>
+
+                        <p:outputLabel for="password" value="Password"/>
+                        <p:password id="password" value="#{logger.user.password}" label="Password" required="true">
+                            <f:validateLength minimum="2" maximum="12"/>
+                            <p:ajax update="msgPassword" />
+                        </p:password>
+                        <p:message for="password" id="msgPassword" display="icon"/>
+                        <p:column/>
+                    </h:panelGrid>
+                    <p:commandButton styleClass="cross" value="Save" update="@form" action="#{logger.login()}" icon="pi pi-check"/>
+
+                </p:fieldset>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
