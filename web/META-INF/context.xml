@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context path="/capacitacion">
+<Resource auth="Container" factory="org.jboss.weld.resources.ManagerObjectFactory" name="BeanManager" type="javax.enterprise.inject.spi.BeanManager"/>
+
+<Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" logAbandoned="true" maxTotal="2000" 
+          maxIdle="70" maxWaitMillis="90000" name="jdbc/PoolActiva" password="activa" removeAbandonedOnBorrow="true" 
+          removeAbandonedTimeout="54000" type="javax.sql.DataSource" 
+          url="jdbc:sqlserver://192.168.98.224;databaseName=ACTIVACION;ProgramName=Test;characterEncoding=iso-8859-1" 
+          username="activa" validationQuery="select getdate()"/>
+
+</Context>
+
+  
