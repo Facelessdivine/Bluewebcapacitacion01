@@ -26,7 +26,7 @@ public class LoginBean implements Serializable {
 //            Variables de Sesión
 //            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Id_usuario", response.getUser().getId_usuario());
             s.setSesion(user, "User");
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/home.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/template.xhtml");
             
         } else if (response.getResponse().getId() == 1) {
             addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Wrong username or password");

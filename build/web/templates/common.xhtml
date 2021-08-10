@@ -1,23 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    >
     <h:head>
         <title>Common</title>
+        <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
-        <ui:insert name = "header" >
-      <ui:include src = "header.xhtml" />
-   </ui:insert> 
-   
-   <ui:insert name = "content" >
-      <ui:include src = "contents.xhtml" />
-   </ui:insert>    
-   
-   <ui:insert name = "footer" >
-      <ui:include src = "footer.xhtml" />
-   </ui:insert>
+        <p:layout fullPage="true" >
+        <p:layoutUnit position="north" id="header">
+            <ui:insert name="header">
+                <ui:include src="header.xhtml" />
+            </ui:insert>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" id="content">
+            <ui:insert name="content">
+                <ui:include src="contents.xhtml" />
+            </ui:insert>
+        </p:layoutUnit>
+        <p:layoutUnit position="west" id="sidebar">
+            <ui:insert name="left">
+                <ui:include src="left.xhtml" />
+            </ui:insert>
+        </p:layoutUnit>
+        <p:layoutUnit position="south" id="footer">
+            <ui:insert name="footer">
+                <ui:include src="footer.xhtml" />
+            </ui:insert>
+        </p:layoutUnit>
+    </p:layout>
     </h:body>
 </html>
-

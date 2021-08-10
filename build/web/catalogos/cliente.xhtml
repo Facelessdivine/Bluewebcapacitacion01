@@ -8,8 +8,8 @@
     </h:head>
     <h:body>
         <h:form>
-        Hello from CLIENTES
-        <p:linkButton outcome="index" value="Home" style="margin-right:20px;" styleClass="button">
+        
+        <p:linkButton outcome="/faces/template" value="Home" style="margin-right:20px;" styleClass="button">
 
         </p:linkButton>
         <p:dataTable var="client" value="#{cliente.clientList}" filteredValue="#{cliente.clienteFilter}" paginator="true" rows="10">
