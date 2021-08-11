@@ -12,7 +12,7 @@
   <ui:composition template="../template.xhtml">
     <ui:define name="content">
       <h:body>
-        <h:form>
+        <h:form> 
           <p:linkButton
             outcome="/faces/template"
             value="Home"
@@ -20,12 +20,13 @@
             styleClass="button"
           >
           </p:linkButton>
-          <p:dataTable
+          <p:dataTable 
             var="client"
             value="#{cliente.clientList}"
             filteredValue="#{cliente.clienteFilter}"
             paginator="true"
             rows="10"
+            style="font-size: 10px; width: fit-content;"
           >
             <p:column
               headerText="Id"

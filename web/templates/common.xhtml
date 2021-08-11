@@ -7,7 +7,8 @@
     xmlns:p="http://primefaces.org/ui"
     >
     <h:head>
-        <title>Common</title>
+        <title>Index</title>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/pngwing.com.ico']}"/>
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
@@ -25,11 +26,6 @@
         <p:layoutUnit position="west" id="sidebar">
             <ui:insert name="left">
                 <ui:include src="left.xhtml" />
-            </ui:insert>
-        </p:layoutUnit>
-        <p:layoutUnit position="south" id="footer">
-            <ui:insert name="footer">
-                <ui:include src="footer.xhtml" />
             </ui:insert>
         </p:layoutUnit>
     </p:layout>

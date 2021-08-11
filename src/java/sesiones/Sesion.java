@@ -7,16 +7,18 @@ package sesiones;
 
 import clases.Usuario;
 import java.util.Map;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Blueweb
  */
+@ManagedBean(name = "usersesion")
 public class Sesion {
 
     private Usuario sesion;
-
+    
     public Usuario getSesion(String key) {
         this.sesion = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
         return sesion;
@@ -27,5 +29,5 @@ public class Sesion {
                 .getExternalContext().getSessionMap();
         session.put(key, user);
     }
-
+    
 }

@@ -7,14 +7,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Header</title>
+        
     </h:head>
     <h:body>
         <ui:composition>
             <div class="card">
                 <h:form>
-                    <p:growl id="messages"/>
-                    <p:menubar>           
+                    <p:menubar>
+                        <p:menuitem>
+                            
+                            <p:graphicImage name="images/pngwing.com.png" style="width: 20px; height: 20px;margin-left: 10%" id="logo" />
+                        </p:menuitem>
                         <f:facet name="options">
+                            <p:menuitem>
+                                
+                                <h:outputLabel for="name" value="#{usersesion.getSesion('User').usuario}" />
+                            </p:menuitem>    
+                            
+                                &nbsp;
+                                &nbsp;
                             <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
                         </f:facet>
                     </p:menubar>
