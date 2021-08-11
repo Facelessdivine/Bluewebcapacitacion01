@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    >
+    <h:head>
+        <title>Perfil</title>
+    </h:head>
+
+    <ui:composition template="../template.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form>
+                    <p:linkButton
+                        outcome="/faces/template"
+                        value="Home"
+                        style="margin-right: 20px"
+                        styleClass="button"
+                        >
+                    </p:linkButton>
+
+                    <p:dataTable
+                        var="profile"
+                        value="#{perfil.profileList}"
+                        filteredValue="#{perfil.profileFilter}"
+                        paginator="true"
+                        rows="10"
+                        style="font-size: 14px; width: fit-content;"
+                        >
+                        <p:column
+                            headerText="Id"
+                            filterBy="#{profile.id_perfil}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.id_perfil}" />
+                        </p:column>
+                        <p:column
+                            headerText="Nombre Perfil"
+                            filterBy="#{profile.nombre_perfil}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.nombre_perfil}" />
+                        </p:column>
+
+                        <p:column
+                            headerText="Descripción"
+                            filterBy="#{profile.descripcion}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.descripcion}" />
+                        </p:column>
+
+                        <p:column
+                            headerText="Estado"
+                            filterBy="#{profile.activo}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.activo}" />
+                        </p:column>
+                        <p:column
+                            headerText="Fecha alta"
+                            filterBy="#{profile.fecha_alta}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.fecha_alta}" />
+                        </p:column>
+                        <p:column
+                            headerText="Fecha baja"
+                            filterBy="#{profile.fecha_baja}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.fecha_baja}" />
+                        </p:column>
+                        <p:column
+                            headerText="Fecha Servidor"
+                            filterBy="#{profile.fecha_servidor}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.fecha_servidor}" />
+                        </p:column>
+                        <p:column
+                            headerText="Usuario Modifica"
+                            filterBy="#{profile.id_usuario_modifica}"
+                            filterMatchMode="contains"
+                            >
+                            <h:outputText value="#{profile.id_usuario_modifica}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
