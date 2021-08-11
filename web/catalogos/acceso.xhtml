@@ -21,35 +21,61 @@
           >
           </p:linkButton>
           <p:dataTable 
-            var="client"
-            value="#{cliente.clientList}"
-            filteredValue="#{cliente.clienteFilter}"
+            var="acc"
+            value="#{acceso.listaAcceso}"
+            filteredValue="#{acceso.filtroAcceso}"
             paginator="true"
             rows="10"
-            style="font-size: 10px; width: fit-content;"
+            style="font-size: 14px; width: fit-content;"
           >
             <p:column
               headerText="Id"
-              filterBy="#{client.id}"
+              filterBy="#{acc.id_acceso}"
               filterMatchMode="contains"
             >
-              <h:outputText value="#{client.id}" />
+                <h:outputText value="#{acc.id_acceso}" />
             </p:column>
+            
             <p:column
-              headerText="Numero Cliente"
-              filterBy="#{client.numero}"
+              headerText="nombre_acceso"
+              filterBy="#{acc.nombre_acceso}"
               filterMatchMode="contains"
             >
-              <h:outputText value="#{client.numero}" />
+              <h:outputText value="#{acc.nombre_acceso}" />
             </p:column>
-
+            
             <p:column
-              headerText="Nombre Cliente"
-              filterBy="#{client.nombre}"
+              headerText="orden"
+              filterBy="#{acc.orden}"
               filterMatchMode="contains"
             >
-              <h:outputText value="#{client.nombre}" />
+              <h:outputText value="#{acc.orden}" />
             </p:column>
+            
+            <p:column
+              headerText="Estado"
+              filterBy="#{acc.activo}"
+              filterMatchMode="contains"
+            >
+              <h:outputText value="#{acc.activo}" />
+            </p:column>
+            
+            <p:column
+              headerText="Fecha servidor"
+              filterBy="#{acc.fecha_servidor}"
+              filterMatchMode="contains"
+            >
+                <h:outputText value="#{acc.fecha_servidor}" />
+            </p:column>
+            
+            <p:column
+              headerText="Fecha baja"
+              filterBy="#{acc.fecha_baja}"
+              filterMatchMode="contains"
+            >
+              <h:outputText value="#{acc.fecha_baja}" />
+            </p:column>
+            
           </p:dataTable>
         </h:form>
       </h:body>

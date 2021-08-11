@@ -8,7 +8,7 @@ public class Acceso {
     private int id_acceso;
     private String nombre_acceso;
     private int orden;
-    private boolean activo;
+    private String activo;
     private Date fecha_servidor;
     private Date fecha_baja;
 
@@ -36,13 +36,14 @@ public class Acceso {
         this.orden = orden;
     }
 
-    public boolean isActivo() {
+    public String getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
+
 
     public Date getFecha_servidor() {
         return fecha_servidor;

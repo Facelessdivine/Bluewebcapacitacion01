@@ -49,7 +49,8 @@ public class AccesoModel {
                 acceso.setId_acceso(rs.getInt("ID_ACCESO"));
                 acceso.setNombre_acceso(rs.getString("NOMBRE_ACCESO"));
                 acceso.setOrden(rs.getInt("ORDEN"));
-                acceso.setActivo(rs.getBoolean("ACTIVO"));
+                String activo = rs.getBoolean("ACTIVO") ? "ACTIVO" : "INACTIVO";
+                acceso.setActivo(activo);
                 acceso.setFecha_servidor(rs.getDate("FECHA_SERVIDOR"));
                 acceso.setFecha_baja(rs.getDate("FECHA_BAJA"));
                 lista.add(acceso);
@@ -82,4 +83,5 @@ public class AccesoModel {
         }
         return respuestaAcceso;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
     }
+    
 }
