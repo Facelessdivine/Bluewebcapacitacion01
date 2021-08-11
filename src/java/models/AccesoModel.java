@@ -84,4 +84,9 @@ public class AccesoModel {
         return respuestaAcceso;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
     }
     
+    public AccessResponse addAccess(){
+        AccessResponse AccessResponse = null;
+        return AccessResponse;
+    }
+    
 }

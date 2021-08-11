@@ -28,13 +28,13 @@
             rows="10"
             style="font-size: 14px; width: fit-content;"
           >
-            <p:column
+<!--            <p:column
               headerText="Id"
               filterBy="#{acc.id_acceso}"
               filterMatchMode="contains"
             >
                 <h:outputText value="#{acc.id_acceso}" />
-            </p:column>
+            </p:column>-->
             
             <p:column
               headerText="nombre_acceso"
@@ -60,21 +60,21 @@
               <h:outputText value="#{acc.activo}" />
             </p:column>
             
-            <p:column
+<!--            <p:column
               headerText="Fecha servidor"
               filterBy="#{acc.fecha_servidor}"
               filterMatchMode="contains"
             >
                 <h:outputText value="#{acc.fecha_servidor}" />
             </p:column>
-            
-            <p:column
+            -->
+<!--            <p:column
               headerText="Fecha baja"
               filterBy="#{acc.fecha_baja}"
               filterMatchMode="contains"
             >
               <h:outputText value="#{acc.fecha_baja}" />
-            </p:column>
+            </p:column>-->
             
           </p:dataTable>
         </h:form>
