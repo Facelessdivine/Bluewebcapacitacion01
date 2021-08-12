@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.UsuarioModel;
 
-@ManagedBean(name = "logger")
+@ManagedBean(name = "logger")//cambiarlo a login
 public class LoginBean implements Serializable {
     private Usuario user;
     
@@ -22,10 +22,10 @@ public class LoginBean implements Serializable {
         UserResponse response = UsuarioModel.Login(user);
         if (response.getResponse().getId() == 0) {
             System.out.println("Logged in");
-
+            
 //            Variables de Sesión
 //            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Id_usuario", response.getUser().getId_usuario());
-            s.setSesion(user, "User");
+            s.setSesion(response.getUser(), "User");
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/template.xhtml");
             
         } else if (response.getResponse().getId() == 1) {

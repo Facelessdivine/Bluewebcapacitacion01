@@ -36,6 +36,7 @@ public class AccesoBean implements Serializable {
         }
 
     }
+    
 
     public List<Acceso> getListaAcceso() {
         return listaAcceso;

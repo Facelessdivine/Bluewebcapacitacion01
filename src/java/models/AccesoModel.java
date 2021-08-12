@@ -37,7 +37,7 @@ public class AccesoModel {
         Connection con = null;//declaras la conexion y la inicias en null 
 
         try {
-            
+
             con = pool.getConnection("Activa");//aqui se conecta 
 
             query = "SELECT * FROM S_ACCESOS";//query para hacer la consulta
@@ -49,8 +49,8 @@ public class AccesoModel {
                 acceso.setId_acceso(rs.getInt("ID_ACCESO"));
                 acceso.setNombre_acceso(rs.getString("NOMBRE_ACCESO"));
                 acceso.setOrden(rs.getInt("ORDEN"));
-                String activo = rs.getBoolean("ACTIVO") ? "ACTIVO" : "INACTIVO";
-                acceso.setActivo(activo);
+                String estado = rs.getBoolean("ACTIVO") ? "ACTIVO" : "INACTIVO";
+                acceso.setEstado(estado);
                 acceso.setFecha_servidor(rs.getDate("FECHA_SERVIDOR"));
                 acceso.setFecha_baja(rs.getDate("FECHA_BAJA"));
                 lista.add(acceso);
@@ -83,10 +83,52 @@ public class AccesoModel {
         }
         return respuestaAcceso;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
     }
-    
-    public AccessResponse addAccess(){
-        AccessResponse AccessResponse = null;
-        return AccessResponse;
-    }
-    
+
+//    public AccessResponse addAccess(Acceso access) {
+//        AccessResponse respuestaAcceso = new AccessResponse();
+//        Response claseRespuesta = new Response();
+//        String query = "";//declaramos el query
+//        PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
+//        Connection con = null;//declaras la conexion y la inicias en null 
+//        boolean bandera = false;
+//        try {
+//
+//            con = pool.getConnection("Activa");//aqui se conecta 
+//
+//            query = "INSERT INTO S_ACCESOS (NOMBRE_ACCESO, ORDEN, ACTIVO) VALUES (?,?,?) ";
+//            PreparedStatement consulta = con.prepareStatement(query); 
+//            consulta.setString(1, access.getNombre_acceso());
+//            consulta.setInt(2, access.getOrden());
+//            consulta.setBoolean(3, access.getActivo());
+//            ResultSet rs = consulta.executeQuery();
+//
+//            if (rs.next()) {
+//                bandera= true;
+//            }
+//
+//            rs.close();//cerramos todas las conexiones
+//            consulta.close();
+//            con.close();
+//
+//            if (bandera) {
+//                claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
+//                claseRespuesta.setMensaje("Registro agregado correctamente");
+//
+//            } else {
+//                claseRespuesta.setId(1);//mandamos los datos al obejto respuesta
+//                claseRespuesta.setMensaje("Advise");
+//            }
+//            
+//        } catch (SQLException | NamingException e) {
+//            claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
+//            claseRespuesta.setMensaje("Error");
+//            Logger.getLogger(AccesoModel.class.getName()).log(Level.SEVERE, null, e);
+//
+//        } finally {
+//            respuestaAcceso.setRespuesta(claseRespuesta);
+//        }
+//
+//        return respuestaAcceso;
+//    }
+
 }

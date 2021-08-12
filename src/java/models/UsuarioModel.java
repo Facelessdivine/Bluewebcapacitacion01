@@ -33,6 +33,7 @@ public class UsuarioModel {
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
 
+        Usuario usuario = null;
         try {
             con = pool.getConnection("Activa");//aqui se conecta 
 
@@ -42,13 +43,11 @@ public class UsuarioModel {
             consulta.setString(1, user.getUsuario());
             consulta.setString(2, user.getPassword());
             ResultSet rs = consulta.executeQuery();
-
             if (rs.next()) {
-                Usuario usuario = new Usuario();//declaramos el objeto usuario
+                usuario = new Usuario();//declaramos el objeto usuario
                 usuario.setId_usuario(rs.getInt("ID_USUARIO"));
                 usuario.setUsuario(rs.getString("USUARIO"));
-                usuario.setNombre_usuario("NOMBRE_USUARIO");
-                usuario.setPassword(rs.getString("PASSWORD"));
+                usuario.setNombre_usuario(rs.getString("NOMBRE_USUARIO"));
                 ban = true;
             }
 
@@ -73,7 +72,7 @@ public class UsuarioModel {
         } finally {
             respuestaUsuario.setResponse(claseRespuesta);
         }
-        respuestaUsuario.setUser(user);
+        respuestaUsuario.setUser(usuario);
         return respuestaUsuario;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
     }
 }

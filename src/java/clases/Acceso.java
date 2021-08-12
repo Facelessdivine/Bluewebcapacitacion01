@@ -8,7 +8,8 @@ public class Acceso {
     private int id_acceso;
     private String nombre_acceso;
     private int orden;
-    private String activo;
+    private Boolean activo;
+    private String estado;
     private Date fecha_servidor;
     private Date fecha_baja;
 
@@ -36,12 +37,20 @@ public class Acceso {
         this.orden = orden;
     }
 
-    public String getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(String activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 
