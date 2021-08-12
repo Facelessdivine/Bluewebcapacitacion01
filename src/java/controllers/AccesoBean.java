@@ -14,14 +14,20 @@ public class AccesoBean implements Serializable {
 
     private List<Acceso> listaAcceso = new ArrayList<>();
     private List<Acceso> filtroAcceso;
-    private Acceso accesoNuevo;
-AccesoModel accesomodel = null;
-    @PostConstruct
 
+    private AccesoModel accesomodel = null;
+    private Acceso access;
+
+    public AccesoBean() {
+        access = new Acceso();
+    }
+    
+    
+
+    @PostConstruct
     public void init() {
 
         accesomodel = new AccesoModel();
-        
 
         AccessResponse respuesta = accesomodel.conectarLista();
         if (respuesta.getRespuesta().getId() == 0) {
@@ -37,7 +43,6 @@ AccesoModel accesomodel = null;
         }
 
     }
-    
 
     public List<Acceso> getListaAcceso() {
         return listaAcceso;
@@ -55,27 +60,30 @@ AccesoModel accesomodel = null;
         this.filtroAcceso = filtroAcceso;
     }
 
-    public Acceso getAccesoNuevo() {
-        return accesoNuevo;
+    public Acceso getAccess() {
+        return access;
     }
 
-    public void setAccesoNuevo(Acceso accesoNuevo) {
-        this.accesoNuevo = accesoNuevo;
+    public void setAccess(Acceso access) {
+        this.access = access;
     }
-    public void addAccess(){
+
+    
+    public void addAccess() {
         accesomodel = new AccesoModel();
-        AccessResponse respuesta = accesomodel.conectarLista();
-        if (respuesta.getRespuesta().getId() == 0) {
+        AccessResponse insert = accesomodel.addAccess(access);
+        if (insert.getRespuesta().getId() == 0) {
             //esto no se usa pero por el momento lo voya dejar asi xd
-//            String mensaje = respuesta.getRespuesta().getMensaje();
+//            String mensaje = insert.getRespuesta().getMensaje();
 
-            listaAcceso = respuesta.getListaAcceso();
+            listaAcceso = insert.getListaAcceso();
 
-        } else if (respuesta.getRespuesta().getId() > 0) {
+        } else if (insert.getRespuesta().getId() > 0) {
             System.out.println("Warning");
-        } else if (respuesta.getRespuesta().getId() < 0) {
+        } else if (insert.getRespuesta().getId() < 0) {
             System.out.println("Error");
         }
     }
     
+
 }

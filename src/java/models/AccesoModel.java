@@ -90,7 +90,6 @@ public class AccesoModel {
         String query = "";//declaramos el query
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
-        boolean bandera = false;
         try {
 
             con = pool.getConnection("Activa");
@@ -102,15 +101,13 @@ public class AccesoModel {
             consulta.setBoolean(3, access.getActivo());
             ResultSet rs = consulta.executeQuery();
 
-            if (rs.next()) {
-                bandera= true;
-            }
+            int bandera = consulta.executeUpdate();
 
-            rs.close();//cerramos todas las conexiones
+            rs.close();//cerramos todas las conexiones  
             consulta.close();
             con.close();
 
-            if (bandera) {
+            if (bandera != 0) {
                 claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
                 claseRespuesta.setMensaje("Registro agregado correctamente");
 
