@@ -58,7 +58,7 @@
                             filterBy="#{profile.activo}"
                             filterMatchMode="contains"
                             >
-                            <h:outputText value="#{profile.activo}" />
+                            <h:outputText value="#{profile.activo.toLowerCase()}" />
                         </p:column>
 <!--                        <p:column
                             headerText="Fecha alta"

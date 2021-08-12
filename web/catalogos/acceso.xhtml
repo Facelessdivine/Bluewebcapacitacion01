@@ -15,55 +15,52 @@
             <h:body>
                 <h:form id="form">
                     <div class="card crud-demo">
+                        <p:linkButton
+                            outcome="/faces/template"
+                            value="Home"
+                            style="margin-right: 20px"
+                            styleClass="button"
+                            >
+                        </p:linkButton>
                         <p:growl id="messages" showDetail="true"/>
 
                         <p:toolbar>
-                            <p:toolbarGroup>
+                            <p:toolbarGroup align="left">
                                 <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
                                                  update=":form:manage-product-content" oncomplete="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .5rem">
                                     <p:resetInput target=":form:manage-product-content"/>
                                 </p:commandButton>
                             </p:toolbarGroup>
-                            <p:toolbarGroup align="right">
-                                <p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download"/>
-                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
-                                    <p:dataExporter type="pdf" target="dt-products" fileName="products"/>
-                                </p:commandButton>
-                            </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{crudView.products}"
+                        <p:dataTable id="dt-accesos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
                                      reflow="true" styleClass="products-table"
-                                     selection="#{crudView.selectedProducts}" rowKey="#{product.id}" paginator="true"
-                                     rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                                     paginator="true"
+                                     filteredValue="#{acceso.filtroAcceso}"
+                                     filterEvent="enter"
+                                     rows="10" paginatorPosition="bottom">
 
-S
-                            <p:column headerText="Code" sortBy="#{product.code}" filterBy="#{product.code}">
-                                <h:outputText value="#{product.code}"/>
+
+                            <p:column headerText="Id acceso"  filterBy="#{acc.id_acceso}">
+                                <h:outputText value="#{acc.id_acceso}"/>
                             </p:column>
-                            <p:column headerText="Name" sortBy="#{product.name}" filterBy="#{product.name}">
-                                <h:outputText value="#{product.name}"/>
+                            <p:column headerText="Nombre acceso" filterBy="#{acc.nombre_acceso}">
+                                <h:outputText value="#{acc.nombre_acceso}"/>
                             </p:column>
-                            <p:column headerText="Image" exportable="false">
-                                <p:graphicImage name="images/product/#{product.image}" library="demo"
-                                                styleClass="product-image"/>
+                            <p:column headerText="Orden"  filterBy="#{acc.orden}">
+                                <h:outputText value="#{acc.orden}"/>
                             </p:column>
-                            <p:column headerText="Price" sortBy="#{product.price}">
-                                <h:outputText value="#{product.price}" style="font-weight: 700">
-                                    <f:convertNumber currencySymbol="$" type="currency"/>
-                                </h:outputText>
+                            
+                                <!--Es el mismo que activo, pero con una cadena en lugar de un Boolean-->
+                            <p:column headerText="Estado"  filterBy="#{acc.estado}">
+                                <h:outputText value="#{acc.estado}"/>
                             </p:column>
-                            <p:column headerText="Category" sortBy="#{product.category}" filterBy="#{product.category}">
-                                <h:outputText value="#{product.category}"/>
+                            
+                            <p:column headerText="Fecha Servidor"  filterBy="#{acc.fecha_servidor}">
+                                <h:outputText value="#{acc.fecha_servidor}"/>
                             </p:column>
-                            <p:column headerText="Reviews" sortBy="#{product.rating}">
-                                <p:rating value="#{product.rating}" readonly="true"/>
-                            </p:column>
-                            <p:column headerText="Status" sortBy="#{product.inventoryStatus}"
-                                      filterBy="#{product.inventoryStatus}">
-                                <h:outputText styleClass="product-badge status-#{product.inventoryStatus.name().toLowerCase()}"
-                                              value="#{product.inventoryStatus.text}"/>
-                            </p:column>
+                            
+                            
                             <p:column exportable="false">
                                 <p:commandButton icon="pi pi-pencil" update=":form:manage-product-content"
                                                  oncomplete="PF('manageProductDialog').show()"
@@ -88,7 +85,7 @@ S
                                                     rendered="#{not empty crudView.selectedProduct.image}"/>
                                     <div class="p-field">
                                         <p:outputLabel for="name">Name</p:outputLabel>
-                                        <p:inputText id="name" value="#{crudView.selectedProduct.name}" required="true"/>
+                                        <p:inputText id="name" value="#{crudView.selectedProduct.name}" required="true" />
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="description">Description</p:outputLabel>
@@ -103,18 +100,6 @@ S
                                             <f:selectItem itemLabel="Electronics" itemValue="Electronics"/>
                                             <f:selectItem itemLabel="Fitness" itemValue="Fitness"/>
                                         </p:selectOneRadio>
-                                    </div>
-                                    <div class="p-formgrid p-grid">
-                                        <div class="p-field p-col">
-                                            <p:outputLabel for="price">Price</p:outputLabel>
-                                            <p:inputNumber id="price" value="#{crudView.selectedProduct.price}"
-                                                           symbol=" USD" symbolPosition="s"
-                                                           decimalSeparator="." thousandSeparator=","/>
-                                        </div>
-                                        <div class="p-field p-col">
-                                            <p:outputLabel for="quantity">Quantity</p:outputLabel>
-                                            <p:spinner id="quantity" min="0" value="#{crudView.selectedProduct.quantity}"/>
-                                        </div>
                                     </div>
                                 </p:outputPanel>
                             </p:outputPanel>

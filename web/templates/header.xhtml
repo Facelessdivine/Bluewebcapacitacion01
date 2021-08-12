@@ -15,13 +15,12 @@
                 <h:form>
                     <p:menubar>
                         <p:menuitem>
-                            
                             <p:graphicImage name="images/pngwing.com.png" style="width: 25px; height: 25px;margin-left: 10%" id="logo" />
                         </p:menuitem>
                         <f:facet name="options">
                             <p:menuitem>
+                                <h:outputLabel for="name"  style="color: white;" value="#{usersesion.getSesion('User').nombre_usuario}" />
                                 
-                                <h:outputLabel for="name" value="#{usersesion.getSesion('User').nombre_usuario}" />
                             </p:menuitem>    
                             
                                 &nbsp;
