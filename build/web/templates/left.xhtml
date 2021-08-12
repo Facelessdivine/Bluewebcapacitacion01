@@ -7,25 +7,28 @@
     <h:head>
         <title>Left menu</title>
     </h:head>
-        <ui:composition>
-    <h:body>
-        <div class="card">
-    <h:form>
-        <p:growl>
-            <p:autoUpdate/>
-        </p:growl>
+    <ui:composition>
+        <h:body>
+            <div class="card">
+                <h:form>
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
 
-        <p:panelMenu style="width:250px">
-            <p:submenu label="Catálogos" >
-                <p:menuitem value="Perfiles" outcome="/faces/catalogos/perfil" icon="pi pi-book"/>
-                <p:menuitem value="Accesos" outcome="/faces/catalogos/acceso" icon="pi pi-user"/>
-            </p:submenu>
-            
-        </p:panelMenu>
-    </h:form>
-</div>
-        
-    </h:body>
-            </ui:composition>
+                    <p:panelMenu style="width:250px">
+                        <p:submenu label="Catálogos" >
+                            <p:menuitem value="Perfiles" outcome="/faces/catalogos/perfil" icon="pi pi-book"/>
+                            <p:menuitem value="Accesos" outcome="/faces/catalogos/acceso" icon="pi pi-user"/>
+                        </p:submenu>
+                        <p:submenu label="Home">
+                            <p:menuitem value="Gallería" outcome="/faces/template" icon="pi pi-images"/>
+                            
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </div>
+
+        </h:body>
+    </ui:composition>
 </html>
 

@@ -14,18 +14,19 @@ public class AccesoBean implements Serializable {
 
     private List<Acceso> listaAcceso = new ArrayList<>();
     private List<Acceso> filtroAcceso;
-
+    private Acceso accesoNuevo;
+AccesoModel accesomodel = null;
     @PostConstruct
 
     public void init() {
 
-        AccesoModel accesomodel = new AccesoModel();
+        accesomodel = new AccesoModel();
         
 
         AccessResponse respuesta = accesomodel.conectarLista();
         if (respuesta.getRespuesta().getId() == 0) {
             //esto no se usa pero por el momento lo voya dejar asi xd
-            String mensaje = respuesta.getRespuesta().getMensaje();
+//            String mensaje = respuesta.getRespuesta().getMensaje();
 
             listaAcceso = respuesta.getListaAcceso();
 
@@ -54,4 +55,27 @@ public class AccesoBean implements Serializable {
         this.filtroAcceso = filtroAcceso;
     }
 
+    public Acceso getAccesoNuevo() {
+        return accesoNuevo;
+    }
+
+    public void setAccesoNuevo(Acceso accesoNuevo) {
+        this.accesoNuevo = accesoNuevo;
+    }
+    public void addAccess(){
+        accesomodel = new AccesoModel();
+        AccessResponse respuesta = accesomodel.conectarLista();
+        if (respuesta.getRespuesta().getId() == 0) {
+            //esto no se usa pero por el momento lo voya dejar asi xd
+//            String mensaje = respuesta.getRespuesta().getMensaje();
+
+            listaAcceso = respuesta.getListaAcceso();
+
+        } else if (respuesta.getRespuesta().getId() > 0) {
+            System.out.println("Warning");
+        } else if (respuesta.getRespuesta().getId() < 0) {
+            System.out.println("Error");
+        }
+    }
+    
 }

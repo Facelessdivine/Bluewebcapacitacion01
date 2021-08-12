@@ -95,7 +95,7 @@ public class AccesoModel {
 
             con = pool.getConnection("Activa");
 
-            query = "INSERT INTO S_ACCESOS (NOMBRE_ACCESO, ORDEN, ACTIVO, FECHA_SERVIDOR) VALUES (?,?,?,getdate()) ";
+            query = "INSERT INTO S_ACCESOS (NOMBRE_ACCESO, ORDEN, ACTIVO, FECHA_SERVIDOR) VALUES (?,?,?,SYSDATETIME()) ";
             PreparedStatement consulta = con.prepareStatement(query); 
             consulta.setString(1, access.getNombre_acceso());
             consulta.setInt(2, access.getOrden());
