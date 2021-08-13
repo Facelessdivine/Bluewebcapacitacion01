@@ -90,6 +90,7 @@ public class AccesoModel {
         String query = "";//declaramos el query
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
+        int bandera = 0;
         try {
 
             con = pool.getConnection("Activa");
@@ -99,15 +100,16 @@ public class AccesoModel {
             consulta.setString(1, access.getNombre_acceso());
             consulta.setInt(2, access.getOrden());
             consulta.setBoolean(3, access.getActivo());
-            ResultSet rs = consulta.executeQuery();
 
-            int bandera = consulta.executeUpdate();
-
-            rs.close();//cerramos todas las conexiones  
+            bandera = consulta.executeUpdate();
+ 
             consulta.close();
             con.close();
 
             if (bandera != 0) {
+//                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/template.xhtml");
+
+                
                 claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
                 claseRespuesta.setMensaje("Registro agregado correctamente");
 
@@ -127,5 +129,89 @@ public class AccesoModel {
 
         return respuestaAcceso;
     }
+    public AccessResponse deleteAccess(Acceso access) {
+        AccessResponse respuestaAcceso = new AccessResponse();
+        Response claseRespuesta = new Response();
+        String query = "";//declaramos el query
+        PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
+        Connection con = null;//declaras la conexion y la inicias en null 
+        int bandera = 0;
+        try {
 
+            con = pool.getConnection("Activa");
+
+            query = "DELETE FROM S_ACCESOS WHERE ID_ACCESO = ? ";
+            PreparedStatement consulta = con.prepareStatement(query); 
+            consulta.setInt(1, access.getId_acceso());
+
+            bandera = consulta.executeUpdate();
+ 
+            consulta.close();
+            con.close();
+
+            if (bandera != 0) {
+                
+                claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
+                claseRespuesta.setMensaje("Registro Eliminado correctamente");
+
+            } else {
+                claseRespuesta.setId(1);//mandamos los datos al obejto respuesta
+                claseRespuesta.setMensaje("Advise");
+            }
+            
+        } catch (SQLException | NamingException e) {
+            claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
+            claseRespuesta.setMensaje("Error");
+            Logger.getLogger(AccesoModel.class.getName()).log(Level.SEVERE, null, e);
+
+        } finally {
+            respuestaAcceso.setRespuesta(claseRespuesta);
+        }
+
+        return respuestaAcceso;
+    }
+    public AccessResponse updateAccess(Acceso access) {
+        AccessResponse respuestaAcceso = new AccessResponse();
+        Response claseRespuesta = new Response();
+        String query = "";//declaramos el query
+        PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
+        Connection con = null;//declaras la conexion y la inicias en null 
+        int bandera = 0;
+        try {
+
+            con = pool.getConnection("Activa");
+
+            query = "UPDATE SET FROM S_ACCESOS WHERE ID_ACCESO = ? ";
+            PreparedStatement consulta = con.prepareStatement(query); 
+            consulta.setInt(1, access.getId_acceso());
+
+            bandera = consulta.executeUpdate();
+ 
+            consulta.close();
+            con.close();
+
+            if (bandera != 0) {
+                
+                claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
+                claseRespuesta.setMensaje("Registro Eliminado correctamente");
+
+            } else {
+                claseRespuesta.setId(1);//mandamos los datos al obejto respuesta
+                claseRespuesta.setMensaje("Advise");
+            }
+            
+        } catch (SQLException | NamingException e) {
+            claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
+            claseRespuesta.setMensaje("Error");
+            Logger.getLogger(AccesoModel.class.getName()).log(Level.SEVERE, null, e);
+
+        } finally {
+            respuestaAcceso.setRespuesta(claseRespuesta);
+        }
+
+        return respuestaAcceso;
+    }
+
+    
+    
 }

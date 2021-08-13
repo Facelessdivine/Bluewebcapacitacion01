@@ -1,23 +1,24 @@
 package controllers;
 
 import clases.Acceso;
-import java.io.Serializable;
 import responses.AccessResponse;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import models.AccesoModel;
 
-@ManagedBean(name = "acceso")
-public class AccesoBean implements Serializable {
+@ManagedBean(name = "acceso")//con el nombre bean
+public class AccesoBean  {
 
     private List<Acceso> listaAcceso = new ArrayList<>();
     private List<Acceso> filtroAcceso;
 
     private AccesoModel accesomodel = null;
     private Acceso access;
-
+    
     public AccesoBean() {
         access = new Acceso();
     }
@@ -29,20 +30,24 @@ public class AccesoBean implements Serializable {
 
         accesomodel = new AccesoModel();
 
-        AccessResponse respuesta = accesomodel.conectarLista();
-        if (respuesta.getRespuesta().getId() == 0) {
+        AccessResponse select = accesomodel.conectarLista();
+        if (select.getRespuesta().getId() == 0) {
             //esto no se usa pero por el momento lo voya dejar asi xd
-//            String mensaje = respuesta.getRespuesta().getMensaje();
+//            String mensaje = select.getRespuesta().getMensaje();
 
-            listaAcceso = respuesta.getListaAcceso();
+            listaAcceso = select.getListaAcceso();
 
-        } else if (respuesta.getRespuesta().getId() > 0) {
+        } else if (select.getRespuesta().getId() > 0) {
             System.out.println("Warning");
-        } else if (respuesta.getRespuesta().getId() < 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
+
+        } else if (select.getRespuesta().getId() < 0) {
             System.out.println("Error");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
         }
 
     }
+    
 
     public List<Acceso> getListaAcceso() {
         return listaAcceso;
@@ -67,20 +72,46 @@ public class AccesoBean implements Serializable {
     public void setAccess(Acceso access) {
         this.access = access;
     }
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 
     
     public void addAccess() {
         accesomodel = new AccesoModel();
+        
+        
         AccessResponse insert = accesomodel.addAccess(access);
+        
         if (insert.getRespuesta().getId() == 0) {
-            //esto no se usa pero por el momento lo voya dejar asi xd
-//            String mensaje = insert.getRespuesta().getMensaje();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(insert.getRespuesta().getMensaje()));
 
-            listaAcceso = insert.getListaAcceso();
-
+                init();
+                this.access = null;
+            
         } else if (insert.getRespuesta().getId() > 0) {
             System.out.println("Warning");
         } else if (insert.getRespuesta().getId() < 0) {
+            System.out.println("Error");
+        }
+    }
+    
+    
+    public void removeAccess(Acceso access){
+//        System.out.println("funcion remove");
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hola ando en el remove"));
+            accesomodel = new AccesoModel();
+        AccessResponse remove = accesomodel.deleteAccess(access);    
+        if (remove.getRespuesta().getId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(remove.getRespuesta().getMensaje()));
+
+                init();
+                this.access = null;
+            
+        } else if (remove.getRespuesta().getId() > 0) {
+            System.out.println("Warning");
+        } else if (remove.getRespuesta().getId() < 0) {
             System.out.println("Error");
         }
     }

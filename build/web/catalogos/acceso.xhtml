@@ -15,13 +15,13 @@
             <h:body>
                 <h:form id="form">
                     <div class="card crud-demo">
-<!--                        <p:linkButton
-                            outcome="/faces/template"
-                            value="Home"
-                            style="margin-right: 20px"
-                            styleClass="button"
-                            >
-                        </p:linkButton>-->
+                        <!--                        <p:linkButton
+                                                    outcome="/faces/template"
+                                                    value="Home"
+                                                    style="margin-right: 20px"
+                                                    styleClass="button"
+                                                    >
+                                                </p:linkButton>-->
                         <p:growl id="messages" showDetail="true"/>
 
                         <p:toolbar>
@@ -29,7 +29,7 @@
                                 <p:commandButton value="New" icon="pi pi-plus" type="button"
                                                  update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
-                                    <!--<p:resetInput target=":form:manage-product-content"/>-->
+                                    <p:resetInput target=":form:manage-product-content"/>
                                 </p:commandButton>
                             </p:toolbarGroup>
                         </p:toolbar>
@@ -38,11 +38,16 @@
                                      paginator="true"
                                      filteredValue="#{acceso.filtroAcceso}"
                                      filterEvent="enter"
-                                     rows="10" paginatorPosition="bottom">
+                                     rows="10" paginatorPosition="bottom"
+                                     selection="#{acceso.access}"
+                                     selectionMode="single"
+
+                                     rowKey="#{acc.id_acceso}"
+                                     >
 
 
-                            
-                            <p:column headerText="Nombre acceso" filterBy="#{acc.nombre_acceso}">
+
+                            <p:column headerText="Nombre de acceso" filterBy="#{acc.nombre_acceso}">
                                 <h:outputText value="#{acc.nombre_acceso}"/>
                             </p:column>
                             <p:column headerText="Orden"  filterBy="#{acc.orden}">
@@ -58,65 +63,53 @@
                                 <h:outputText value="#{acc.fecha_servidor}"/>
                             </p:column>
 
-                                                        <p:column exportable="false">
-                                                            <p:commandButton icon="pi pi-pencil" update=":form:manage-product-content"
-                                                                             oncomplete="PF('manageProductDialog').show()"
-                                                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
-                                                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
-                                                                <p:resetInput target=":form:manage-product-content"/>
-                                                            </p:commandButton>
-                                                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                                                             oncomplete="PF('deleteProductDialog').show()">
-                                                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
-                                                            </p:commandButton>
-                                                        </p:column>
+                            <p:column >
+
+                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages" action="#{acceso.removeAccess(acc)}" >
+                                    <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                        </p:confirmDialog>
+
+                            </p:column>    
 
                         </p:dataTable>
 
-                        <p:dialog header="Detalles de Acceso" showEffect="fade" 
+                        <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
                                   widgetVar="manageProductDialog" responsive="true">
                             <p:outputPanel id="manage-product-content" class="ui-fluid">
                                 <p:outputPanel >
                                     <div class="p-field">
                                         <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
-                                        <p:inputText id="nombre_acceso" value="#{acceso.access.nombre_acceso}" required="true"  requiredMessage="El nombre de acceso no puede ser nulo"/>
+                                        <p:inputText maxlength="30" id="nombre_acceso" value="#{acceso.access.nombre_acceso}" required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="orden">Orden</p:outputLabel>
-                                        <p:inputNumber value="#{acceso.access.orden}" id="orden" required="true" requiredMessage="El número de orden no puede ser nulo"/>
+                                        <p:inputNumber maxlength="2" value="#{acceso.access.orden}" id="orden" required="true" requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres" maxValue="99"/>
                                     </div>
+                                    &nbsp;
+
                                     <div class="p-field">
-                                        <p:outputLabel for="activo">Estado</p:outputLabel>
-                                        <p:selectOneRadio id="activo" value="#{acceso.access.activo}" requiredMessage="El estado no puede ser nulo"
-                                                          layout="responsive" columns="2" >
-                                            <f:selectItem itemLabel="Activo" itemValue="1"/>
-                                            <f:selectItem itemLabel="Inactivo" itemValue="0"/>
-                                        </p:selectOneRadio>
+                                        <p:outputLabel for="activo">Estado</p:outputLabel>  
+                                        &nbsp;
+                                        &nbsp;
+
+                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo" value="#{acceso.access.activo}"
+                                                               onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
                                     </div>
                                 </p:outputPanel>
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.addAccess()}"
-                                                 update="manage-product-content" process="manage-product-content @this"/>
-                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.addAccess()}" 
+                                                 update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" onclick="PF('manageProductDialog').hide()"/>
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary"/>
                             </f:facet>
                         </p:dialog>
-
-                        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-                                         message="Delete the product?" header="Confirm" severity="warn">
-                            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{crudView.deleteProduct}"
-                                             process="@this" oncomplete="PF('deleteProductDialog').hide()"/>
-                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                             onclick="PF('deleteProductDialog').hide()"/>
-                        </p:confirmDialog>
-
-                        <p:confirmDialog global="true" showEffect="fade" width="300">
-                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
-                                             icon="pi pi-times"/>
-                        </p:confirmDialog>
+                        
                     </div>
                 </h:form>
             </h:body>
