@@ -181,7 +181,7 @@ public class AccesoModel {
 
             con = pool.getConnection("Activa");
 
-            query = "UPDATE SET FROM S_ACCESOS WHERE ID_ACCESO = ? ";    
+            query = "UPDATE SET FROM S_ACCESOS WHERE ID_ACCESO = ? ";      
             PreparedStatement consulta = con.prepareStatement(query); 
             consulta.setInt(1, access.getId_acceso());
 
