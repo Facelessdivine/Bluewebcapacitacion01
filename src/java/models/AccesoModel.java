@@ -181,9 +181,12 @@ public class AccesoModel {
 
             con = pool.getConnection("Activa");
 
-            query = "UPDATE SET FROM S_ACCESOS WHERE ID_ACCESO = ? ";      
+            query = "UPDATE S_ACCESOS SET NOMBRE_ACCESO = ?, ORDEN = ?, ACTIVO = ? WHERE ID_ACCESO = ? ";      
             PreparedStatement consulta = con.prepareStatement(query); 
-            consulta.setInt(1, access.getId_acceso());
+            consulta.setString(1, access.getNombre_acceso());
+            consulta.setInt(2, access.getOrden());
+            consulta.setBoolean(3, access.getActivo());
+            consulta.setInt(4, access.getId_acceso());
 
             bandera = consulta.executeUpdate();
  
@@ -193,7 +196,7 @@ public class AccesoModel {
             if (bandera != 0) {
                 
                 claseRespuesta.setId(0);//mandamos los datos al obejto respuesta
-                claseRespuesta.setMensaje("Registro Eliminado correctamente");
+                claseRespuesta.setMensaje("Registro Actualizado correctamente");
 
             } else {
                 claseRespuesta.setId(1);//mandamos los datos al obejto respuesta

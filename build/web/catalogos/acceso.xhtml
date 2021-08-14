@@ -26,11 +26,12 @@
 
                         <p:toolbar>
                             <p:toolbarGroup align="right">
-                                <p:commandButton value="New" icon="pi pi-plus" type="button"
-                                                 update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{acceso.access}"
+                                                 update=":form:manage-product-content" oncomplete="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
                                     <p:resetInput target=":form:manage-product-content"/>
                                 </p:commandButton>
+
                             </p:toolbarGroup>
                         </p:toolbar>
                         <p:dataTable id="dt-accesos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
@@ -41,26 +42,39 @@
                                      rows="10" paginatorPosition="bottom"
                                      selection="#{acceso.access}"
                                      selectionMode="single"
-
+                                     editable="true"
+                                     editMode="row" 
                                      rowKey="#{acc.id_acceso}"
                                      >
 
 
 
                             <p:column headerText="Nombre de acceso" filterBy="#{acc.nombre_acceso}">
-                                <h:outputText value="#{acc.nombre_acceso}"/>
+
+                                <h:outputText value="#{acc.nombre_acceso}"/> 
+
+
                             </p:column>
+
                             <p:column headerText="Orden"  filterBy="#{acc.orden}">
-                                <h:outputText value="#{acc.orden}"/>
+
+                                <h:outputText value="#{acc.orden}"/> 
+
+
                             </p:column>
 
                             <!--Es el mismo que activo, pero con una cadena en lugar de un Boolean-->
                             <p:column headerText="Estado"  filterBy="#{acc.estado}">
-                                <h:outputText value="#{acc.estado}"/>
+
+                                <h:outputText value="#{acc.estado}"/> 
+
+
                             </p:column>
 
                             <p:column headerText="Fecha Servidor"  filterBy="#{acc.fecha_servidor}">
-                                <h:outputText value="#{acc.fecha_servidor}"/>
+
+                                <h:outputText value="#{acc.fecha_servidor}"/> 
+
                             </p:column>
 
                             <p:column >
@@ -68,22 +82,30 @@
                                 <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages" action="#{acceso.removeAccess(acc)}" >
                                     <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
+                                <p:commandButton icon="pi pi-pencil" update=":form:dialogadd"
+                                                 oncomplete="PF('manageProductDialog').show()"
+                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+
+                                    <p:resetInput target=":form:manage-product-content"/>
+                                    <f:setPropertyActionListener value="#{acc}" target="#{acceso.access}"/>
+                                </p:commandButton>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-                        </p:confirmDialog>
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                </p:confirmDialog>
+                          
 
                             </p:column>    
-
+                          
                         </p:dataTable>
 
                         <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
                                   widgetVar="manageProductDialog" responsive="true">
-                            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                            <p:outputPanel id="manage-product-content" class="ui-fluid" >
                                 <p:outputPanel >
                                     <div class="p-field">
                                         <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
-                                        <p:inputText maxlength="30" id="nombre_acceso" value="#{acceso.access.nombre_acceso}" required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
+                                        <p:inputText  maxlength="30"  id="nombre_acceso" value="#{acceso.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="orden">Orden</p:outputLabel>
@@ -103,13 +125,15 @@
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.addAccess()}" 
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.save(acceso.access)}" 
                                                  update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" onclick="PF('manageProductDialog').hide()"/>
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
-                                                 class="ui-button-secondary"/>
+                                                 class="ui-button-secondary">
+                                                     <p:resetInput target=":form:manage-product-content"/>
+                                </p:commandButton>
                             </f:facet>
                         </p:dialog>
-                        
+
                     </div>
                 </h:form>
             </h:body>

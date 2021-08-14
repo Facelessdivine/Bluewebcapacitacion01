@@ -18,7 +18,7 @@
 
                 <p:imageSwitch effect="zoom" widgetVar="switcher" id="manuelSwitcher"
                                slideshowAuto="false">
-                    <ui:repeat value="#{galeria.images}" var="image" id="manuelSwitcherImages">
+                    <ui:repeat value="#{index.images}" var="image" id="manuelSwitcherImages">
                         <p:graphicImage name="images/#{image}" id="image"/>
                     </ui:repeat>
                 </p:imageSwitch>

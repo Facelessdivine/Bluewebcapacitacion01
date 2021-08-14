@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.UsuarioModel;
 
-@ManagedBean(name = "logger")//cambiarlo a login
+@ManagedBean(name = "login")//cambiarlo a login
 public class LoginBean implements Serializable {
     private Usuario user;
     

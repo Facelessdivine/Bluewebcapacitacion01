@@ -20,7 +20,7 @@
             <p:outputLabel for="username" value="Username" />
             <p:inputText
               id="username"
-              value="#{logger.user.usuario}"
+              value="#{login.user.usuario}"
               required="true"
               label="Username"
             >
@@ -31,7 +31,7 @@
             <p:outputLabel for="password" value="Password" />
             <p:password
               id="password"
-              value="#{logger.user.password}"
+              value="#{login.user.password}"
               label="Password"
               required="true"
             >
@@ -45,7 +45,7 @@
             styleClass="cross"
             value="Save"
             update="@form"
-            action="#{logger.login()}"
+            action="#{login.login()}"
             icon="pi pi-check"
           />
         </p:fieldset>

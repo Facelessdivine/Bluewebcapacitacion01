@@ -18,7 +18,7 @@ public class AccesoBean  {
 
     private AccesoModel accesomodel = null;
     private Acceso access;
-    
+
     public AccesoBean() {
         access = new Acceso();
     }
@@ -78,25 +78,6 @@ public class AccesoBean  {
     }
 
     
-    public void addAccess() {
-        accesomodel = new AccesoModel();
-        
-        
-        AccessResponse insert = accesomodel.addAccess(access);
-        
-        if (insert.getRespuesta().getId() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(insert.getRespuesta().getMensaje()));
-
-                init();
-                this.access = null;
-            
-        } else if (insert.getRespuesta().getId() > 0) {
-            System.out.println("Warning");
-        } else if (insert.getRespuesta().getId() < 0) {
-            System.out.println("Error");
-        }
-    }
-    
     
     public void removeAccess(Acceso access){
 //        System.out.println("funcion remove");
@@ -116,5 +97,37 @@ public class AccesoBean  {
         }
     }
     
+    
+public void save(Acceso access){
+    if(access.getId_acceso() != 0){
+        AccessResponse update = accesomodel.updateAccess(access);
+         if (update.getRespuesta().getId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(update.getRespuesta().getMensaje()));
 
+                init();
+                this.access = null;
+            
+        } else if (update.getRespuesta().getId() > 0) {
+            System.out.println("Warning");
+        } else if (update.getRespuesta().getId() < 0) {
+            System.out.println("Error");
+        }
+    }
+    else{
+        
+        AccessResponse insert = accesomodel.addAccess(access);
+         if (insert.getRespuesta().getId() == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(insert.getRespuesta().getMensaje()));
+
+                init();
+                this.access = null;
+            
+        } else if (insert.getRespuesta().getId() > 0) {
+            System.out.println("Warning");
+        } else if (insert.getRespuesta().getId() < 0) {
+            System.out.println("Error");
+        }
+    }
+    
+}
 }
