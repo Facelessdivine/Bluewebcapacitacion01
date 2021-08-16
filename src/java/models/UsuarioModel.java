@@ -17,6 +17,7 @@ import responses.Response;
 import clases.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.HexDigest;
 
 /**
  *
@@ -32,6 +33,7 @@ public class UsuarioModel {
         boolean ban = false;
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
+        String passEncriptado;
 
         Usuario usuario = null;
         try {
@@ -39,9 +41,11 @@ public class UsuarioModel {
 
             query = ("SELECT id_usuario,usuario,nombre_usuario, password FROM s_usuarios WHERE usuario = ? and password = ?");
 
+                passEncriptado= HexDigest.hexDigest(user.getPassword());//agregue esta funcion para encriptar la contraseña y añadi su clase 16/08/2021 by César Del Río
+                
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, user.getUsuario());
-            consulta.setString(2, user.getPassword());
+            consulta.setString(2, passEncriptado); //Mande la contraseña ya encriptada 16/08/2021 by César Del Río
             ResultSet rs = consulta.executeQuery();
             if (rs.next()) {
                 usuario = new Usuario();//declaramos el objeto usuario
