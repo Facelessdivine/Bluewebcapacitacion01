@@ -5,11 +5,13 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:pe="http://primefaces.org/ui/extensions"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Index</title>
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/pngwing.com.ico']}"/>
         <h:outputStylesheet library="css" name="style.css" />
+        <f:event listener="#{login.isLoggedIn()}" type="preRenderView"/>
     </h:head>
     <h:body>
          <p:ajaxStatus onstart="PF('status').show()" onsuccess="PF('status').hide()"/>

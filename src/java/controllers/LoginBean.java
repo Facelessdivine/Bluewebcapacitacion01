@@ -39,6 +39,19 @@ public class LoginBean implements Serializable {
         }
     }
 
+   /*
+    Fecha: 16/08/2021
+    Autor: Ulises Garcia
+    Se añadio esta funcion ya que el usuario podia navegar entre las paginas sin estar loguado. 
+    */
+    public void isLoggedIn() throws IOException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Usuario userlogged = (Usuario) facesContext.getExternalContext().getSessionMap().get("User");
+        if (userlogged == null) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/main/login.xhtml");
+        }
+    }
+    
     public Usuario getUser() {
         return user;
     }
