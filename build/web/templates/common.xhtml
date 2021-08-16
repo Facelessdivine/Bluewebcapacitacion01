@@ -12,6 +12,12 @@
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
+         <p:ajaxStatus onstart="PF('status').show()" onsuccess="PF('status').hide()"/>
+            <p:dialog widgetVar="status" modal="true" draggable="false" closable="false" resizable="false" >
+                <div class="p-text-center">
+                    <p:graphicImage value="#{resource['images/loader-spinner.gif']}"/>
+                </div>
+            </p:dialog>
          <p:idleMonitor timeout="120000">
              <p:ajax event="active"  onstart="PF('inactivo').show()"/>
         </p:idleMonitor>

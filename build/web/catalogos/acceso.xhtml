@@ -6,7 +6,8 @@
     xmlns:p="http://primefaces.org/ui"
 
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:pe="http://primefaces.org/ui/extensions">
     <h:head>
         <title>Acceso</title>
     </h:head>
@@ -26,8 +27,8 @@
 
                         <p:toolbar>
                             <p:toolbarGroup align="right">
-                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{acceso.access}"
-                                                 update=":form:manage-product-content" oncomplete="PF('manageProductDialog').show()"
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{acceso.access}" type="button"
+                                                 update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
                                     <p:resetInput target=":form:manage-product-content"/>
                                 </p:commandButton>
@@ -101,8 +102,8 @@
                         </p:dataTable>
 
                         <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
-                                  widgetVar="manageProductDialog" responsive="true">
-                            <p:outputPanel id="manage-product-content" class="ui-fluid" >
+                                  widgetVar="manageProductDialog" responsive="true" >
+                            <p:outputPanel id="manage-product-content" class="ui-fluid"  >
                                 <p:outputPanel >
                                     <div class="p-field">
                                         <p:outputLabel for="orden">Id</p:outputLabel>
@@ -130,8 +131,8 @@
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.save()}" 
-                                                 update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" onclick="PF('manageProductDialog').hide()"/>
+                                <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{acceso.save()}" 
+                                                 update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" />
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">
                                                      <p:resetInput target=":form:manage-product-content"/>
@@ -140,6 +141,7 @@
                         </p:dialog>
 
                     </div>
+                    <!--<pe:blockUI target="save"--> 
                 </h:form>
             </h:body>
         </ui:define>
