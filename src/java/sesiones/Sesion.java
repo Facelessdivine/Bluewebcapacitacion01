@@ -6,6 +6,7 @@
 package sesiones;
 
 import clases.Usuario;
+import java.io.IOException;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -18,7 +19,7 @@ import javax.faces.context.FacesContext;
 public class Sesion {
 
     private Usuario sesion;
-    
+
     public Usuario getSesion(String key) {
         this.sesion = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
         return sesion;
@@ -29,6 +30,11 @@ public class Sesion {
                 .getExternalContext().getSessionMap();
         session.put(key, user);
     }
-    
-    
+
+    public void logOut() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/main/login.xhtml");
+
+    }
+
 }

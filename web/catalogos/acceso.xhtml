@@ -45,6 +45,7 @@
                                      editable="true"
                                      editMode="row" 
                                      rowKey="#{acc.id_acceso}"
+                                     
                                      >
 
 
@@ -104,6 +105,10 @@
                             <p:outputPanel id="manage-product-content" class="ui-fluid" >
                                 <p:outputPanel >
                                     <div class="p-field">
+                                        <p:outputLabel for="orden">Id</p:outputLabel>
+                                        <p:inputText value="#{acceso.access.id_acceso}" disabled="true"/>
+                                    </div>
+                                    <div class="p-field">
                                         <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
                                         <p:inputText  maxlength="30"  id="nombre_acceso" value="#{acceso.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
                                     </div>
@@ -125,7 +130,7 @@
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.save(acceso.access)}" 
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{acceso.save()}" 
                                                  update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" onclick="PF('manageProductDialog').hide()"/>
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">

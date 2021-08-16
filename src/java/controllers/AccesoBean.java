@@ -49,39 +49,10 @@ public class AccesoBean  {
     }
     
 
-    public List<Acceso> getListaAcceso() {
-        return listaAcceso;
-    }
-
-    public List<Acceso> getFiltroAcceso() {
-        return filtroAcceso;
-    }
-
-    public void setListaAcceso(List<Acceso> listaAcceso) {
-        this.listaAcceso = listaAcceso;
-    }
-
-    public void setFiltroAcceso(List<Acceso> filtroAcceso) {
-        this.filtroAcceso = filtroAcceso;
-    }
-
-    public Acceso getAccess() {
-        return access;
-    }
-
-    public void setAccess(Acceso access) {
-        this.access = access;
-    }
-    public void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
 
     
     
     public void removeAccess(Acceso access){
-//        System.out.println("funcion remove");
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hola ando en el remove"));
             accesomodel = new AccesoModel();
         AccessResponse remove = accesomodel.deleteAccess(access);    
         if (remove.getRespuesta().getId() == 0) {
@@ -98,8 +69,10 @@ public class AccesoBean  {
     }
     
     
-public void save(Acceso access){
+public void save(){
+    
     if(access.getId_acceso() != 0){
+        
         AccessResponse update = accesomodel.updateAccess(access);
          if (update.getRespuesta().getId() == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(update.getRespuesta().getMensaje()));
@@ -130,4 +103,32 @@ public void save(Acceso access){
     }
     
 }
+
+    public List<Acceso> getListaAcceso() {
+        return listaAcceso;
+    }
+
+    public List<Acceso> getFiltroAcceso() {
+        return filtroAcceso;
+    }
+
+    public void setListaAcceso(List<Acceso> listaAcceso) {
+        this.listaAcceso = listaAcceso;
+    }
+
+    public void setFiltroAcceso(List<Acceso> filtroAcceso) {
+        this.filtroAcceso = filtroAcceso;
+    }
+
+    public Acceso getAccess() {
+        return access;
+    }
+
+    public void setAccess(Acceso access) {
+        this.access = access;
+    }
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 }

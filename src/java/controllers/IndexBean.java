@@ -16,7 +16,7 @@ import sesiones.Sesion;
 public class IndexBean {
     Sesion s= new Sesion();
     
-     private List<String> images;    //declaramos las listas
+    private List<String> images;    //declaramos las listas
      
     @PostConstruct
     public void start(){
