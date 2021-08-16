@@ -20,19 +20,22 @@ public class LoginBean implements Serializable {
     public void login() throws IOException {
     Sesion s = new Sesion();
         UserResponse response = UsuarioModel.Login(user);
-        if (response.getResponse().getId() == 0) {
-            System.out.println("Logged in");
-            
-//            Variables de Sesión
+        switch (response.getResponse().getId()) {
+            case 0:
+                System.out.println("Logged in");
+                //            Variables de Sesión
 //            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Id_usuario", response.getUser().getId_usuario());
-            s.setSesion(response.getUser(), "User");
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/template.xhtml");
-            
-        } else if (response.getResponse().getId() == 1) {
-            addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Wrong username or password");
-        } else if (response.getResponse().getId() == -1) {
-            
-            addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Something went Wrong");
+                s.setSesion(response.getUser(), "User");
+                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/template.xhtml");
+                break;
+            case 1:
+                addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Wrong username or password");
+                break;
+            case -1:
+                addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Something went Wrong");
+                break;
+            default:
+                break;
         }
     }
 
