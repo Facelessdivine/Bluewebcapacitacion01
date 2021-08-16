@@ -74,16 +74,20 @@ public void save(){
     if(access.getId_acceso() != 0){
         
         AccessResponse update = accesomodel.updateAccess(access);
-         if (update.getRespuesta().getId() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(update.getRespuesta().getMensaje()));
-
+        switch (update.getRespuesta().getId()) {
+            case 0:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(update.getRespuesta().getMensaje()));
                 init();
                 this.access = null;
-            
-        } else if (update.getRespuesta().getId() > 0) {
-            System.out.println("Warning");
-        } else if (update.getRespuesta().getId() < 0) {
-            System.out.println("Error");
+                break;
+            case 1:
+                System.out.println("Warning");
+                break;
+            case -1:
+                System.out.println("Error");
+                break;
+            default:
+                break;
         }
     }
     else{
