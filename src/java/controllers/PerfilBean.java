@@ -19,12 +19,18 @@ public class PerfilBean implements Serializable {
     public void init() {
         PerfilModel perfilmodelo = new PerfilModel();
         ProfileResponse respuestaPerfil = perfilmodelo.connectProfile();
-        if (respuestaPerfil.getResponse().getId() == 0) {
-            profileList = respuestaPerfil.getProfileList();
-        } else if (respuestaPerfil.getResponse().getId() < 0) {
-            System.out.println("Warning");
-        } else if (respuestaPerfil.getResponse().getId() > 0) {
-            System.out.println("Error");
+        switch (respuestaPerfil.getResponse().getId()) {
+            case 0:
+                profileList = respuestaPerfil.getProfileList();
+                break;
+            case 1:
+                System.out.println("Warning");
+                break;
+            case -1:
+                System.out.println("Error");
+                break;
+            default:
+                break;
         }
 
     }
