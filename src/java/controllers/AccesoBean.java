@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.AccesoModel;
 
-@ManagedBean(name = "acceso")//con el nombre bean
+@ManagedBean(name = "acceso")
 public class AccesoBean  {
 
     private List<Acceso> listaAcceso = new ArrayList<>();
@@ -32,9 +32,6 @@ public class AccesoBean  {
 
         AccessResponse select = accesomodel.conectarLista();
         if (select.getRespuesta().getId() == 0) {
-            //esto no se usa pero por el momento lo voya dejar asi xd
-//            String mensaje = select.getRespuesta().getMensaje();
-
             listaAcceso = select.getListaAcceso();
 
         } else if (select.getRespuesta().getId() > 0) {

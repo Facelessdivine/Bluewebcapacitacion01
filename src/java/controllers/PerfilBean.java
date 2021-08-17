@@ -12,13 +12,14 @@ import models.PerfilModel;
 @ManagedBean(name = "perfil")
 public class PerfilBean implements Serializable {
 
-    private List<Perfil> profileList = new ArrayList<>();
+    private List<Perfil> profileList = new ArrayList<>(); 
     private List<Perfil> profileFilter;
 
     @PostConstruct
     public void init() {
-        PerfilModel perfilmodelo = new PerfilModel();
-        ProfileResponse respuestaPerfil = perfilmodelo.connectProfile();
+        PerfilModel perfilmodelo = new PerfilModel(); 
+        ProfileResponse respuestaPerfil = perfilmodelo.connectProfile(); 
+        
         switch (respuestaPerfil.getResponse().getId()) {
             case 0:
                 profileList = respuestaPerfil.getProfileList();

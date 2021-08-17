@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 public class Perfil {
-    
+    //    Se definen los datos de la tabla S_perfiles
     private int id_perfil;
     private String nombre_perfil;
     private String descripcion;

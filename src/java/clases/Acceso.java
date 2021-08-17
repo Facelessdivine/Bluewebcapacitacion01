@@ -5,7 +5,7 @@ package clases;
 import java.util.Date;
 
 public class Acceso {
-    private int id_acceso;
+    private int id_acceso; 
     private String nombre_acceso;
     private int orden;
     private Boolean activo;

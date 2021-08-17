@@ -6,18 +6,18 @@
 
 package utils;
 
-
 import java.security.MessageDigest;
+
 /**
  *
  *
  * Hash para password
  *
  * @version 1.00 01 Enero 2012
- * @author Arnulfo Gomez
+ * @author Blueweb
  */
 public class HexDigest {
-            public static String hexDigest(String message) {
+    public static String hexDigest(String message) {
         MessageDigest md;
 
         byte[] buffer, digest;

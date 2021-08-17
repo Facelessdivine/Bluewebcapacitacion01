@@ -26,29 +26,29 @@ import utils.HexDigest;
 public class UsuarioModel {
 
     public static UserResponse Login(Usuario user) {
-        //instanciar clase de respuesta usuario
+
         UserResponse respuestaUsuario = new UserResponse();
         Response claseRespuesta = new Response();
-        String query = "";//declaramos el query
+        String query = "";
         boolean ban = false;
-        PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
-        Connection con = null;//declaras la conexion y la inicias en null 
+        PoolDB pool = new PoolDB();
+        Connection con = null;
         String passEncriptado;
 
         Usuario usuario = null;
         try {
-            con = pool.getConnection("Activa");//aqui se conecta 
+            con = pool.getConnection("Activa");
 
             query = ("SELECT id_usuario,usuario,nombre_usuario, password FROM s_usuarios WHERE usuario = ? and password = ?");
 
-                passEncriptado= HexDigest.hexDigest(user.getPassword());//agregue esta funcion para encriptar la contraseña y añadi su clase 16/08/2021 by César Del Río
-                
+            passEncriptado = HexDigest.hexDigest(user.getPassword());
+
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, user.getUsuario());
-            consulta.setString(2, passEncriptado); //Mande la contraseña ya encriptada 16/08/2021 by César Del Río
+            consulta.setString(2, passEncriptado);
             ResultSet rs = consulta.executeQuery();
             if (rs.next()) {
-                usuario = new Usuario();//declaramos el objeto usuario
+                usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_USUARIO"));
                 usuario.setUsuario(rs.getString("USUARIO"));
                 usuario.setNombre_usuario(rs.getString("NOMBRE_USUARIO"));
@@ -64,7 +64,7 @@ public class UsuarioModel {
                 claseRespuesta.setMensaje("exitoso");
 
             } else {
-                claseRespuesta.setId(1);//mandamos los datos al obejto respuesta
+                claseRespuesta.setId(1);
                 claseRespuesta.setMensaje("Wrong username or password");
             }
 
@@ -77,6 +77,6 @@ public class UsuarioModel {
             respuestaUsuario.setResponse(claseRespuesta);
         }
         respuestaUsuario.setUser(usuario);
-        return respuestaUsuario;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
+        return respuestaUsuario;
     }
 }

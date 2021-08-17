@@ -24,6 +24,10 @@ import responses.Response;
  * @author Blueweb
  */
 public class PerfilModel {
+    /**
+     * 
+     * @return 
+     */
     public ProfileResponse connectProfile() {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
