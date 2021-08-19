@@ -105,9 +105,9 @@
                                   widgetVar="manageProductDialog" responsive="true" >
                             <p:outputPanel id="manage-product-content" class="ui-fluid"  >
                                 <p:outputPanel >
-                                    <div class="p-field">
-                                        <p:outputLabel for="orden">Id</p:outputLabel>
-                                        <p:inputText value="#{acceso.access.id_acceso}" disabled="true"/>
+                                    <div class="p-field" >
+                                        <!--<p:outputLabel for="orden">Id</p:outputLabel >-->
+                                        <p:inputText value="#{acceso.access.id_acceso}" type="hidden"/>
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
