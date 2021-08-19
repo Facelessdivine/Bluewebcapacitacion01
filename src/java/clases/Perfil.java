@@ -9,7 +9,8 @@ public class Perfil {
     private int id_perfil;
     private String nombre_perfil;
     private String descripcion;
-    private String activo;
+    private Boolean activo;
+    private String estado;
     private Date fecha_alta;
     private Date fecha_baja;
     private Date fecha_servidor;
@@ -43,13 +44,22 @@ public class Perfil {
         this.descripcion = descripcion;
     }
 
-    public String getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(String activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 
     public Date getFecha_alta() {
         return fecha_alta;

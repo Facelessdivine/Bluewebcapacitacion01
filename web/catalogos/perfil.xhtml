@@ -4,55 +4,142 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    >
-    <h:head>
-        <title>Perfil</title>
-    </h:head>
 
-    <ui:composition template="../WEB-INF/template.xhtml">
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Acceso</title>
+    </h:head>
+    <ui:composition template="/WEB-INF/template.xhtml">
         <ui:define name="content">
             <h:body>
-                <h:form>
-                    <p:dataTable
-                        var="profile"
-                        value="#{perfil.profileList}"
-                        filteredValue="#{perfil.profileFilter}"
-                        paginator="true" 
-                        rows="10"
-                        style="font-size: 14px; width: fit-content;"
-                        >
-                        <p:column
-                            headerText="Nombre Perfil"
-                            filterBy="#{profile.nombre_perfil}"
-                            filterMatchMode="contains"
-                            >
-                            <h:outputText value="#{profile.nombre_perfil}" />
-                        </p:column>
+                <h:form id="form">
+                    <div class="card crud-demo">      
+                        <p:growl id="messages" showDetail="true">
+                            <p:autoUpdate/>
+                        </p:growl>
 
-                        <p:column
-                            headerText="Descripción"
-                            filterBy="#{profile.descripcion}"
-                            filterMatchMode="contains"
-                            >
-                            <h:outputText value="#{profile.descripcion}" />
-                        </p:column>
+                        <p:toolbar>
+                            <p:toolbarGroup align="right">
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{acceso.access}" type="button"
+                                                 update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
+                                                 styleClass="ui-button-success" style="margin-right: .6rem">
+                                    <p:resetInput target=":form:manage-product-content"/>
+                                </p:commandButton>
 
-                        <p:column
-                            headerText="Estado"
-                            filterBy="#{profile.activo}"
-                            filterMatchMode="contains"
-                            >
-                            <h:outputText value="#{profile.activo}" />
-                        </p:column>
-                        <p:column
-                            headerText="Usuario Modifica"
-                            filterBy="#{profile.id_usuario_modifica}"
-                            filterMatchMode="contains"
-                            >
-                            <h:outputText value="#{profile.id_usuario_modifica}" />
-                        </p:column>
-                    </p:dataTable>
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:dataTable id="dtAccessos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
+                                     reflow="true" styleClass="products-table"
+                                     paginator="true"
+                                     filteredValue="#{acceso.filtroAcceso}"
+                                     filterEvent="enter"
+                                     rows="10" paginatorPosition="bottom"
+                                     selection="#{acceso.access}"
+                                     selectionMode="single"
+                                     editable="true"
+                                     editMode="row" 
+                                     rowKey="#{acc.id_acceso}"
+
+                                     >
+
+
+
+                            <p:column headerText="Nombre de acceso" filterBy="#{acc.nombre_acceso}">
+
+                                <h:outputText value="#{acc.nombre_acceso}"/> 
+
+
+                            </p:column>
+
+                            <p:column headerText="Orden"  filterBy="#{acc.orden}">
+
+                                <h:outputText value="#{acc.orden}"/> 
+
+
+                            </p:column>
+
+
+                            <p:column headerText="Estado"  filterBy="#{acc.estado}">
+
+                                <h:outputText value="#{acc.estado}"/> 
+
+
+                            </p:column>
+
+                            <p:column headerText="Fecha Servidor"  filterBy="#{acc.fecha_servidor}">
+
+                                <h:outputText value="#{acc.fecha_servidor}"/> 
+
+                            </p:column>
+
+                            <p:column >
+
+                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtAccessos" action="#{acceso.removeAccess(acc)}" >
+                                    <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                                <p:commandButton icon="pi pi-pencil" update=":form:dialogadd"
+                                                 oncomplete="PF('manageProductDialog').show()"
+                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+
+                                    <p:resetInput target=":form:manage-product-content"/>
+                                    <f:setPropertyActionListener value="#{acc}" target="#{acceso.access}"/>
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                </p:confirmDialog>
+
+
+                            </p:column>    
+
+                        </p:dataTable>
+
+                        <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
+                                  widgetVar="manageProductDialog" responsive="true" >
+                            <p:outputPanel id="manage-product-content" class="ui-fluid"  >
+                                <p:outputPanel >
+                                    <div class="p-field" >
+
+                                        <p:inputText value="#{acceso.access.id_acceso}" type="hidden"/>
+                                    </div>
+                                    <div class="p-field">
+                                        <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
+                                        <p:inputText  maxlength="30"  id="nombre_acceso" value="#{acceso.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
+                                    </div>
+                                    <div class="p-field">
+                                        <p:outputLabel for="orden">Orden</p:outputLabel>
+                                        <p:inputNumber value="#{acceso.access.orden}" id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  decimalPlaces="0" maxValue="99">
+
+                                            
+                                        </p:inputNumber>
+
+                                    </div>
+                                    &nbsp;
+
+                                    <div class="p-field">
+                                        <p:outputLabel for="activo">Estado</p:outputLabel>  
+                                        &nbsp;
+                                        &nbsp;
+
+                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo" value="#{acceso.access.activo}"
+                                                               onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                                    </div>
+                                </p:outputPanel>
+                            </p:outputPanel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{acceso.save()}" 
+                                                 update=":form:manage-product-content,dtAccessos,nombre_acceso,orden, activo" process="manage-product-content @this" />
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
+                                                 class="ui-button-secondary">
+                                    <p:resetInput target=":form:manage-product-content"/>
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dialog>
+
+                    </div>
+
                 </h:form>
             </h:body>
         </ui:define>
