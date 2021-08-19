@@ -5,7 +5,7 @@
             <url>web/catalogos/acceso.xhtml</url>
             <bookmark id="14">
                 <name/>
-                <line>89</line>
+                <line>0</line>
                 <key/>
             </bookmark>
         </file>
@@ -13,11 +13,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/models/UsuarioModel.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/IndexBean.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/WEB-INF/sidebar.xhtml</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/utils/HexDigest.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/AccesoBean.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/acceso.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/models/PerfilModel.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/PerfilBean.java</file>
         </group>
     </open-files>
 </project-private>

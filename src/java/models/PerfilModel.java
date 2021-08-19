@@ -15,7 +15,7 @@ import clases.Perfil;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import responses.ProfileResponse;
-
+import sesiones.Sesion;
 /**
  *
  * @author Blueweb
@@ -82,7 +82,11 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
+    public PerfilModel() {
+    }
+
     public ProfileResponse addProfile(Perfil profile) {
+        Sesion s = new Sesion();
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
         String query = "";
@@ -93,11 +97,12 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "INSERT INTO S_PERFILES (NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_SERVIDOR) VALUES (?,?,?,SYSDATETIME()) ";
+            query = "INSERT INTO S_PERFILES (NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA,FECHA_BAJA,FECHA_SERVIDOR,ID_USUARIO_MODIFICA) VALUES (?,?,?,SYSDATETIME(),SYSDATETIME(),SYSDATETIME(),?) ";
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());
             consulta.setBoolean(3, profile.getActivo());
+            consulta.setInt(4,  s.getSesion("User").getId_usuario());
 
             bandera = consulta.executeUpdate();
 
@@ -179,7 +184,7 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "UPDATE S_PERFILES SET NOMBRE_ACCESO = ?, ORDEN = ?, ACTIVO = ? WHERE ID_ACCESO = ? ";
+            query = "UPDATE S_PERFILES SET NOMBRE_PERFIL = ?, DESCRIPCION = ?, ACTIVO = ? WHERE ID_PERFIL = ? ";
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());

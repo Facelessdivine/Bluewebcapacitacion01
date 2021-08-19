@@ -21,7 +21,7 @@
 
                         <p:toolbar>
                             <p:toolbarGroup align="right">
-                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{acceso.access}" type="button"
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{perfil.profile}" type="button"
                                                  update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
                                     <p:resetInput target=":form:manage-product-content"/>
@@ -29,53 +29,52 @@
 
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="dtAccessos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
+                        <p:dataTable id="dtPerfiles" widgetVar="dtPerfiles" var="prof" value="#{perfil.profileList}"
                                      reflow="true" styleClass="products-table"
                                      paginator="true"
-                                     filteredValue="#{acceso.filtroAcceso}"
+                                     filteredValue="#{perfil.filtroPerfil}"
                                      filterEvent="enter"
                                      rows="10" paginatorPosition="bottom"
-                                     selection="#{acceso.access}"
+                                     selection="#{perfil.profile}"
                                      selectionMode="single"
                                      editable="true"
                                      editMode="row" 
-                                     rowKey="#{acc.id_acceso}"
+                                     rowKey="#{prof.id_perfil}"
 
                                      >
 
 
+                            <p:column headerText="Nombre de perfil" filterBy="#{prof.nombre_perfil}">
 
-                            <p:column headerText="Nombre de acceso" filterBy="#{acc.nombre_acceso}">
-
-                                <h:outputText value="#{acc.nombre_acceso}"/> 
-
-
-                            </p:column>
-
-                            <p:column headerText="Orden"  filterBy="#{acc.orden}">
-
-                                <h:outputText value="#{acc.orden}"/> 
+                                <h:outputText value="#{prof.nombre_perfil}"/> 
 
 
                             </p:column>
 
+                            <p:column headerText="Descripción"  filterBy="#{prof.descripcion}">
 
-                            <p:column headerText="Estado"  filterBy="#{acc.estado}">
-
-                                <h:outputText value="#{acc.estado}"/> 
+                                <h:outputText value="#{prof.descripcion}"/> 
 
 
                             </p:column>
 
-                            <p:column headerText="Fecha Servidor"  filterBy="#{acc.fecha_servidor}">
 
-                                <h:outputText value="#{acc.fecha_servidor}"/> 
+                            <p:column headerText="Estado"  filterBy="#{prof.estado}">
+
+                                <h:outputText value="#{prof.estado}"/> 
+
+
+                            </p:column>
+
+                            <p:column headerText="Fecha Servidor"  filterBy="#{prof.fecha_servidor}">
+
+                                <h:outputText value="#{prof.fecha_servidor}"/> 
 
                             </p:column>
 
                             <p:column >
 
-                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtAccessos" action="#{acceso.removeAccess(acc)}" >
+                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" action="#{perfil.removeProfile(prof)}" >
                                     <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" update=":form:dialogadd"
@@ -83,7 +82,7 @@
                                                  styleClass="edit-button rounded-button ui-button-success" process="@this">
 
                                     <p:resetInput target=":form:manage-product-content"/>
-                                    <f:setPropertyActionListener value="#{acc}" target="#{acceso.access}"/>
+                                    <f:setPropertyActionListener value="#{prof}" target="#{perfil.profile}"/>
                                 </p:commandButton>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
@@ -95,24 +94,21 @@
 
                         </p:dataTable>
 
-                        <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
+                        <p:dialog id="dialogadd" header="Detalles de Perfil" showEffect="fade" 
                                   widgetVar="manageProductDialog" responsive="true" >
                             <p:outputPanel id="manage-product-content" class="ui-fluid"  >
                                 <p:outputPanel >
                                     <div class="p-field" >
 
-                                        <p:inputText value="#{acceso.access.id_acceso}" type="hidden"/>
+                                        <p:inputText value="#{perfil.profile.id_perfil}" type="hidden"/>
                                     </div>
                                     <div class="p-field">
-                                        <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
-                                        <p:inputText  maxlength="30"  id="nombre_acceso" value="#{acceso.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
+                                        <p:outputLabel for="nombre_perfil">Nombre Perfil</p:outputLabel>
+                                        <p:inputText  maxlength="30"  id="nombre_perfil" value="#{perfil.profile.nombre_perfil}"  required="true"  requiredMessage="El nombre de perfil no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
                                     </div>
                                     <div class="p-field">
-                                        <p:outputLabel for="orden">Orden</p:outputLabel>
-                                        <p:inputNumber value="#{acceso.access.orden}" id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  decimalPlaces="0" maxValue="99">
-
-                                            
-                                        </p:inputNumber>
+                                        <p:outputLabel for="descripcion">Descripción</p:outputLabel>
+                                        <p:inputText value="#{perfil.profile.descripcion}" id="descripcion" required="true"  requiredMessage="La descripción no puede ser nula" validatorMessage="Solo se aceptan hasta 100 caracteres"   />
 
                                     </div>
                                     &nbsp;
@@ -122,15 +118,15 @@
                                         &nbsp;
                                         &nbsp;
 
-                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo" value="#{acceso.access.activo}"
+                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo" value="#{perfil.profile.activo}"
                                                                onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
                                     </div>
                                 </p:outputPanel>
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{acceso.save()}" 
-                                                 update=":form:manage-product-content,dtAccessos,nombre_acceso,orden, activo" process="manage-product-content @this" />
+                                <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{perfil.save()}" 
+                                                 update=":form:manage-product-content,dtPerfiles,nombre_perfil,descripcion, activo" process="manage-product-content @this" />
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">
                                     <p:resetInput target=":form:manage-product-content"/>
