@@ -30,7 +30,7 @@
             <meta name="msapplication-TileImage" content="#{request.contextPath}/resources/mirage-layout/images/favicon/ms-icon-144x144.png"></meta>
             <meta name="theme-color" content="#ffffff"></meta>
         </f:facet>
-        <title><ui:insert name="title">PrimeFaces Mirage</ui:insert></title>
+        <title><ui:insert name="title">Home</ui:insert></title>
         <h:outputScript name="js/nanoscroller.js" library="mirage-layout" />
         <h:outputScript name="js/layout.js" library="mirage-layout" />
         <ui:insert name="head"/>
@@ -43,15 +43,13 @@
             <div class="layout-main">
                 <ui:include src="./topbar.xhtml" />
                 <ui:include src="./rightpanel.xhtml" />
-                <ui:include src="./breadcrumb.xhtml" />
+                
                 
                 <div class="layout-content">
                     <ui:insert name="content"/>
                 </div>
                 
 
-                <ui:include src="./config.xhtml" />
-                
                 <div class="layout-main-mask"></div>
             </div>
         </div>
