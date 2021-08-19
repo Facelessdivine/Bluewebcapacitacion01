@@ -115,7 +115,11 @@
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="orden">Orden</p:outputLabel>
-                                        <p:inputNumber maxlength="2" value="#{acceso.access.orden}" id="orden" required="true" requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres" maxValue="99"/>
+                                        <p:inputText value="#{acceso.access.orden}" id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos" >
+                                        
+                                            <f:validateRegex pattern="^[0-9]{2}$" for="orden" id="validate"/>
+                                        </p:inputText>
+                                        
                                     </div>
                                     &nbsp;
 
