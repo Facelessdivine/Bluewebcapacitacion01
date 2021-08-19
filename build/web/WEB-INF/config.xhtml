@@ -1,0 +1,129 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <a href="#" id="layout-config-button" class="layout-config-button">
+        <i class="fa fa-cog"></i>
+    </a>
+
+    <div id="layout-config" class="layout-config">
+        <div class="layout-config-content">
+            <a href="#" class="layout-config-close">
+                <i class="fa fa-times"></i>
+            </a>
+            <h:form id="config-form">
+                <p:tabView id="config-form-tabs">
+                    <p:tab title="Light or Dark">
+                        <p:outputPanel id="lightordark-panel">
+                            <h1>Light or Dark</h1>
+                            <p>Mirage offers all dark dashboard &amp; theme design for dark lovers.</p>
+                            <div class="p-grid p-justify-center p-align-center">
+                                <div class="p-col p-col-fixed">
+                                    <p:commandLink styleClass="layout-config-option layout-config-option-image" actionListener="#{guestPreferences.setDarkMode(false)}" update=":config-form:config-form-tabs"
+                                            onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()" oncomplete="PrimeFaces.MirageConfigurator.changeLayout('#{guestPreferences.layoutPrimaryColor}', '#{guestPreferences.componentTheme}', false)">
+                                        <p:graphicImage name="images/configurator/choice-light.png" library="mirage-layout" title="Light" style="width:100%"/>
+                                        <span class="layout-config-option-text">Light</span>
+                                        <ui:fragment rendered="#{!guestPreferences.darkMode}">
+                                            <i class="fa fa-check"></i>
+                                        </ui:fragment>
+                                    </p:commandLink>
+                                </div>
+                                <div class="p-col p-col-fixed p-md-offset-1">
+                                    <p:commandLink styleClass="layout-config-option layout-config-option-image" actionListener="#{guestPreferences.setDarkMode(true)}" update=":config-form:config-form-tabs"
+                                            onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()" oncomplete="PrimeFaces.MirageConfigurator.changeLayout('#{guestPreferences.layoutPrimaryColor}', '#{guestPreferences.componentTheme}', true)"> 
+                                        <p:graphicImage name="images/configurator/choice-dark.png" library="mirage-layout" title="Dark"  style="width:100%"/>
+                                        <span class="layout-config-option-text">Dark</span>
+                                        <ui:fragment rendered="#{guestPreferences.darkMode}">
+                                            <i class="fa fa-check"></i>
+                                        </ui:fragment>
+                                    </p:commandLink>
+                                </div>
+                            </div>
+                        </p:outputPanel>
+                    </p:tab>
+                   
+                    <p:tab title="Menu">
+                        <p:outputPanel id="menuthemes-panel">
+                            <div class="layout-config-subtitle">Mode</div>
+                            <div class="p-grid">
+                                <div class="p-col p-col-fixed">
+                                    <p:commandLink class="layout-config-option layout-config-option-image" actionListener="#{guestPreferences.setHorizontalMenu(true)}" update=":config-form:config-form-tabs:menuthemes-panel"
+                                            oncomplete="PrimeFaces.MirageConfigurator.changeMenuToHorizontal(true)">
+                                        <p:graphicImage name="images/configurator/menu/horizontal.png" library="mirage-layout" title="Horizontal" style="width:100%"/>
+                                        <span class="layout-config-option-text">Horizontal</span>
+                                        <ui:fragment rendered="#{guestPreferences.horizontalMenu}">
+                                            <i class="fa fa-check"></i>
+                                        </ui:fragment>
+                                    </p:commandLink>
+                                </div>
+                                <div class="p-col p-col-fixed">
+                                    <p:commandLink class="layout-config-option layout-config-option-image" actionListener="#{guestPreferences.setHorizontalMenu(false)}" update=":config-form:config-form-tabs:menuthemes-panel"
+                                            oncomplete="PrimeFaces.MirageConfigurator.changeMenuToHorizontal(false)"> 
+                                        <p:graphicImage name="images/configurator/menu/overlay.png" library="mirage-layout" title="Vertical"  style="width:100%"/>
+                                        <span class="layout-config-option-text">Overlay</span>
+                                        <ui:fragment rendered="#{!guestPreferences.horizontalMenu}">
+                                            <i class="fa fa-check"></i>
+                                        </ui:fragment>
+                                    </p:commandLink>
+                                </div>
+                            </div>
+                            <div class="layout-config-subtitle">Color</div>
+                            <div class="p-grid">
+                                <ui:repeat value="#{guestPreferences.menuColors.keySet().toArray()}" var="menuColor">
+                                    <div class="p-col p-col-fixed">
+                                        <p:commandLink class="layout-config-option layout-config-option-image" actionListener="#{guestPreferences.setMenuColor(menuColor)}" update=":config-form:config-form-tabs:menuthemes-panel"
+                                                onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()" oncomplete="PrimeFaces.MirageConfigurator.changeMenuTheme('#{menuColor}', '#{guestPreferences.menuColors.get(menuColor).get(0).file}', #{guestPreferences.darkMode})">
+                                            <p:graphicImage name="images/configurator/menu/#{menuColor}.png" library="mirage-layout" title="#{menuColor}" />
+                                            <span class="layout-config-option-text">#{menuColor}</span>
+                                            <ui:fragment rendered="#{menuColor eq guestPreferences.menuColor}">
+                                                <i class="fa fa-check"></i>
+                                            </ui:fragment>
+                                        </p:commandLink>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                            <div class="layout-config-subtitle">Theme</div>
+                            <div class="p-grid">
+                                <ui:repeat value="#{guestPreferences.menuColors.get(guestPreferences.menuColor)}" var="menuTheme">
+                                    <div class="p-col p-col-fixed">
+                                        <p:commandLink class="layout-config-option layout-config-option-image layout-config-option-theme" actionListener="#{guestPreferences.setMenuTheme(menuTheme.file)}" update=":config-form:config-form-tabs:menuthemes-panel"
+                                                onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()" oncomplete="PrimeFaces.MirageConfigurator.changeMenuTheme('#{guestPreferences.menuColor}', '#{menuTheme.file}', #{guestPreferences.darkMode})">
+                                            <p:graphicImage name="images/configurator/menu/theme/#{menuTheme.image}" library="mirage-layout" title="#{menuTheme.name}"/>
+                                            <ui:fragment rendered="#{menuTheme.file eq guestPreferences.menuTheme and guestPreferences.menuColor eq guestPreferences.selectedMenuColor}">
+                                                <i class="fa fa-check"></i>
+                                            </ui:fragment>
+                                        </p:commandLink>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </p:outputPanel>
+                    </p:tab>
+
+                    <p:tab title="Components">
+                        <p:outputPanel id="componentthemes-panel">
+                            <div class="p-grid">
+                                <ui:repeat value="#{guestPreferences.componentThemes}" var="componentTheme">
+                                    <div class="p-col p-col-fixed">
+                                        <p:commandLink class="layout-config-option layout-config-option-image layout-config-option-theme" actionListener="#{guestPreferences.setComponentTheme(componentTheme.file)}" 
+                                                       update=":config-form:config-form-tabs"
+                                                       onstart="PrimeFaces.MirageConfigurator.beforeResourceChange()"
+                                                       oncomplete="PrimeFaces.MirageConfigurator.changeComponentsTheme('#{componentTheme.file}', #{guestPreferences.darkMode})">
+                                            <p:graphicImage name="images/configurator/theme/#{componentTheme.image}" library="mirage-layout" title="#{componentTheme.name}" />
+                                            <ui:fragment rendered="#{componentTheme.file eq guestPreferences.componentTheme}">
+                                                <i class="fa fa-check"></i>
+                                            </ui:fragment>
+                                        </p:commandLink>
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </p:outputPanel>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+        </div>
+
+    </div>
+</ui:composition>

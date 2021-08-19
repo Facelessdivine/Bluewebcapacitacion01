@@ -1,0 +1,46 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/mirage">
+
+    <div class="layout-sidebar">
+        <div class="sidebar-logo">
+            <a href="#" class="sidebar-pin" title="Toggle Menu">
+                <i class="fa fa-thumb-tack"></i>
+            </a>
+            <a href="dashboard.xhtml">
+                <p:graphicImage name="pngwing.com.png" library="images" />
+                <span class="app-name">Capacitación</span>
+            </a>
+        </div>
+
+        <div class="layout-menu-container">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <h:form id="menuform">
+                        <pm:menu>
+                            
+
+                            <p:submenu label="Dashboard" id="om_dashboard" icon="fa fa-fw fa-dashboard">
+                                
+                            <p:menuitem value="Perfiles" outcome="/faces/catalogos/perfil" icon="pi pi-book"/>
+                            <p:menuitem value="Accesos" outcome="/faces/catalogos/acceso" icon="pi pi-user"/>
+                            </p:submenu>
+
+                        <p:submenu label="Home">
+                            <p:menuitem value="Gallería" outcome="/faces/templates/contents" icon="pi pi-images"/>
+                            
+                        </p:submenu>
+
+
+                        </pm:menu>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

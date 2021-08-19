@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Empty Page</ui:define>
+    <ui:define name="viewname">
+        <li>Pages</li> 
+        <li><i class="fa fa-angle-right"></i></li>
+        <li><p:link outcome="/empty">Empty</p:link></li>
+    </ui:define>
+
+    <ui:define name="content">
+
+    <h:body>
+        <h:form>
+
+            
+            <div class="card"> 
+                
+                <p:commandButton type="button" onclick="PF('switcher').previous()"
+                                 value="Previous" id="prev" styleClass="p-mr-2 p-mb-3" />
+                <p:commandButton type="button" onclick="PF('switcher').next()"
+                                 value="Next" id="next" styleClass="p-mr-2 p-mb-3" />
+
+                <p:imageSwitch effect="zoom" widgetVar="switcher" id="manuelSwitcher"
+                               slideshowAuto="false">
+                    <ui:repeat value="#{index.images}" var="image" id="manuelSwitcherImages">
+                        <p:graphicImage name="images/#{image}" id="image"/>
+                    </ui:repeat>
+                </p:imageSwitch>
+            </div>
+
+        </h:form>
+    </h:body>        
+    </ui:define>
+
+</ui:composition>

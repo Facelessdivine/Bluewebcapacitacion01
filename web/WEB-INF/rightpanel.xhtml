@@ -1,0 +1,182 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:pa="http://primefaces.org/mirage">
+
+    <div class="layout-rightpanel">
+        <div class="right-panel-header">
+            <div class="title">
+                <span>Today</span>
+                <h1>Wednesday, 26 Jun</h1>
+            </div>
+            <a href="#" class="rightpanel-exit-button">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+        <div class="right-panel-content">
+            <h:form>
+                <div class="right-panel-content-row">
+                    <div class="tasks">
+                        <div class="tasks-header">
+                            <div class="title">
+                                <h1>Tasks</h1>
+                            </div>
+                            <div class="tasks-info">
+                                <span>You have</span><span class="highlighted"> 2 tasks</span><span> today</span>
+                            </div>
+                        </div>
+                        <ul class="tasks-list">
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Sales Report</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time">Today</span>
+                                </div>
+                            </li>
+
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Pay Invoices</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time">Today</span>
+                                </div>
+                            </li>
+
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Customer Meeting</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time later">Later</span>
+                                </div>
+                            </li>
+
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Expense Reports</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time later">Later</span>
+                                </div>
+                            </li>
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Plane Tickets</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time later">Later</span>
+                                </div>
+                            </li>
+                            <li class="tasks-list-item">
+                                <div class="checkbox">
+                                    <p:selectBooleanCheckbox />
+                                    <p>Dinner with Tony</p>
+                                </div>
+                                <div class="tasks-day">
+                                    <span class="time later">Later</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="right-panel-content-row">
+                    <div class="calendar">
+                        <h1>Calendar</h1>
+                        <p:calendar mode="inline" />
+                    </div>
+                </div>
+
+                <div class="right-panel-content-row">
+                    <div class="weather">
+                        <h1>Weather</h1>
+                        <ul class="weather-list">
+                            <li class="weather-list-item">
+                                <div class="time-location">
+                                    <span>15.03</span>
+                                    <p>Lille</p>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-icon icon-1">
+                                        <p:graphicImage name="images/rightpanel/weather-icon-1.svg"
+                                                        library="mirage-layout" />
+                                    </div>
+                                    <div class="weather-value">
+                                        31°
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weather-list-item">
+                                <div class="time-location">
+                                    <span>15.03</span>
+                                    <p>Barcelona</p>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-icon icon-2">
+                                        <p:graphicImage name="images/rightpanel/weather-icon-3.svg"
+                                                        library="mirage-layout" />
+                                    </div>
+                                    <div class="weather-value">
+                                        26°
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weather-list-item">
+                                <div class="time-location">
+                                    <span>09.03</span>
+                                    <p>New York</p>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-icon icon-1">
+                                        <p:graphicImage name="images/rightpanel/weathericon-4.svg"
+                                                        library="mirage-layout" />
+                                    </div>
+                                    <div class="weather-value">
+                                        23°
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weather-list-item">
+                                <div class="time-location">
+                                    <span>15.03</span>
+                                    <p>Amsterdam</p>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-icon icon-3">
+                                        <p:graphicImage name="images/rightpanel/weather-icon-4.svg"
+                                                        library="mirage-layout" />
+                                    </div>
+                                    <div class="weather-value">
+                                        31°
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="weather-list-item">
+                                <div class="time-location">
+                                    <span>09.03</span>
+                                    <p>Antalya</p>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-icon icon-4">
+                                        <p:graphicImage name="images/rightpanel/weather-icon-4.svg"
+                                                        library="mirage-layout" />
+                                    </div>
+                                    <div class="weather-value">
+                                        33°
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+</ui:composition>

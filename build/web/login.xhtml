@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>PrimeFaces Mirage</title>
+        <h:outputScript name="js/layout.js" library="mirage-layout" />
+
+        <script type="text/javascript">
+            //<![CDATA[
+            function changeMode() {
+                var body = $('.login-body');
+
+                if (body) {
+                    if (body.hasClass('layout-dark')) {
+                        body.removeClass('layout-dark').addClass('layout-light');
+                    } else {
+                        body.removeClass('layout-light').addClass('layout-dark');
+                    }
+                }
+            }
+            //]]>
+        </script>
+    </h:head>
+
+    <h:body styleClass="login-body layout-dark">
+
+        <div class="login-content">
+            <div class="night-switch">
+                <h:form>
+                    <p:commandButton styleClass="dark-switch"  icon="fa fa-sun-o" oncomplete="changeMode()" />
+                    <p:commandButton styleClass="light-switch"  icon="fa fa-moon-o" oncomplete="changeMode()" />
+                </h:form>
+            </div>
+            <div class="login-panel">
+                <div class="login-panel-content">
+                    <div class="logo">
+                        <p:graphicImage name="images/logo-mirage@2x.png" library="mirage-layout" />
+                    </div>
+                    <h1>Sign in to Mirage</h1>
+                    <p>Welcome, please use the form to sign-in Mirage network</p>
+                    <h:form styleClass="forms">
+                        <div class="login-input-wrapper">
+                            <p:outputLabel for="username" value="Username" />
+                            <p:inputText id="username" placeholder="Type your username..." value="#{login.user.usuario}" required="true" />
+                            <i class="fa fa-user" />
+                        </div>
+
+                        <div class="login-input-wrapper">
+                            <p:outputLabel for="password" value="Password" />
+                            <p:password id="password" placeholder="Type your password" feedback="false" value="#{login.user.password}" required="true"/>
+                            <i class="fa fa-lock" />
+                        </div>
+
+                        <p:selectManyCheckbox layout="responsive" columns="1">
+                            <f:selectItem itemLabel=" Remember me" itemValue="SaveInfo" />
+                        </p:selectManyCheckbox>
+
+                        <div class="buttons">
+                            <p:commandButton value="Login" action="#{login.login()}" />
+                            <p:commandButton value="Forget password" styleClass="secondary-button" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+
+            <div class="desert"></div>
+        </div>
+
+        <h:outputStylesheet name="css/layout-indigo-light.css" library="mirage-layout" />
+
+    </h:body>
+
+</html>

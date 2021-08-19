@@ -1,0 +1,372 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" xmlns:pa="http://primefaces.org/mirage">
+
+    <div class="layout-topbar">
+        <div class="layout-topbar-wrapper">
+            <div class="layout-topbar-left">
+                
+                <div class="layout-topbar-logo-wrapper">
+                    <a href="dashboard.xhtml" class="layout-topbar-logo">
+                        <p:graphicImage name="images/logo-mirage@2x.png" library="mirage-layout" />
+                        <span class="app-name">Mirage</span>
+                    </a>
+                </div>
+
+                <a href="#" class="sidebar-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <a href="#" class="megamenu-mobile-button">
+                    <i class="fa fa-align-right megamenu-icon"></i>
+                </a>
+
+                <a href="#" class="topbar-menu-mobile-button">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>
+
+                <!-- Mega Menu -->
+                <div class="layout-megamenu-wrapper">
+                    <a class="layout-megamenu-button" href="#">
+                        <i class="fa fa-comment"></i>
+                        Mega Menu
+                    </a>
+                    <ul class="layout-megamenu">
+                        <li>
+                            <a href="#">JavaServer Faces <i class="fa fa-angle-down"></i></a>
+                            <ul>
+                                <li class="active-row ">
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>PrimeFaces</h3>
+                                        <span>UI Components for JSF</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>Premium Templates</h3>
+                                        <span>UI Components for JSF</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>Extensions</h3>
+                                        <span>UI Components for JSF</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Angular <i class="fa fa-angle-down"></i></a>
+                            <ul>
+                                <li>
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>PrimeNG</h3>
+                                        <span>UI Components for Angular</span>
+                                    </span>
+
+                                </li>
+                                <li>
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>Premium Templates</h3>
+                                        <span>UI Components for Angular</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">React <i class="fa fa-angle-down"></i></a>
+                            <ul>
+                                <li>
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>PrimeReact</h3>
+                                        <span>UI Components for React</span>
+                                    </span>
+                                </li>
+                                <li class="active-row">
+                                    <i class="fa fa-circle"></i>
+                                    <span>
+                                        <h3>Premium Templates</h3>
+                                        <span>UI Components for React</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layout-topbar-right">
+                <ul class="layout-topbar-actions">
+                    <li class="search-item topbar-item">
+                        <a href="#" class="topbar-search-mobile-button">
+                            <i class="topbar-icon fa fa-search"></i>
+                        </a>
+                        <ul class="search-item-submenu">
+                            <li>
+                                <h:form onsubmit="return false;">
+                                    <h:panelGroup styleClass="md-inputfield search-input-wrapper">
+                                        <p:inputText placeholder="Search..." />
+                                        <i class="fa fa-search"></i>
+                                    </h:panelGroup>
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="topbar-item">
+                        <a href="#">
+                            <i class="topbar-icon fa fa-calendar"></i>
+                        </a>
+                        <ul>
+                            <li class="layout-submenu-header">
+                                <h1>Calendar</h1>
+                            </li>
+                            <li class="calendar">
+                                <h:form>
+                                    <p:calendar mode="inline" />
+                                </h:form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="topbar-item">
+                        <a href="#">
+                            <i class="topbar-icon fa fa-paper-plane"></i>
+                        </a>
+                        <ul>
+                            <li class="layout-submenu-header">
+                                <h1>Messages</h1>
+                                <span>Today, you have new 4 messages</span>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <p:graphicImage name="images/topbar/avatar-cayla.png" library="mirage-layout"
+                                    width="35" />
+                                <div class="menu-text">
+                                    <p>Override the digital divide</p>
+                                    <span>Cayla Brister</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <p:graphicImage name="images/topbar/avatar-gabie.png" library="mirage-layout"
+                                    width="35" />
+                                <div class="menu-text">
+                                    <p>Nanotechnology immersion</p>
+                                    <span>Gabie Sheber</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <p:graphicImage name="images/topbar/avatar-gaspar.png" library="mirage-layout"
+                                    width="35" />
+                                <div class="menu-text">
+                                    <p>User generated content</p>
+                                    <span>Gaspar Antunes</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <p:graphicImage name="images/topbar/avatar-tatiana.png" library="mirage-layout"
+                                    width="35" />
+                                <div class="menu-text">
+                                    <p>The holistic world view</p>
+                                    <span>Tatiana Gagelman</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="topbar-item">
+                        <a href="#">
+                            <i class="topbar-icon fa fa-gift"></i>
+                        </a>
+                        <ul>
+                            <li class="layout-submenu-header">
+                                <h1>Deals</h1>
+                            </li>
+
+                            <li class="deals">
+                                <ul>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-sapphire.png"
+                                            library="mirage-layout" width="35" />
+                                        <div class="menu-text">
+                                            <p>Sapphire</p>
+                                            <span>For Angular</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-roma.png" library="mirage-layout"
+                                            width="35" />
+                                        <div class="menu-text">
+                                            <p>Roma</p>
+                                            <span>Minimalism</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-babylon.png" library="mirage-layout"
+                                            width="35" />
+                                        <div class="menu-text">
+                                            <p>Babylon</p>
+                                            <span>Powerful</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-harmony.png"
+                                            library="mirage-layout" width="35" />
+                                        <div class="menu-text">
+                                            <p>Harmony</p>
+                                            <span>USWDS</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-prestige.png" library="mirage-layout"
+                                            width="35" />
+                                        <div class="menu-text">
+                                            <p>Prestige</p>
+                                            <span>Elegancy</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <p:graphicImage name="images/topbar/deal-icon-ultima.png"
+                                            library="mirage-layout" width="35" />
+                                        <div class="menu-text">
+                                            <p>Ultima</p>
+                                            <span>Material</span>
+                                        </div>
+                                        <i class="fa fa-angle-right"></i>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+                            <span class="profile-image-wrapper">
+                                <p:graphicImage name="images/topbar/avatar-eklund.png" library="mirage-layout" />
+                            </span>
+                            <span class="profile-info-wrapper">
+                                <h3>Olivia Eklund</h3>
+                                <span>Design</span>
+                            </span>
+                        </a>
+                        <ul class="profile-item-submenu">
+                            <li class="profile-submenu-header">
+                                <div class="performance">
+                                    <span>Weekly Performance</span>
+                                    <p:graphicImage name="images/topbar/asset-bars.svg" library="mirage-layout" />
+                                </div>
+                                <div class="profile">
+                                    <p:graphicImage name="images/topbar/avatar-eklund.png" library="mirage-layout"
+                                        width="40" />
+                                    <h1>Olivia Eklund</h1>
+                                    <span>Design</span>
+                                </div>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <i class="fa fa-server icon icon-1"></i>
+                                <div class="menu-text">
+                                    <p>Tasks</p>
+                                    <span>3 open issues</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <i class="fa fa-credit-card icon icon-2"></i>
+                                <div class="menu-text">
+                                    <p>Payments</p>
+                                    <span>24 new</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-item">
+                                <i class="fa fa-users icon icon-3"></i>
+                                <div class="menu-text">
+                                    <p>Clients</p>
+                                    <span>+80%</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-footer">
+                                <button class="signout-button">Sign Out</button>
+                                <button class="buy-mirage-button">Buy Mirage</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="layout-rightpanel-button">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="profile-mobile-wrapper">
+                    <li class="topbar-item profile-item">
+                        <a href="#">
+                            <span class="profile-image-wrapper">
+                                <p:graphicImage name="images/topbar/avatar-eklund.png" library="mirage-layout" />
+                            </span>
+                            <span class="profile-info-wrapper">
+                                <h3>Olivia Eklund</h3>
+                                <span>Design</span>
+                            </span>
+                        </a>
+                        <ul>
+                            <li class="profile-submenu-header">
+                                <div class="performance">
+                                    <span>Weekly Performance</span>
+                                    <p:graphicImage name="images/topbar/asset-bars.svg" library="mirage-layout" />
+                                </div>
+                                <div class="profile">
+                                    <p:graphicImage name="images/topbar/avatar-eklund.png" library="mirage-layout"
+                                        width="45" />
+                                    <h1>Olivia Eklund</h1>
+                                    <span>Design</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa fa-server icon icon-1"></i>
+                                <div class="menu-text">
+                                    <p>Tasks</p>
+                                    <span>3 open issues</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-credit-card icon icon-2"></i>
+                                <div class="menu-text">
+                                    <p>Payments</p>
+                                    <span>24 new</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-users icon icon-3"></i>
+                                <div class="menu-text">
+                                    <p>Clients</p>
+                                    <span>+80%</span>
+                                </div>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li class="layout-submenu-footer">
+                                <button class="signout-button">Sign Out</button>
+                                <button class="buy-mirage-button">Buy Mirage</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

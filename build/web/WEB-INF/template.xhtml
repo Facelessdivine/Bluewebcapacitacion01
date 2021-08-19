@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <link rel="apple-touch-icon" sizes="57x57" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-57x57.png"></link>
+            <link rel="apple-touch-icon" sizes="60x60" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-60x60.png"></link>
+            <link rel="apple-touch-icon" sizes="72x72" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-72x72.png"></link>
+            <link rel="apple-touch-icon" sizes="76x76" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-76x76.png"></link>
+            <link rel="apple-touch-icon" sizes="114x114" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-114x114.png"></link>
+            <link rel="apple-touch-icon" sizes="120x120" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-120x120.png"></link>
+            <link rel="apple-touch-icon" sizes="144x144" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-144x144.png"></link>
+            <link rel="apple-touch-icon" sizes="152x152" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-152x152.png"></link>
+            <link rel="apple-touch-icon" sizes="180x180" href="#{request.contextPath}/resources/mirage-layout/images/favicon/apple-icon-180x180.png"></link>
+            <link rel="icon" type="image/png" sizes="192x192"  href="#{request.contextPath}/resources/mirage-layout/images/favicon/android-icon-192x192.png"></link>
+            <link rel="icon" type="image/png" sizes="32x32" href="#{request.contextPath}/resources/mirage-layout/images/favicon/favicon-32x32.png"></link>
+            <link rel="icon" type="image/png" sizes="96x96" href="#{request.contextPath}/resources/mirage-layout/images/favicon/favicon-96x96.png"></link>
+            <link rel="icon" type="image/png" sizes="16x16" href="#{request.contextPath}/resources/mirage-layout/images/favicon/favicon-16x16.png"></link>
+            <link rel="manifest" href="#{request.contextPath}/resources/mirage-layout/manifest.json"></link>
+            <meta name="msapplication-TileColor" content="#ffffff"></meta>
+            <meta name="msapplication-TileImage" content="#{request.contextPath}/resources/mirage-layout/images/favicon/ms-icon-144x144.png"></meta>
+            <meta name="theme-color" content="#ffffff"></meta>
+        </f:facet>
+        <title><ui:insert name="title">PrimeFaces Mirage</ui:insert></title>
+        <h:outputScript name="js/nanoscroller.js" library="mirage-layout" />
+        <h:outputScript name="js/layout.js" library="mirage-layout" />
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body>
+        <div class="layout-wrapper #{guestPreferences.layoutConfig}">
+            <ui:include src="./sidebar.xhtml" />
+            
+            <div class="layout-main">
+                <ui:include src="./topbar.xhtml" />
+                <ui:include src="./rightpanel.xhtml" />
+                <ui:include src="./breadcrumb.xhtml" />
+                
+                <div class="layout-content">
+                    <ui:insert name="content"/>
+                </div>
+                
+
+                <ui:include src="./config.xhtml" />
+                
+                <div class="layout-main-mask"></div>
+            </div>
+        </div>
+        
+        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px;z-index: 1000002">
+           <f:facet name="start">
+               <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
+           </f:facet>
+
+           <f:facet name="complete">
+               <h:outputText value="" />
+           </f:facet>
+       </p:ajaxStatus>
+        
+        <h:outputStylesheet name="css/nanoscroller.css" library="mirage-layout" />
+        <h:outputStylesheet name="css/primeflex.css" library="mirage-layout" />
+        <h:outputStylesheet name="css/layout-indigo-dark.css" library="mirage-layout" />
+    </h:body>
+
+</html>
