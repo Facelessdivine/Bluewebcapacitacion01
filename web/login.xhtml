@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>
         <f:facet name="first">
@@ -9,7 +9,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces Mirage</title>
+        <title>Login</title>
         <h:outputScript name="js/layout.js" library="mirage-layout" />
 
         <script type="text/javascript">
@@ -41,39 +41,60 @@
             <div class="login-panel">
                 <div class="login-panel-content">
                     <div class="logo">
-                        <p:graphicImage name="images/logo-mirage@2x.png" library="mirage-layout" />
+                        <p:graphicImage name="pngwing.com.png" library="images" />
                     </div>
-                    <h1>Sign in to Mirage</h1>
-                    <p>Welcome, please use the form to sign-in Mirage network</p>
-                    <h:form styleClass="forms">
+                    <h1>Sign in</h1>
+                    <p>Welcome, please use the form to sign-in </p>
+                    <h:form styleClass="forms" id="form">
+                        <p:growl id="msgs" showDetail="true" >
+
+                            <p:autoUpdate/>
+                        </p:growl>
                         <div class="login-input-wrapper">
                             <p:outputLabel for="username" value="Username" />
-                            <p:inputText id="username" placeholder="Type your username..." value="#{login.user.usuario}" required="true" />
+                            <p:inputText
+                                id="username"
+                                value="#{login.user.usuario}"
+                                required="true"
+                                label="Username"
+                                placeholder="Type your username..."
+                                >
+                                <f:validateLength  maximum="20" />
+                            </p:inputText>
+                            <p:message for="username" display="icon" />
                             <i class="fa fa-user" />
-                        </div>
-
-                        <div class="login-input-wrapper">
+                            </div>
+                            <div class="login-input-wrapper">
                             <p:outputLabel for="password" value="Password" />
-                            <p:password id="password" placeholder="Type your password" feedback="false" value="#{login.user.password}" required="true"/>
+                            <p:password
+                                id="password"
+                                value="#{login.user.password}"
+                                label="Password"
+                                required="true"
+                                placeholder="Type your password"
+                                >
+                                <f:validateLength minimum="2" maximum="12" />
+                                <p:ajax update="msgPassword" />
+                            </p:password>
+                            <p:message for="password" id="msgPassword" display="icon" />
                             <i class="fa fa-lock" />
-                        </div>
+                            </div>
 
-                        <p:selectManyCheckbox layout="responsive" columns="1">
-                            <f:selectItem itemLabel=" Remember me" itemValue="SaveInfo" />
-                        </p:selectManyCheckbox>
+                            <p:selectManyCheckbox layout="responsive" columns="1">
+                                <f:selectItem itemLabel=" Remember me" itemValue="SaveInfo" />
+                            </p:selectManyCheckbox>
 
-                        <div class="buttons">
-                            <p:commandButton value="Login" action="#{login.login()}" />
-                            <p:commandButton value="Forget password" styleClass="secondary-button" />
-                        </div>
+                            <div class="buttons">
+                                <p:commandButton value="Login" action="#{login.login()}" icon="pi pi-check"/>
+                                <p:commandButton value="Forget password" styleClass="secondary-button" />
+                            </div>
+                        <pe:blockUI target="form"/>
                     </h:form>
                 </div>
             </div>
-
-            <div class="desert"></div>
         </div>
 
-        <h:outputStylesheet name="css/layout-indigo-light.css" library="mirage-layout" />
+        <h:outputStylesheet name="css/layout-indigo-dark.css" library="mirage-layout" />
 
     </h:body>
 

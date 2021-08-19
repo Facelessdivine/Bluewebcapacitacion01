@@ -39,31 +39,31 @@
     <h:body>
         <div class="layout-wrapper #{guestPreferences.layoutConfig}">
             <ui:include src="./sidebar.xhtml" />
-            
+
             <div class="layout-main">
                 <ui:include src="./topbar.xhtml" />
                 <ui:include src="./rightpanel.xhtml" />
-                
-                
+
+
                 <div class="layout-content">
                     <ui:insert name="content"/>
                 </div>
-                
+
 
                 <div class="layout-main-mask"></div>
             </div>
         </div>
-        
-        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px;z-index: 1000002">
-           <f:facet name="start">
-               <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
-           </f:facet>
 
-           <f:facet name="complete">
-               <h:outputText value="" />
-           </f:facet>
-       </p:ajaxStatus>
-        
+        <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px;z-index: 1000002">
+            <f:facet name="start">
+                <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
+            </f:facet>
+
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+
         <h:outputStylesheet name="css/nanoscroller.css" library="mirage-layout" />
         <h:outputStylesheet name="css/primeflex.css" library="mirage-layout" />
         <h:outputStylesheet name="css/layout-indigo-dark.css" library="mirage-layout" />
