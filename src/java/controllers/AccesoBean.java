@@ -64,7 +64,12 @@ public class AccesoBean  {
             System.out.println("Error");
         }
     }
-    
+    /**
+     * 
+     * 
+     * 
+     * este guarda y actualiza los acceos
+     */
     
 public void save(){
     

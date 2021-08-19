@@ -16,6 +16,7 @@ public class PerfilBean implements Serializable {
     private List<Perfil> profileFilter;
 
     @PostConstruct
+    
     public void init() {
         PerfilModel perfilmodelo = new PerfilModel(); 
         ProfileResponse respuestaPerfil = perfilmodelo.connectProfile(); 
