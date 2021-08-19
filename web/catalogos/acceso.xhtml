@@ -35,7 +35,7 @@
 
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="dt-accesos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
+                        <p:dataTable id="dtAccessos" widgetVar="dtAccessos" var="acc" value="#{acceso.listaAcceso}"
                                      reflow="true" styleClass="products-table"
                                      paginator="true"
                                      filteredValue="#{acceso.filtroAcceso}"
@@ -81,7 +81,7 @@
 
                             <p:column >
 
-                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages" action="#{acceso.removeAccess(acc)}" >
+                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtAccessos" action="#{acceso.removeAccess(acc)}" >
                                     <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
                                 <p:commandButton icon="pi pi-pencil" update=":form:dialogadd"
@@ -132,7 +132,7 @@
 
                             <f:facet name="footer">
                                 <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{acceso.save()}" 
-                                                 update=":form:manage-product-content,dt-accesos,nombre_acceso,orden, activo" process="manage-product-content @this" />
+                                                 update=":form:manage-product-content,dtAccessos,nombre_acceso,orden, activo" process="manage-product-content @this" />
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">
                                                      <p:resetInput target=":form:manage-product-content"/>
