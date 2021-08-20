@@ -26,21 +26,26 @@ public class AccesoBean  {
     
 
     @PostConstruct
+//    Función a la que va a entrar al inicio in
     public void init() {
 
         accesomodel = new AccesoModel();
 
         AccessResponse select = accesomodel.conectarLista();
-        if (select.getRespuesta().getId() == 0) {
-            listaAcceso = select.getListaAcceso();
-
-        } else if (select.getRespuesta().getId() > 0) {
-            System.out.println("Warning");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
-
-        } else if (select.getRespuesta().getId() < 0) {
-            System.out.println("Error");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
+        switch (select.getRespuesta().getId()) {
+            case 0:
+                listaAcceso = select.getListaAcceso();
+                break;
+            case 1:
+                System.out.println("Warning");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
+                break;
+            case -1:
+                System.out.println("Error");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(select.getRespuesta().getMensaje()));
+                break;
+            default:
+                break;
         }
 
     }
@@ -64,14 +69,17 @@ public class AccesoBean  {
             System.out.println("Error");
         }
     }
-    /**
-     * 
-     * 
-     * 
-     * este guarda y actualiza los acceos
-     */
     
-public void save(){
+/**
+     * 
+     * Esta función obtiene el objeto de Acceso que es llenado en el Diálogo en la
+     * vista, para poder determinar si se debe insertar o actualizar, es decir, si
+     * el objeto ya tiene un ID_ACCESO  definido, significa que ya existe en la base
+     * de datos y por lo tanto solo hace falta actualizarlo, de otro modo hay que
+     * insertarlo en la base de datos como un nuevo Acceso 
+     * 
+     */
+public void updateOrInsertAccess(){
     
     if(access.getId_acceso() != 0){
         
@@ -95,20 +103,25 @@ public void save(){
     else{
         
         AccessResponse insert = accesomodel.addAccess(access);
-         if (insert.getRespuesta().getId() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(insert.getRespuesta().getMensaje()));
-
+        switch (insert.getRespuesta().getId()) {
+            case 0:
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(insert.getRespuesta().getMensaje()));
                 init();
                 this.access = null;
-            
-        } else if (insert.getRespuesta().getId() > 0) {
-            System.out.println("Warning");
-        } else if (insert.getRespuesta().getId() < 0) {
-            System.out.println("Error");
+                break;
+            case 1: 
+                System.out.println("Warning");
+                break;
+            case -1:
+                System.out.println("Error");
+                break;
+            default:
+                break;
         }
     }
     
 }
+//<editor-fold defaultstate="collapsed" desc="getters and setters ">
 
     public List<Acceso> getListaAcceso() {
         return listaAcceso;
@@ -133,6 +146,9 @@ public void save(){
     public void setAccess(Acceso access) {
         this.access = access;
     }
+//</editor-fold>
+    
+//    Función para poder mostrar mensajes por pantalla como Feedback's para el usuario
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);

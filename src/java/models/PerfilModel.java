@@ -16,13 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import responses.ProfileResponse;
 import sesiones.Sesion;
+
 /**
  *
  * @author Blueweb
  */
 public class PerfilModel {
-
-    public ProfileResponse connectProfile() {
+    // Hace una consulta en la base de datos, no recibe parámetros
+    public ProfileResponse queryProfile() {
 
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
@@ -36,7 +37,7 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "SELECT * FROM S_PERFILES";
+            query = "SELECT (ID_PERFIL, NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA, FECHA_BAJA, FECHA_SERVIDOR, ID_USUARIO_MODIFICA) FROM S_PERFILES";
             PreparedStatement consulta = con.prepareStatement(query);
             ResultSet rs = consulta.executeQuery();
 
@@ -51,7 +52,7 @@ public class PerfilModel {
                 profile.setFecha_baja(rs.getDate("FECHA_BAJA"));
                 profile.setFecha_servidor(rs.getDate("FECHA_SERVIDOR"));
                 profile.setId_usuario_modifica(rs.getInt("ID_USUARIO_MODIFICA"));
-                
+
                 lista.add(profile);
 
             }
@@ -82,8 +83,8 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
-
-//Esta función agrega perfiles a la base de datos, recibiendo un objeto de tipo perfil como parámetro
+    // Esta función agrega perfiles a la base de datos, recibiendo un objeto de tipo
+    // perfil como parámetro
     public ProfileResponse addProfile(Perfil profile) {
         Sesion s = new Sesion();
         ProfileResponse respuestaPerfil = new ProfileResponse();
@@ -91,24 +92,24 @@ public class PerfilModel {
         String query = "";
         PoolDB pool = new PoolDB();
         Connection con = null;
-        int bandera = 0;
+        int ban = 0;
         try {
 
             con = pool.getConnection("Activa");
 
-            query = "INSERT INTO S_PERFILES (NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA,FECHA_BAJA,FECHA_SERVIDOR,ID_USUARIO_MODIFICA) VALUES (?,?,?,SYSDATETIME(),SYSDATETIME(),SYSDATETIME(),?) ";
+            query = "INSERT INTO S_PERFILES (NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA,FECHA_BAJA,FECHA_SERVIDOR,ID_USUARIO_MODIFICA) VALUES (?,?,?,GETDATE(),GETDATE(),GETDATE(),?) ";
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());
             consulta.setBoolean(3, profile.getActivo());
-            consulta.setInt(4,  s.getSesion("User").getId_usuario());
+            consulta.setInt(4, s.getSesion("User").getId_usuario());
 
-            bandera = consulta.executeUpdate();
+            ban = consulta.executeUpdate();
 
             consulta.close();
             con.close();
 
-            if (bandera != 0) {
+            if (ban != 0) {
 
                 claseRespuesta.setId(0);
                 claseRespuesta.setMensaje("Registro agregado correctamente");
@@ -130,13 +131,15 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
+    // Esta función recibe un parámetro de tipo Perfil para poder eliminar por medio
+    // del ID_PERFIL en la base de datos, y retorna un valor de tipo ProfileResponse
     public ProfileResponse deleteProfile(Perfil profile) {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
         String query = "";
         PoolDB pool = new PoolDB();
         Connection con = null;
-        int bandera = 0;
+        int ban = 0;
         try {
 
             con = pool.getConnection("Activa");
@@ -145,12 +148,12 @@ public class PerfilModel {
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setInt(1, profile.getId_perfil());
 
-            bandera = consulta.executeUpdate();
+            ban = consulta.executeUpdate();
 
             consulta.close();
             con.close();
 
-            if (bandera != 0) {
+            if (ban != 0) {
 
                 claseRespuesta.setId(0);
                 claseRespuesta.setMensaje("Registro Eliminado correctamente");
@@ -172,13 +175,14 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
+    // Esta función
     public ProfileResponse updateProfile(Perfil profile) {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
         String query = "";
         PoolDB pool = new PoolDB();
         Connection con = null;
-        int bandera = 0;
+        int ban = 0;
         try {
 
             con = pool.getConnection("Activa");
@@ -188,12 +192,12 @@ public class PerfilModel {
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());
             consulta.setBoolean(3, profile.getActivo());
-            bandera = consulta.executeUpdate();
+            ban = consulta.executeUpdate();
 
             consulta.close();
             con.close();
 
-            if (bandera != 0) {
+            if (ban != 0) {
 
                 claseRespuesta.setId(0);
                 claseRespuesta.setMensaje("Registro Actualizado correctamente");

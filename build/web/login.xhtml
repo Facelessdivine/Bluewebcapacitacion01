@@ -54,7 +54,7 @@
                             <p:outputLabel for="username" value="Username" />
                             <p:inputText
                                 id="username"
-                                value="#{login.user.usuario}"
+                                value="#{loginBean.user.usuario}"
                                 required="true"
                                 label="Username"
                                 placeholder="Type your username..."
@@ -68,7 +68,7 @@
                             <p:outputLabel for="password" value="Password" />
                             <p:password
                                 id="password"
-                                value="#{login.user.password}"
+                                value="#{loginBean.user.password}"
                                 label="Password"
                                 required="true"
                                 placeholder="Type your password"
@@ -85,7 +85,7 @@
                             </p:selectManyCheckbox>
 
                             <div class="buttons">
-                                <p:commandButton value="Login" action="#{login.login()}" icon="pi pi-check"/>
+                                <p:commandButton value="Login" action="#{loginBean.login()}" icon="pi pi-check"/>
                             </div>
                         <pe:blockUI target="form"/>
                     </h:form>

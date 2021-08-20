@@ -24,6 +24,7 @@ public class IndexBean {
             try {
             if(s.getSesion("User") == null){
                 FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/main/login.xhtml");
+                
             }
             } catch (IOException ex) {
                 Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, ex);
