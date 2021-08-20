@@ -21,7 +21,7 @@ public class IndexBean {
 
     @PostConstruct
     public void start() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Welcome" + s.getSesion("User").getNombre_usuario()));
+        addMessage(FacesMessage.SEVERITY_INFO, "Info", "Welcome, " + s.getSesion("User").getUsuario());
 //        FacesMessage message = null;
 //
 //        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Welcome" + s.getSesion("User").getNombre_usuario());
@@ -36,6 +36,10 @@ public class IndexBean {
 
     public List<String> getImages() {
         return images;
+    }
+    public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
 }
