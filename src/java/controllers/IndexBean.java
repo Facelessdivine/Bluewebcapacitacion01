@@ -12,7 +12,7 @@ import sesiones.Sesion;
 
 
 
-@ManagedBean(name="index")
+@ManagedBean(name="indexBean")
 public class IndexBean {
     Sesion s= new Sesion();
     

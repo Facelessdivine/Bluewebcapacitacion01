@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.AccesoModel;
 
-@ManagedBean(name = "acceso")
+@ManagedBean(name = "accesoBean")
 public class AccesoBean  {
 
     private List<Acceso> listaAcceso = new ArrayList<>();

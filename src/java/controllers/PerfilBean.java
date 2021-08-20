@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.PerfilModel;
 
-@ManagedBean(name = "perfil")
+@ManagedBean(name = "perfilBean")
 public class PerfilBean  {
 
     private List<Perfil> listaPerfil = new ArrayList<>();

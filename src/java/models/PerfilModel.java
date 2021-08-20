@@ -82,9 +82,8 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
-    public PerfilModel() {
-    }
 
+//Esta función agrega perfiles a la base de datos, recibiendo un objeto de tipo perfil como parámetro
     public ProfileResponse addProfile(Perfil profile) {
         Sesion s = new Sesion();
         ProfileResponse respuestaPerfil = new ProfileResponse();
