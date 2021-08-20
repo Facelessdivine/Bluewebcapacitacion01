@@ -7,7 +7,6 @@ import sesiones.Sesion;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import responses.UserResponse;
 import javax.faces.bean.ManagedBean;
@@ -22,13 +21,19 @@ public class LoginBean implements Serializable {
     user = new Usuario();
     s = new Sesion();
     }
-    public void login() throws IOException {
+    public void login() {
         UserResponse response = UsuarioModel.Login(user);
         switch (response.getResponse().getId()) {
             case 0:
-                System.out.println("Logged in");
+                
                 s.setSesion(response.getUser(), "User");
-                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/empty.xhtml");
+                try {
+                    
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/empty.xhtml");
+                } catch (IOException iOException) {
+                                Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, iOException);
+                }
+                
                 break;
             case 1:
                 addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Wrong username or password");

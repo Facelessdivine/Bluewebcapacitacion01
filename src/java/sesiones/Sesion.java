@@ -23,11 +23,21 @@ public class Sesion {
 
     private Usuario sesion;
 
+    /**
+     *
+     * @param key
+     * @return sesion
+     */
     public Usuario getSesion(String key) {
         this.sesion = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(key);
         return sesion;
     }
 
+    /**
+     *
+     * @param user
+     * @param key
+     */
     public void setSesion(Usuario user, String key) {
         Map<String, Object> session = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         session.put(key, user);

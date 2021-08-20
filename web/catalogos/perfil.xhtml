@@ -93,7 +93,7 @@
                             </p:column>    
 
                         </p:dataTable>
-
+                        <p:focus context="dialogadd" id="focus"/>
                         <p:dialog id="dialogadd" header="Detalles de Perfil" showEffect="fade" 
                                   widgetVar="manageProductDialog" responsive="true" >
                             <p:outputPanel id="manage-product-content" class="ui-fluid"  >
@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="descripcion">Descripción</p:outputLabel>
-                                        <p:inputText value="#{perfil.profile.descripcion}" id="descripcion" required="true"  requiredMessage="La descripción no puede ser nula" validatorMessage="Solo se aceptan hasta 100 caracteres"   />
+                                        <p:inputText value="#{perfil.profile.descripcion}" id="descripcion" required="true"  requiredMessage="La descripción no puede ser nula" validatorMessage="Solo se aceptan hasta 100 caracteres" maxlength="100"  />
 
                                     </div>
                                     &nbsp;

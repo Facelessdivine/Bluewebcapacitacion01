@@ -37,6 +37,7 @@
     </h:head>
 
     <h:body>
+        <h:form>
         <p:idleMonitor timeout="60000">
             <p:ajax event="active" onstart="PF('inactivo').show()"/>
         </p:idleMonitor>
@@ -49,6 +50,7 @@
                 </h:form>
             </p:panel>
         </p:dialog> 
+        
         <f:event listener="#{userSessionBean.isLoggedIn()}" type="preRenderView"/>
         <div class="layout-wrapper #{guestPreferences.layoutConfig}">
             <ui:include src="./sidebar.xhtml" />
@@ -76,10 +78,14 @@
                 <h:outputText value="" />
             </f:facet>
         </p:ajaxStatus>
-
+        <p:growl id="messages" showDetail="true">
+            <p:autoUpdate/>
+        </p:growl>
+</h:form>
         <h:outputStylesheet name="css/nanoscroller.css" library="mirage-layout" />
         <h:outputStylesheet name="css/primeflex.css" library="mirage-layout" />
         <h:outputStylesheet name="css/layout-indigo-dark.css" library="mirage-layout" />
     </h:body>
 
 </html>
+        

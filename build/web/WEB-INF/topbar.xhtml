@@ -30,13 +30,13 @@
                 <ul class="layout-topbar-actions">
                     <li class="topbar-item profile-item">
                         <a href="#">
-                            <span class="profile-image-wrapper">
                                 <p:graphicImage name="icon-user.png" library="images" />
-                                <p:commandButton value="Logout" action="#{userSessionBean.logOut}" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                            <span class="profile-image-wrapper">
                                 <div class="profile">
                                     
-                                    <p:outputLabel value="#{usersesion.getSesion('User').nombre_usuario}"/>
+                                    <p:outputLabel style="color: white" value="#{ userSessionBean.getSesion('User').nombre_usuario}"/>
                                 </div>
+                                <p:commandButton style="color: navy " value="Logout" action="#{userSessionBean.logOut}" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
                             </span>
                         </a>
                         
