@@ -1,8 +1,8 @@
 
 package models;
+//<editor-fold defaultstate="collapsed" desc="imports">
 
 import data.PoolDB;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,10 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import responses.ProfileResponse;
 import sesiones.Sesion;
-
+//</editor-fold>
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 public class PerfilModel {
     // Hace una consulta en la base de datos, no recibe parámetros
@@ -175,7 +175,7 @@ public class PerfilModel {
         return respuestaPerfil;
     }
 
-    // Esta función
+    // Esta función recibe un objeto de tipo perfil como parámetro y actualiza con base en el ID que se le haya enviado
     public ProfileResponse updateProfile(Perfil profile) {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();

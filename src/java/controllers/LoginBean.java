@@ -5,6 +5,9 @@ import clases.Usuario;
 import java.io.IOException;
 import sesiones.Sesion;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import responses.UserResponse;
 import javax.faces.bean.ManagedBean;
@@ -36,15 +39,7 @@ public class LoginBean implements Serializable {
             default:
                 break;
         }
-    }
-
-   public void isLoggedIn() throws IOException {
-        Usuario userlogged = s.getSesion("User");
-        if (userlogged == null) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/main/login.xhtml");
-        }
-    }
-   
+    }   
    //<editor-fold defaultstate="collapsed" desc="Getters and setters ">
    
    public Usuario getUser() {

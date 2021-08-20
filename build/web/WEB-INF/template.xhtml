@@ -37,6 +37,7 @@
     </h:head>
 
     <h:body>
+        <f:event listener="#{userSessionBean.isLoggedIn()}" type="preRenderView"/>
         <div class="layout-wrapper #{guestPreferences.layoutConfig}">
             <ui:include src="./sidebar.xhtml" />
 
