@@ -30,6 +30,7 @@
     </h:head>
 
     <h:body styleClass="login-body layout-dark">
+
         
         <div class="login-content">
             <div class="night-switch">
@@ -46,6 +47,12 @@
                     <h1>Sign in</h1>
                     <p>Welcome, please use the form to sign-in </p>
                     <h:form styleClass="forms" id="form">
+                        <p:ajaxStatus onstart="PF('status').show()" onsuccess="PF('status').hide()"/>
+                        <p:dialog widgetVar="status" modal="true" draggable="false" closable="false" resizable="false" >
+                            <div class="p-text-center">
+                                <p:graphicImage name="loader-gif.gif" library="images" />
+                            </div>
+                        </p:dialog>
                         <p:growl id="msgs" showDetail="true" >
 
                             <p:autoUpdate/>
@@ -63,8 +70,8 @@
                             </p:inputText>
                             <p:message for="username" display="icon" />
                             <i class="fa fa-user" />
-                            </div>
-                            <div class="login-input-wrapper">
+                        </div>
+                        <div class="login-input-wrapper">
                             <p:outputLabel for="password" value="Password" />
                             <p:password
                                 id="password"
@@ -78,15 +85,15 @@
                             </p:password>
                             <p:message for="password" id="msgPassword" display="icon" />
                             <i class="fa fa-lock" />
-                            </div>
+                        </div>
 
-                            <p:selectManyCheckbox layout="responsive" columns="1">
-                                <f:selectItem itemLabel=" Remember me" itemValue="SaveInfo" />
-                            </p:selectManyCheckbox>
+                        <p:selectManyCheckbox layout="responsive" columns="1">
+                            <f:selectItem itemLabel=" Remember me" itemValue="SaveInfo" />
+                        </p:selectManyCheckbox>
 
-                            <div class="buttons">
-                                <p:commandButton value="Login" action="#{loginBean.login()}" icon="pi pi-check"/>
-                            </div>
+                        <div class="buttons">
+                            <p:commandButton value="Login" action="#{loginBean.login()}" icon="pi pi-check"/>
+                        </div>
                         <pe:blockUI target="form"/>
                     </h:form>
                 </div>

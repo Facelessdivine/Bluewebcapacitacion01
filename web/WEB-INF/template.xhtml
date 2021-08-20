@@ -37,6 +37,18 @@
     </h:head>
 
     <h:body>
+        <p:idleMonitor timeout="60000">
+            <p:ajax event="active" onstart="PF('inactivo').show()"/>
+        </p:idleMonitor>
+
+        <p:dialog widgetVar="inactivo" draggable="false" closable="false" resizable="false" header="Tu sesión a terminado" modal="true">
+            <p:panel>
+                <h:form>
+                    <p:outputLabel value="Tú sesión se ha cerrado"/>
+                    <p:commandButton value="Salir" actionListener="#{userSessionBean.logOut()}" style="margin: 0.7rem;" oncomplete="PF('inactivo').hide()"/>
+                </h:form>
+            </p:panel>
+        </p:dialog> 
         <f:event listener="#{userSessionBean.isLoggedIn()}" type="preRenderView"/>
         <div class="layout-wrapper #{guestPreferences.layoutConfig}">
             <ui:include src="./sidebar.xhtml" />
