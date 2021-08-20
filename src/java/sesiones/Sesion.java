@@ -37,7 +37,7 @@ public class Sesion {
 
         try {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            FacesContext.getCurrentInstance().getExternalContext()
+            FacesContext.getCurrentInstance().getExternalContext() 
                     .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()
                             + "/faces/login.xhtml");
         } catch (IOException io) {
