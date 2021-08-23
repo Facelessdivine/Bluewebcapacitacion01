@@ -12,6 +12,7 @@ import java.util.List;
 import javax.naming.NamingException;
 import responses.Response;
 import clases.Perfil;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import responses.ProfileResponse;
@@ -37,7 +38,7 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "SELECT ID_PERFIL, NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA, FECHA_BAJA, FECHA_SERVIDOR, ID_USUARIO_MODIFICA FROM S_PERFILES";
+            query = "SELECT ID_PERFIL, NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA, FECHA_BAJA, FECHA_SERVIDOR, ID_USUARIO_MODIFICA FROM S_PERFILES WITH (NOLOCK)";
             PreparedStatement consulta = con.prepareStatement(query);
             ResultSet rs = consulta.executeQuery();
 
@@ -187,11 +188,13 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "UPDATE S_PERFILES SET NOMBRE_PERFIL = ?, DESCRIPCION = ?, ACTIVO = ? WHERE ID_PERFIL = ? ";
+            query = "UPDATE S_PERFILES SET NOMBRE_PERFIL = ?, DESCRIPCION = ?, ACTIVO = ?, ID_USUARIO_MODIFICA = ? WHERE ID_PERFIL = ? ";
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());
             consulta.setBoolean(3, profile.getActivo());
+            consulta.setInt(4, profile.getId_usuario_modifica());
+            consulta.setInt(5, profile.getId_perfil());
             ban = consulta.executeUpdate();
 
             consulta.close();

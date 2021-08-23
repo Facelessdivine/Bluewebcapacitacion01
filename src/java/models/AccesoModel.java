@@ -36,7 +36,7 @@ public class AccesoModel {
 
             con = pool.getConnection("Activa");
 
-            query = "SELECT * FROM S_ACCESOS";
+            query = "SELECT ID_ACCESO, NOMBRE_ACCESO, ORDEN,ACTIVO,FECHA_SERVIDOR FROM S_ACCESOS WITH (NOLOCK)";
             PreparedStatement consulta = con.prepareStatement(query);
             ResultSet rs = consulta.executeQuery();
 
@@ -90,7 +90,7 @@ public class AccesoModel {
 
             con = pool.getConnection("Activa");
 
-            query = "INSERT INTO S_ACCESOS (NOMBRE_ACCESO, ORDEN, ACTIVO, FECHA_SERVIDOR) VALUES (?,?,?,SYSDATETIME()) ";
+            query = "INSERT INTO S_ACCESOS (NOMBRE_ACCESO, ORDEN, ACTIVO, FECHA_SERVIDOR) VALUES (?,?,?,GETDATE()) ";
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, access.getNombre_acceso());
             consulta.setInt(2, access.getOrden());
