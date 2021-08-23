@@ -44,7 +44,7 @@ public class Sesion {
     }
 
     public void logOut() {
-
+        System.out.println("logout");
         try {
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
             FacesContext.getCurrentInstance().getExternalContext() 

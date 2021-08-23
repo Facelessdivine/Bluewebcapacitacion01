@@ -45,18 +45,19 @@
 
     <h:body>
         <h:form id="form">
-            <p:idleMonitor timeout="60000">
+            <p:idleMonitor timeout="1000">
                 <p:ajax event="active" onstart="PF('inactivo').show()"/>
             </p:idleMonitor>
 
-            <p:dialog widgetVar="inactivo" draggable="false" closable="false" resizable="false" header="Tu sesión a terminado" modal="true">
+
+            <p:dialog  widgetVar="inactivo" draggable="false"  resizable="false" header="Tu sesión a terminado" modal="true">
                 <p:panel>
-                    <h:form>
-                        <p:outputLabel value="Tú sesión se ha cerrado"/>
-                        <p:commandButton value="Salir" actionListener="#{userSessionBean.logOut()}" style="margin: 0.7rem;" oncomplete="PF('inactivo').hide()"/>
-                    </h:form>
+                    <p:outputLabel value="Tú sesión se ha cerrado"/>
+                    <p:commandButton value="Salir"  style="margin: 0.7rem;" actionListener="#{userSessionBean.logOut()}" process="@this form"  />
+
                 </p:panel>
             </p:dialog> 
+
 
             <f:event listener="#{userSessionBean.isLoggedIn()}" type="preRenderView"/>
             <div class="layout-wrapper #{guestPreferences.layoutConfig}">
@@ -76,15 +77,7 @@
                 </div>
             </div>
 
-            <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px;z-index: 1000002">
-                <f:facet name="start">
-                    <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
-                </f:facet>
 
-                <f:facet name="complete">
-                    <h:outputText value="" />
-                </f:facet>
-            </p:ajaxStatus>
             <p:growl id="messages" showDetail="true" life="1300"  >
                 <p:autoUpdate/>
             </p:growl>

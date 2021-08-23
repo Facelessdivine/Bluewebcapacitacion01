@@ -108,7 +108,7 @@ public class PerfilModel {
             PreparedStatement consulta = con.prepareStatement(query);
             consulta.setString(1, profile.getNombre_perfil());
             consulta.setString(2, profile.getDescripcion());
-            consulta.setBoolean(3, profile.getActivo());
+            consulta.setBoolean(3, true);
             consulta.setInt(4, s.getSesion("User").getId_usuario());
 
             ban = consulta.executeUpdate();

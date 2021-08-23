@@ -109,17 +109,17 @@
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="descripcion">Descripción</p:outputLabel>
-                                        <p:inputTextarea value="#{perfilBean.profile.descripcion}" id="descripcion" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Este perfil" />
+                                        <p:inputTextarea value="#{perfilBean.profile.descripcion}" id="descripcion" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Este perfil" maxlength="100"/>
 
                                     </div>
                                     &nbsp;
 
-                                    <div class="p-field">
+                                    <div class="p-field" style="hi">
                                         <p:outputLabel for="activo">Estado</p:outputLabel>  
                                         &nbsp;
                                         &nbsp;
 
-                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo" value="#{perfilBean.profile.activo}"
+                                        <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{perfilBean.profile.activo}"  
                                                                onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
                                     </div>
                                 </p:outputPanel>
