@@ -37,7 +37,7 @@ public class PerfilModel {
 
             con = pool.getConnection("Activa");
 
-            query = "SELECT (ID_PERFIL, NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA, FECHA_BAJA, FECHA_SERVIDOR, ID_USUARIO_MODIFICA) FROM S_PERFILES";
+            query = "SELECT ID_PERFIL, NOMBRE_PERFIL, DESCRIPCION, ACTIVO, FECHA_ALTA, FECHA_BAJA, FECHA_SERVIDOR, ID_USUARIO_MODIFICA FROM S_PERFILES";
             PreparedStatement consulta = con.prepareStatement(query);
             ResultSet rs = consulta.executeQuery();
 

@@ -30,7 +30,6 @@ public class PerfilBean {
     public void init() {
 
         profileModel = new PerfilModel();
-
         ProfileResponse select = profileModel.queryProfile();
         switch (select.getResponse().getId()) {
             case 0:

@@ -14,7 +14,11 @@
         <group>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/IndexBean.java</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/empty.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/models/PerfilModel.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/PerfilBean.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/perfil.xhtml</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/WEB-INF/template.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/acceso.xhtml</file>
         </group>
     </open-files>
 </project-private>
