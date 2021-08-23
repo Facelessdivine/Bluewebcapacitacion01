@@ -86,6 +86,12 @@ public class PerfilModel {
 
     // Esta función agrega perfiles a la base de datos, recibiendo un objeto de tipo
     // perfil como parámetro
+
+    /**
+     *
+     * @param profile
+     * @return respuestaPerfil
+     */
     public ProfileResponse addProfile(Perfil profile) {
         Sesion s = new Sesion();
         ProfileResponse respuestaPerfil = new ProfileResponse();
@@ -134,6 +140,12 @@ public class PerfilModel {
 
     // Esta función recibe un parámetro de tipo Perfil para poder eliminar por medio
     // del ID_PERFIL en la base de datos, y retorna un valor de tipo ProfileResponse
+
+    /**
+     *
+     * @param profile
+     * @return respuestaPerfil
+     */
     public ProfileResponse deleteProfile(Perfil profile) {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();
@@ -177,6 +189,12 @@ public class PerfilModel {
     }
 
     // Esta función recibe un objeto de tipo perfil como parámetro y actualiza con base en el ID que se le haya enviado
+
+    /**
+     *
+     * @param profile
+     * @return respuestaPerfil
+     */
     public ProfileResponse updateProfile(Perfil profile) {
         ProfileResponse respuestaPerfil = new ProfileResponse();
         Response claseRespuesta = new Response();

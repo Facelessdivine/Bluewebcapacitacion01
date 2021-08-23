@@ -49,6 +49,10 @@ public class PerfilBean {
 
     }
 
+    /**
+     *
+     * @param profile
+     */
     public void removeProfile(Perfil profile) {
         profileModel = new PerfilModel();
         ProfileResponse remove = profileModel.deleteProfile(profile);
@@ -114,30 +118,31 @@ public class PerfilBean {
 
     }
 
+    //<editor-fold defaultstate="collapsed" desc="getters and setters">
     public List<Perfil> getProfileList() {
         return listaPerfil;
     }
-
+    
     public List<Perfil> getFiltroPerfil() {
         return filtroPerfil;
     }
-
+    
     public void setListaPerfil(List<Perfil> listaPerfil) {
         this.listaPerfil = listaPerfil;
     }
-
+    
     public void setFiltroPerfil(List<Perfil> filtroPerfil) {
         this.filtroPerfil = filtroPerfil;
     }
-
+    
     public Perfil getProfile() {
         return profile;
     }
-
+    
     public void setProfile(Perfil profile) {
         this.profile = profile;
     }
-
+//</editor-fold>
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
