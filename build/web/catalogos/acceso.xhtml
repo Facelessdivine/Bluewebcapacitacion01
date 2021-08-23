@@ -33,7 +33,7 @@
                                      reflow="true" styleClass="products-table"
                                      paginator="true"
                                      filteredValue="#{accesoBean.filtroAcceso}"
-                                     filterEvent="enter"
+                                     filterEvent="keyup"
                                      rows="10" paginatorPosition="bottom"
                                      selection="#{accesoBean.access}"
                                      selectionMode="single"
@@ -101,15 +101,15 @@
                                 <p:outputPanel >
                                     <div class="p-field" >
 
-                                        <p:inputText value="#{accesoBean.access.id_acceso}" type="hidden"/>
+                                        <p:inputText value="#{accesoBean.access.id_acceso}" type="hidden" />
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="nombre_acceso">Nombre Acceso</p:outputLabel>
-                                        <p:inputText  maxlength="30"  id="nombre_acceso" value="#{accesoBean.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
+                                        <p:inputText  maxlength="30"  id="nombre_acceso" value="#{accesoBean.access.nombre_acceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Acceso a catálogo"/>
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="orden">Orden</p:outputLabel>
-                                        <p:inputNumber value="#{accesoBean.access.orden}" id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  decimalPlaces="0" maxValue="99">
+                                        <p:inputNumber value="#{accesoBean.access.orden}" id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="99" decimalPlaces="0" maxValue="99">
 
 
                                         </p:inputNumber>

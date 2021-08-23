@@ -21,68 +21,65 @@
 
                         <p:toolbar>
                             <p:toolbarGroup align="right">
-                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{perfil.profile}" type="button"
-                                                 update=":form:manage-product-content" onclick="PF('manageProductDialog').show()"
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{perfilBean.profile}" type="button"
+                                                 update="form:form:dtAccessos" onclick="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
-                                    <p:resetInput target=":form:manage-product-content"/>
+                                    <p:resetInput target="form:form:dtAccessos"/>
                                 </p:commandButton>
 
                             </p:toolbarGroup>
                         </p:toolbar>
-                        <p:dataTable id="dtPerfiles" widgetVar="dtPerfiles" var="prof" value="#{perfilBean.profileList}"
+                        <p:dataTable id="dtAccessos" widgetVar="dtAccessos" var="p" value="#{perfilBean.profileList}"
                                      reflow="true" styleClass="products-table"
                                      paginator="true"
                                      filteredValue="#{perfilBean.filtroPerfil}"
-                                     filterEvent="enter"
+                                     filterEvent="keyup"
                                      rows="10" paginatorPosition="bottom"
                                      selection="#{perfilBean.profile}"
                                      selectionMode="single"
                                      editable="true"
                                      editMode="row" 
-                                     rowKey="#{prof.id_perfil}"
+                                     rowKey="#{p.id_perfil}"
 
                                      >
 
 
-                            <p:column headerText="Nombre de perfil" filterBy="#{prof.nombre_perfil}">
 
-                                <h:outputText value="#{prof.nombre_perfil}"/> 
+                            <p:column headerText="Nombre de acceso" filterBy="#{p.nombre_perfil}">
 
-
-                            </p:column>
-
-                            <p:column headerText="Descripción"  filterBy="#{prof.descripcion}">
-
-                                <h:outputText value="#{prof.descripcion}"/> 
+                                <h:outputText value="#{p.nombre_perfil}"/> 
 
 
                             </p:column>
 
+                            <p:column headerText="Descripción"  filterBy="#{p.descripcion}">
 
-                            <p:column headerText="Estado"  filterBy="#{prof.estado}">
+                                <h:outputText value="#{p.descripcion}"/> 
 
-                                <h:outputText value="#{prof.estado}"/> 
+
+                            </p:column>
+
+
+                            <p:column headerText="Estado"  filterBy="#{p.estado}">
+
+                                <h:outputText value="#{p.estado}"/> 
 
 
                             </p:column>
 
-                            <p:column headerText="Fecha Servidor"  filterBy="#{prof.fecha_servidor}">
-
-                                <h:outputText value="#{prof.fecha_servidor}"/> 
-
-                            </p:column>
+                            
 
                             <p:column >
 
-                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" action="#{perfilBean.removeProfile(prof)}" >
+                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtAccessos" action="#{perfilBean.removeProfile(p)}" >
                                     <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil" update=":form:dialogadd"
+                                <p:commandButton icon="pi pi-pencil"  update="form:form:dialogadd"
                                                  oncomplete="PF('manageProductDialog').show()"
                                                  styleClass="edit-button rounded-button ui-button-success" process="@this">
 
-                                    <p:resetInput target=":form:manage-product-content"/>
-                                    <f:setPropertyActionListener value="#{prof}" target="#{perfilBean.profile}"/>
+                                    <p:resetInput target="form:form:manageproductcontent"/>
+                                    <f:setPropertyActionListener value="#{p}" target="#{perfilBean.profile}"/>
                                 </p:commandButton>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
@@ -93,22 +90,22 @@
                             </p:column>    
 
                         </p:dataTable>
-                        
-                        <p:dialog id="dialogadd" header="Detalles de Perfil" showEffect="fade" 
+
+                        <p:dialog id="dialogadd" header="Detalles de Acceso" showEffect="fade" 
                                   widgetVar="manageProductDialog" responsive="true" >
-                            <p:outputPanel id="manage-product-content" class="ui-fluid"  >
+                            <p:outputPanel id="manageproductcontent" class="ui-fluid"  >
                                 <p:outputPanel >
                                     <div class="p-field" >
 
-                                        <p:inputText value="#{perfilBean.profile.id_perfil}" type="hidden"/>
+                                        <p:inputText value="#{perfilBean.profile.id_perfil}" type="hidden" />
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="nombre_perfil">Nombre Perfil</p:outputLabel>
-                                        <p:inputText  maxlength="30"  id="nombre_perfil" value="#{perfilBean.profile.nombre_perfil}"  required="true"  requiredMessage="El nombre de perfil no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres"/>
+                                        <p:inputText  maxlength="30"  id="nombre_perfil" value="#{perfilBean.profile.nombre_perfil}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Acceso a catálogo"/>
                                     </div>
                                     <div class="p-field">
                                         <p:outputLabel for="descripcion">Descripción</p:outputLabel>
-                                        <p:inputText value="#{perfilBean.profile.descripcion}" id="descripcion" required="true"  requiredMessage="La descripción no puede ser nula" validatorMessage="Solo se aceptan hasta 100 caracteres" maxlength="100"  />
+                                        <p:inputTextarea value="#{perfilBean.profile.descripcion}" id="descripcion" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Este perfil" />
 
                                     </div>
                                     &nbsp;
@@ -125,11 +122,11 @@
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" id="save" icon="pi pi-check" actionListener="#{perfilBean.updateOrInsertProfile()}" 
-                                                 process="manage-product-content @this" />
+                                <p:commandButton value="Save" id="save" icon="pi pi-check" update="form:form:manageproductcontent,dtAccessos" actionListener="#{perfilBean.updateOrInsertProfile()}" 
+                                                 process="manageproductcontent @this" onclick="PF('manageProductDialog').hide()" />
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">
-                                    <p:resetInput target=":form:manage-product-content"/>
+                                    <p:resetInput target=":form:manageproductcontent"/>
                                 </p:commandButton>
                             </f:facet>
                         </p:dialog>
