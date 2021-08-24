@@ -37,7 +37,7 @@ public class CTelefonia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ID_TELEFONIA")
+    @Column(name = "ID_TELEFONIA") 
     private Long idTelefonia;
     @Column(name = "DESCRIPCION")
     private String descripcion;

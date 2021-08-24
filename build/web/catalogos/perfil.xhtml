@@ -22,7 +22,7 @@
                         <p:toolbar>
                             <p:toolbarGroup align="right">
                                 <p:commandButton value="New" icon="pi pi-plus" actionListener="#{perfilBean.profile}" type="button"
-                                                 update="form:form:dtPerfiles" onclick="PF('manageProductDialog').show()"
+                                                 update=":form:dtPerfiles" onclick="PF('manageProductDialog').show()"
                                                  styleClass="ui-button-success" style="margin-right: .6rem">
                                     <p:resetInput target="form:form:dtPerfiles"/>
                                 </p:commandButton>
@@ -74,11 +74,11 @@
                                 <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" action="#{perfilBean.removeProfile(p)}" >
                                     <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                                 </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil"  update="form:form:dialogadd"
+                                <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd"
                                                  oncomplete="PF('manageProductDialog').show()"
                                                  styleClass="edit-button rounded-button ui-button-success" process="@this">
 
-                                    <p:resetInput target="form:form:manageproductcontent"/>
+                                    <p:resetInput target=":form:manageproductcontent"/>
                                     <f:setPropertyActionListener value="#{p}" target="#{perfilBean.profile}"/>
                                 </p:commandButton>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
@@ -126,7 +126,7 @@
                             </p:outputPanel>
 
                             <f:facet name="footer">
-                                <p:commandButton value="Save" id="save" icon="pi pi-check" update="form:form:manageproductcontent,dtPerfiles" actionListener="#{perfilBean.updateOrInsertProfile()}" 
+                                <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:manageproductcontent,dtPerfiles" actionListener="#{perfilBean.updateOrInsertProfile()}" 
                                                  process="manageproductcontent @this" onclick="PF('manageProductDialog').hide()" />
                                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
                                                  class="ui-button-secondary">

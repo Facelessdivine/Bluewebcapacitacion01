@@ -38,7 +38,7 @@ public class CTipoTelefono implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "ID" ) 
     private Long id;
     @Column(name = "DESCRIPCION")
     private String descripcion;
@@ -51,62 +51,63 @@ public class CTipoTelefono implements Serializable {
     @Column(name = "FECHA_SERVIDOR")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaServidor;
-
+//<editor-fold defaultstate="collapsed" desc="getters and setters">
+    
     public CTipoTelefono() {
     }
-
+    
     public CTipoTelefono(Long id) {
         this.id = id;
     }
-
+    
     public Long getId() {
         return id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
     public String getClave() {
         return clave;
     }
-
+    
     public void setClave(String clave) {
         this.clave = clave;
     }
-
+    
     public Long getIdTelefonia() {
         return idTelefonia;
     }
-
+    
     public void setIdTelefonia(Long idTelefonia) {
         this.idTelefonia = idTelefonia;
     }
-
+    
     public Boolean getActivo() {
         return activo;
     }
-
+    
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
-
+    
     public Date getFechaServidor() {
         return fechaServidor;
     }
-
+    
     public void setFechaServidor(Date fechaServidor) {
         this.fechaServidor = fechaServidor;
     }
-
+//</editor-fold>
     @Override
     public int hashCode() {
         int hash = 0;

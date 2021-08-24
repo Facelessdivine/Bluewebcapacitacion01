@@ -12,16 +12,21 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/sesiones/Sesion.java</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/IndexBean.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/entities/CTipoTelefono.java</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/login.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/utils/LocalEntityManagerFactory.java</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/empty.xhtml</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/models/PerfilModel.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/META-INF/context.xml</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/PerfilBean.java</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/perfil.xhtml</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/acceso.xhtml</file>
             <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/WEB-INF/template.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/templates/left.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/sesiones/Sesion.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/templates/header.xhtml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/CTelefoniaJpaController.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/acceso.xhtml</file>
         </group>
     </open-files>
 </project-private>
