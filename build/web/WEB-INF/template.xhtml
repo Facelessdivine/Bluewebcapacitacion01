@@ -35,7 +35,7 @@
         <h:outputScript name="js/layout.js" library="mirage-layout" />
         <ui:insert name="head"/>
         <style>
-            div[id="form:messages_container"] {
+            div[id="forma:messages_container"] {
                 position:absolute;
                 top:20px;
                 left:40%;
@@ -44,7 +44,7 @@
     </h:head>
 
     <h:body>
-        <h:form id="form">
+        <h:form id="forma">
             <p:idleMonitor timeout="60000">
                 <p:ajax event="active" onstart="PF('inactivo').show()"/>
             </p:idleMonitor>
@@ -53,7 +53,7 @@
                 <p:panel>
 
                     <p:outputLabel value="Tú sesión se ha cerrado"/>
-                    <p:commandButton value="Salir" actionListener="#{userSessionBean.logOut()}" style="margin: 0.7rem;" oncomplete="PF('inactivo').hide()" process="@this form"/>
+                    <p:commandButton value="Salir" actionListener="#{userSessionBean.logOut()}" style="margin: 0.7rem;" oncomplete="PF('inactivo').hide()" process="@this forma"/>
 
                 </p:panel>
             </p:dialog> 

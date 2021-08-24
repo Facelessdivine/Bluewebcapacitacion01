@@ -69,25 +69,7 @@
 
                             
 
-                            <p:column >
-
-                                <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" action="#{perfilBean.removeProfile(p)}" >
-                                    <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
-                                </p:commandButton>
-                                <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd"
-                                                 oncomplete="PF('manageProductDialog').show()"
-                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
-
-                                    <p:resetInput target=":form:manageproductcontent"/>
-                                    <f:setPropertyActionListener value="#{p}" target="#{perfilBean.profile}"/>
-                                </p:commandButton>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-                                </p:confirmDialog>
-
-
-                            </p:column>    
+                            
 
                         </p:dataTable>
 
