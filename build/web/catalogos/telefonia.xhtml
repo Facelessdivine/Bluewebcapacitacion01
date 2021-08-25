@@ -19,21 +19,21 @@
                     </div>
                     <p:toolbar>
                         <p:toolbarGroup align="right">
-                            <p:commandButton value="New" icon="pi pi-plus" actionListener="#{telefoniaBean.telefonia}" type="button"
-                                             update=":form:dtTelefonia" onclick="PF('manageProductDialog').show()"
+                            <p:commandButton value="New" icon="pi pi-plus" actionListener="#{TipoTelefoniaBean.telefonia}" type="button"
+                                             update=":form:dtTelefonia" onclick="PF('manageInsertDialog').show()"
                                              styleClass="ui-button-success" style="margin-right: .6rem">
-                                <p:resetInput target="form:form:dtTelefonia"/>
+                                <p:resetInput target=":form:dtTelefonia"/>
                             </p:commandButton>
 
                         </p:toolbarGroup>
                     </p:toolbar>
-                    <p:dataTable id="dtTelefonia" widgetVar="dtTelefonia" var="tel" value="#{telefoniaBean.lsitaTelefonia}"
+                    <p:dataTable id="dtTelefonia" widgetVar="dtTelefonia" var="tel" value="#{TipoTelefoniaBean.listaTelefonia}"
                                  reflow="true" styleClass="products-table"
                                  paginator="true"
-                                 filteredValue="#{telefoniaBean.filtroTelefonia}"
+                                 filteredValue="#{TipoTelefoniaBean.filtroTelefonia}"
                                  filterEvent="keyup"
                                  rows="10" paginatorPosition="bottom"
-                                 selection="#{telefoniaBean.telefonia}"
+                                 selection="#{TipoTelefoniaBean.telefonia}"
                                  selectionMode="single"
                                  editable="true"
                                  editMode="row" 
@@ -43,7 +43,7 @@
 
 
 
-                        <p:column headerText="Descripción" filterBy="#{tel.descripcion}">
+                        <p:column headerText="Descripción" filterBy="#{tel}">
 
                             <h:outputText value="#{tel.descripcion}"/> 
 
@@ -57,24 +57,31 @@
 
                         </p:column>
 
+                        <p:column headerText="Telefonía" filterBy="#{tel.idTelefonia.descripcion}">
+
+                            <h:outputText value="#{tel.idTelefonia.descripcion}"/> 
+
+
+                        </p:column>
+
 
                         <p:column headerText="Estado"  filterBy="#{tel.activo}">
 
-                            <h:outputText value="#{tel.activo}"/> 
+                            <h:outputText value="ACTIVO" rendered="#{tel.activo}"/> 
+                            <h:outputText value="DESACTIVADO" rendered="#{not tel.activo}"/> 
 
 
                         </p:column>
                         <p:column >
 
-                            <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtTelefonia" action="#{telefoniaBean.removeTelefonia(tel)}" >
+                            <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtTelefonia" actionListener="#{TipoTelefoniaBean.eliminarTelefonia(tel)}" >
                                 <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
-                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd"
-                                             oncomplete="PF('manageProductDialog').show()"
+                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
+                                             oncomplete="PF('manageUpdateTel').show()"
                                              styleClass="edit-button rounded-button ui-button-success" process="@this">
-
+                                <f:setPropertyActionListener value="#{tel}" target="#{TipoTelefoniaBean.telefonia}"/>
                                 <p:resetInput target=":form:manageproductcontent"/>
-                                <f:setPropertyActionListener value="#{tel}" target="#{telefoniaBean.telefonia}"/>
                             </p:commandButton>
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
@@ -85,32 +92,78 @@
                         </p:column>    
                     </p:dataTable>
                     <p:dialog id="dialogadd" header="Detalles de Telefonía" showEffect="fade" 
-                              widgetVar="manageProductDialog" responsive="true" >
+                              widgetVar="manageInsertDialog" responsive="true" >
                         <p:outputPanel id="manageproductcontent" class="ui-fluid"  >
                             <p:outputPanel >
                                 <div class="p-field" >
 
-                                    <p:inputText value="#{telefoniaBean.telefonia.idTelefonia}" type="hidden" />
+                                    <p:inputText value="#{TipoTelefoniaBean.telefonia.idTelefonia}" type="hidden" />
                                 </div>
                                 <div class="p-field">
                                     <p:outputLabel for="descripcion">Descripción</p:outputLabel>
-                                    <p:inputText  maxlength="30"  id="descripcion" value="#{telefoniaBean.telefonia.descripcion}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Acceso a catálogo"/>
+                                    <p:inputText  maxlength="50"  id="descripcion" value="#{TipoTelefoniaBean.telefonia.descripcion}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Acceso a catálogo"/>
                                 </div>
                                 <div class="p-field">
                                     <p:outputLabel for="clave">Clave</p:outputLabel>
-                                    <p:inputTextarea value="#{telefoniaBean.telefonia.clave}" id="clave" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Este perfil" maxlength="100"/>
-
+                                    <p:inputTextarea value="#{TipoTelefoniaBean.telefonia.clave}" id="clave" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Este perfil" maxlength="30"/>
+                                </div>
+                                <div class="p-field">
+                                    <p:selectOneMenu id="option" value="#{TipoTelefoniaBean.idTelefonia}"  >
+                                        <f:selectItems value="#{TipoTelefoniaBean.comboTelefonia}" var="telefono"
+                                                       itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}"/>
+                                    </p:selectOneMenu>
                                 </div>
                                 &nbsp;
                             </p:outputPanel>
                         </p:outputPanel>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:manageproductcontent,dtTelefonia,messages" actionListener="#{telefoniaBean.updateOrInsertTelefonia()}" 
-                                             process="manageproductcontent @this" onclick="PF('manageProductDialog').hide()" />
-                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()" type="button"
+                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:manageproductcontent,dtTelefonia,messages" action="#{TipoTelefoniaBean.insertTelefonia()}" 
+                                             process="@this manageproductcontent" onclick="PF('manageInsertDialog').hide()" />
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageInsertDialog').hide()" type="button"
                                              class="ui-button-secondary">
                                 <p:resetInput target=":form:manageproductcontent"/>
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dialog>
+                    <p:dialog id="dialogadd2" header="Editar campos de Telefonia" showEffect="fade" 
+                              widgetVar="manageUpdateTel" responsive="true" >
+                        <p:outputPanel id="manageproductcontent2" class="ui-fluid"  >
+                            <p:outputPanel >
+                                <div class="p-field" >
+
+                                    <p:inputText value="#{TipoTelefoniaBean.telefonia.id}" type="disabled" />
+                                </div>
+                                <div class="p-field">
+                                    <p:outputLabel for="descripcion2">Descripción</p:outputLabel>
+                                    <p:inputText  maxlength="50"  id="descripcion2" value="#{TipoTelefoniaBean.telefonia.descripcion}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
+                                </div>
+                                <div class="p-field">
+                                    <p:outputLabel for="clave2">Clave</p:outputLabel>
+                                    <p:inputTextarea value="#{TipoTelefoniaBean.telefonia.clave}" id="clave2" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Clave" maxlength="30"/>
+                                </div>
+                                <div class="p-field">
+                                    <p:selectOneMenu id="option2" value="#{TipoTelefoniaBean.telefonia.idTelefonia}"  converter="Tip">
+                                        <f:selectItems value="#{TipoTelefoniaBean.comboTelefonia}" var="telefono" 
+                                                       itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}" noSelectionValue=""/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="p-field" style="hi">
+                                    <p:outputLabel for="activo">Estado</p:outputLabel>  
+                                    &nbsp;
+
+                                    <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{TipoTelefoniaBean.telefonia.activo}"  
+                                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                                </div>
+
+                            </p:outputPanel>
+                        </p:outputPanel>
+                        <f:facet name="footer">
+                            <p:commandButton value="Save" id="save2" icon="pi pi-check" update=":form:manageproductcontent2,dtTelefonia,messages" actionListener="#{TipoTelefoniaBean.updateTelefonia()}" 
+                                             process="manageproductcontent2 @this"  />
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUpdateTel').hide()" type="button"
+                                             class="ui-button-secondary">
+                                <p:resetInput target=":form:manageproductcontent2"/>
                             </p:commandButton>
                         </f:facet>
                     </p:dialog>

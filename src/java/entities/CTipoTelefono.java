@@ -10,7 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,6 +44,7 @@ public class CTipoTelefono implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     @Size(max = 50)
@@ -57,7 +59,7 @@ public class CTipoTelefono implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaServidor;
     @JoinColumn(name = "ID_TELEFONIA", referencedColumnName = "ID_TELEFONIA")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private CTelefonia idTelefonia;
 
     public CTipoTelefono() {

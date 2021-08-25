@@ -46,11 +46,10 @@ public class AccesoModel {
                 acceso.setNombre_acceso(rs.getString("NOMBRE_ACCESO"));
                 acceso.setOrden(rs.getInt("ORDEN"));
                 acceso.setActivo(rs.getBoolean("ACTIVO"));
-                String estado = rs.getBoolean("ACTIVO") ? "ACTIVO" : "INACTIVO";
+                String estado   = rs.getBoolean("ACTIVO") ? "ACTIVO" : "INACTIVO";
                 acceso.setEstado(estado);
                 acceso.setFecha_servidor(rs.getDate("FECHA_SERVIDOR"));
                 lista.add(acceso);
-
             }
 
             rs.close();
