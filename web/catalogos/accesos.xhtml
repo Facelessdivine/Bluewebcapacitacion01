@@ -66,10 +66,12 @@
                             <h:outputText value="ACTIVO" rendered="#{ac.activo}"/> 
                             <h:outputText value="DESACTIVADO" rendered="#{not ac.activo}"/> 
                         </p:column>
-                        <p:column filterMatchMode="contains">
+                        <p:defaultCommand target="delete" scope="dtAccesos"/>
+                        <p:column filterMatchMode="contains" id="columneditupdate">
 
-                            <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtAccesos" actionListener="#{AccesosBean.eliminarAccesos(ac)}" >
-                                <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
+                            <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update="form:messages,dtAccesos" actionListener="#{AccesosBean.eliminarAccesos(ac)}" >
+                                
+                                <p:confirm header="Confirmation" id="confirm" message="¿Estás seguro que deseas eliminar este acceso?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
                             <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
                                              oncomplete="PF('manageUpdateTel').show()" 
