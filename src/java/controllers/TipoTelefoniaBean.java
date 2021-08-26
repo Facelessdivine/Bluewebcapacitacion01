@@ -26,11 +26,32 @@ public class TipoTelefoniaBean {
     private long idTelefonia;
 
     private CTipoTelefono telefonia;
+    private CTelefonia selectedValue;
+
+    public CTelefonia getSelectedValue() {
+        return selectedValue;
+    }
+
+    public void setSelectedValue(CTelefonia selectedValue) {
+        this.selectedValue = selectedValue;
+    }
+
+    
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     private CTelefonia queryByIdTelefonia;
-private long id;
+    private long id;
+
     public TipoTelefoniaBean() {
         telefonia = new CTipoTelefono();
         queryByIdTelefonia = new CTelefonia();
+        selectedValue = new CTelefonia();
     }
 
     CTipoTelefonoJpaController modelTipoTelefono = new CTipoTelefonoJpaController();
@@ -67,10 +88,19 @@ private long id;
 
     }
 
+    public void getSelectedOption(CTipoTelefono t) {
+//        telefonia.setIdTelefonia(modelTelefonia.findCTelefonia(t.getIdTelefonia().getIdTelefonia()));
+//        telefonia.getIdTelefonia().getDescripcion();
+        selectedValue.setIdTelefonia(t.getIdTelefonia().getIdTelefonia()); 
+//        telefonia = t;
+
+    }
+
     public void updateTelefonia() {
-        System.out.println("UPDATE");
+
         try {
-            telefonia.setIdTelefonia(modelTelefonia.findCTelefonia(idTelefonia));
+            
+            telefonia.setIdTelefonia(modelTelefonia.findCTelefonia(selectedValue.getIdTelefonia()));
             modelTipoTelefono.edit(telefonia);
             Select();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Actualizado con éxito");
@@ -78,6 +108,8 @@ private long id;
         } catch (Exception ex) {
             Logger.getLogger(TipoTelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        this.telefonia = null;
     }
 
     public void eliminarTelefonia(CTipoTelefono id) throws NonexistentEntityException {
@@ -163,5 +195,4 @@ private long id;
     }
 //</editor-fold>
 
-    
 }

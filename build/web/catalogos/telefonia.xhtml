@@ -32,32 +32,35 @@
                                  paginator="true"
                                  filteredValue="#{TipoTelefoniaBean.filtroTelefonia}"
                                  filterEvent="keyup"
+                                 filterDelay="400"
+                                 
+                                 emptyMessage="No se encontraron registros"
                                  rows="10" paginatorPosition="bottom"
                                  selection="#{TipoTelefoniaBean.telefonia}"
                                  selectionMode="single"
                                  editable="true"
                                  editMode="row" 
                                  rowKey="#{tel.idTelefonia}"
-
+                                 
                                  >
 
 
 
-                        <p:column headerText="Descripción" filterBy="#{tel}">
+                        <p:column headerText="Descripción" filterBy="#{tel}" filterMatchMode="contains">
 
                             <h:outputText value="#{tel.descripcion}"/> 
 
 
                         </p:column>
 
-                        <p:column headerText="Clave" filterBy="#{tel.clave}">
+                        <p:column headerText="Clave" filterBy="#{tel.clave}" filterMatchMode="contains">
 
                             <h:outputText value="#{tel.clave}"/> 
 
 
                         </p:column>
 
-                        <p:column headerText="Telefonía" filterBy="#{tel.idTelefonia.descripcion}">
+                        <p:column headerText="Telefonía" filterBy="#{tel.idTelefonia.descripcion}" filterMatchMode="contains">
 
                             <h:outputText value="#{tel.idTelefonia.descripcion}"/> 
 
@@ -65,20 +68,18 @@
                         </p:column>
 
 
-                        <p:column headerText="Estado"  filterBy="#{tel.activo}">
+                        <p:column headerText="Estado"  filterBy="#{tel.activo}" filterMatchMode="contains">
 
                             <h:outputText value="ACTIVO" rendered="#{tel.activo}"/> 
                             <h:outputText value="DESACTIVADO" rendered="#{not tel.activo}"/> 
-
-
                         </p:column>
-                        <p:column >
+                        <p:column filterMatchMode="contains">
 
                             <p:commandButton class="ui-button-warning rounded-button"  icon="pi pi-trash" process="@this" update="form:messages,dtTelefonia" actionListener="#{TipoTelefoniaBean.eliminarTelefonia(tel)}" >
                                 <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
                             <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
-                                             oncomplete="PF('manageUpdateTel').show()"
+                                             oncomplete="PF('manageUpdateTel').show()" action="#{TipoTelefoniaBean.getSelectedOption(tel)}"
                                              styleClass="edit-button rounded-button ui-button-success" process="@this">
                                 <f:setPropertyActionListener value="#{tel}" target="#{TipoTelefoniaBean.telefonia}"/>
                                 <p:resetInput target=":form:manageproductcontent"/>
@@ -132,36 +133,37 @@
                             <p:outputPanel >
                                 <div class="p-field" >
 
-                                    <p:inputText value="#{TipoTelefoniaBean.telefonia.id}" type="disabled" />
+                                    <p:inputText value="#{TipoTelefoniaBean.telefonia.id}" type="hidden" />
                                 </div>
                                 <div class="p-field">
-                                    <p:outputLabel for="descripcion2">Descripción</p:outputLabel>
+                                   <p:outputLabel for="descripcion2">Descripción</p:outputLabel>
                                     <p:inputText  maxlength="50"  id="descripcion2" value="#{TipoTelefoniaBean.telefonia.descripcion}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
                                 </div>
                                 <div class="p-field">
                                     <p:outputLabel for="clave2">Clave</p:outputLabel>
                                     <p:inputTextarea value="#{TipoTelefoniaBean.telefonia.clave}" id="clave2" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="Clave" maxlength="30"/>
                                 </div>
-                                <div class="p-field">
-                                    <p:selectOneMenu id="option2" value="#{TipoTelefoniaBean.telefonia.idTelefonia}"  converter="Tip">
-                                        <f:selectItems value="#{TipoTelefoniaBean.comboTelefonia}" var="telefono" 
-                                                       itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}" noSelectionValue=""/>
+                                
+                                <p:selectOneMenu id="opcion" value="#{TipoTelefoniaBean.selectedValue.idTelefonia}" autoWidth="true" filter="true" filterMatchMode="contains" required="true" requiredMessage="Debe seleccionar una telefonía" >
+                                    <!--<f:selectItem itemLabel="Selecciona una nueva telefonía" noSelectionOption="true" />-->
+                                        <f:selectItems value="#{TipoTelefoniaBean.comboTelefonia}" var="telefono"
+                                                       itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}" />
                                     </p:selectOneMenu>
-                                </div>
+                                
                                 <div class="p-field" style="hi">
                                     <p:outputLabel for="activo">Estado</p:outputLabel>  
                                     &nbsp;
 
                                     <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{TipoTelefoniaBean.telefonia.activo}"  
                                                            onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
-                                </div>
-
+                                  </div>
+ 
                             </p:outputPanel>
                         </p:outputPanel>
                         <f:facet name="footer">
                             <p:commandButton value="Save" id="save2" icon="pi pi-check" update=":form:manageproductcontent2,dtTelefonia,messages" actionListener="#{TipoTelefoniaBean.updateTelefonia()}" 
-                                             process="manageproductcontent2 @this"  />
-                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUpdateTel').hide()" type="button"
+                                             process="manageproductcontent2 @this" onclick="PF('manageUpdateTel').hide()" />
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUpdateTel').hide()"  type="button" update=":form:manageproductcontent2"
                                              class="ui-button-secondary">
                                 <p:resetInput target=":form:manageproductcontent2"/>
                             </p:commandButton>
