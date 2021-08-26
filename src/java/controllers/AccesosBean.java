@@ -7,6 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import models.SAccesosJpaController;
 import entities.SAccesos;
+import entities.SPerfilesAccesos;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +35,7 @@ public class AccesosBean {
 
     public AccesosBean() {
         accesos = new SAccesos();
+        accesos.setSPerfilesAccesosCollection(new ArrayList<>());
     }
 
     @PostConstruct
@@ -71,6 +75,7 @@ FacesMessage msg = null;
         try {
 
 //            accesos.setIdTelefonia(modelAccesos.findCTelefonia(selectedValue.getIdTelefonia()));
+                accesos.setFechaServidor(new Date());
             modelAccesos.edit(accesos);
             Select();
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Actualizado con éxito");
