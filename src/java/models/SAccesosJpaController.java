@@ -219,7 +219,7 @@ public class SAccesosJpaController implements Serializable {
     }
 
    
-    public List<SAccesos> traerAccesosActuales(SPerfiles idPerfil) {
+    public List<SAccesos> getAsignedAccess(SPerfiles idPerfil) {
         lista = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
@@ -244,7 +244,7 @@ public class SAccesosJpaController implements Serializable {
     }
 
   
-    public List<SAccesos> traerAccesosDisponibles(SPerfiles idPerfil) {
+    public List<SAccesos> getUnasignedAccess(SPerfiles idPerfil) {
         EntityManager em = getEntityManager();
         lista = new ArrayList<>();
         try {
@@ -269,7 +269,7 @@ public class SAccesosJpaController implements Serializable {
         return lista;
     }
 
-    public List<SPerfilesAccesos> traerAccesosByPerfil(SPerfiles perfil) {
+    public List<SPerfilesAccesos> getAccessByProfile(SPerfiles perfil) {
         List<SPerfilesAccesos> listaAccesos = new ArrayList<>();
 
         if (perfil != null) {

@@ -47,16 +47,13 @@ public class PerfilesBean implements Serializable {
         perfiles = new SPerfiles();
         perfilesAccesos = new SPerfilesAccesos();
     }
+    
     //MODELS
     SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
     SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
     SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
     SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
-
-    public void log(Exception ex) {
-        Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
+    
     @PostConstruct
     public void loadPickListData() {
         try {
@@ -71,9 +68,12 @@ public class PerfilesBean implements Serializable {
     }
 
     public void loadProfileData() {
-
         listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
     }
+    public void log(Exception ex) {
+        Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
 
     public void onRowSelect(SelectEvent<SPerfiles> event) {
         try {
@@ -81,8 +81,8 @@ public class PerfilesBean implements Serializable {
             plAccesos = new DualListModel<>();
             listaAccesosDisponibles = new ArrayList<>();
             listaAccesosActuales = new ArrayList<>();
-            listaAccesosActuales = sAccesosJpa.traerAccesosActuales(perfiles);
-            listaAccesosDisponibles = sAccesosJpa.traerAccesosDisponibles(perfiles);
+            listaAccesosActuales = sAccesosJpa.getAsignedAccess(perfiles);
+            listaAccesosDisponibles = sAccesosJpa.getUnasignedAccess(perfiles);
             plAccesos = new DualListModel<>(listaAccesosDisponibles, listaAccesosActuales);
         } catch (Exception ex) {
             log(ex);
@@ -108,7 +108,7 @@ public class PerfilesBean implements Serializable {
 
             Date fechaActual = new Date();
             int usuarioSesion = s.getSesion("User").getId_usuario();
-
+//            Datos estáticos que se insertan directamente al objeto de la base de datos
             perfiles.setFechaAlta(fechaActual);
             perfiles.setFechaServidor(fechaActual);
             perfiles.setActivo(true);
@@ -120,6 +120,7 @@ public class PerfilesBean implements Serializable {
 
                     for (Object acc : plAccesos.getTarget()) {
                         SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
+                        //Datos estáticos que se insertan directamente al objeto de la base de datos
                         perfilesAccesos.setSPerfiles(perfiles);
                         perfilesAccesos.setSAccesos(acceso);
                         perfilesAccesos.setFechaServidor(fechaActual);
@@ -131,7 +132,7 @@ public class PerfilesBean implements Serializable {
                     sPerfilesJpa.edit(perfiles);
 
                     List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
-                    listaPerfilesAccesos = sAccesosJpa.traerAccesosByPerfil(perfiles);
+                    listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);
 
                     for (int i = 0; i < listaPerfilesAccesos.size(); i++) {
                         perfilesAcceso.setIdAcceso(listaPerfilesAccesos.get(i).getSPerfilesAccesosPK().getIdAcceso());
@@ -142,6 +143,7 @@ public class PerfilesBean implements Serializable {
 
                     for (Object acc : plAccesos.getTarget()) {
                         SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
+                        //Datos estáticos que se insertan directamente al objeto de la base de datos
                         perfilesAccesos.setSPerfiles(perfiles);
                         perfilesAccesos.setSAccesos(acceso);
                         perfilesAccesos.setFechaServidor(fechaActual);
@@ -173,7 +175,7 @@ public class PerfilesBean implements Serializable {
 
             try {
                 List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
-                listaPerfilesAccesos = sAccesosJpa.traerAccesosByPerfil(perfiles);
+                listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);
 
                 for (int i = 0; i < listaPerfilesAccesos.size(); i++) {
                     perfilesAcceso.setIdAcceso(listaPerfilesAccesos.get(i).getSPerfilesAccesosPK().getIdAcceso());
