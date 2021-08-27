@@ -24,7 +24,7 @@ import utils.LocalEntityManagerFactory;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 public class SPerfilesJpaController implements Serializable {
 
