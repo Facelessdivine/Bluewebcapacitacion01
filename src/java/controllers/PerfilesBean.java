@@ -55,7 +55,7 @@ public class PerfilesBean implements Serializable {
         Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    public void plCargarPerfilesAccesos() {
+    public void loadPickListData() {
         try {
             listaAccesosDisponibles = sAccesosJpa.findSAccesosEntities();
             listaAccesosActuales = new ArrayList<>();
@@ -67,7 +67,7 @@ public class PerfilesBean implements Serializable {
 
     }
 
-    public void cargarDatosPerfiles() {
+    public void loadProfileData() {
         try {
             listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
 
@@ -90,21 +90,21 @@ public class PerfilesBean implements Serializable {
         }
     }
 
-    public void nuevoPerfil() {
+    public void newProfile() {
         try {
             perfiles = new SPerfiles();
-            plCargarPerfilesAccesos();
+            loadPickListData();
         } catch (Exception ex) {
             log(ex);
         }
     }
 
-    public void guardarPerfiles() {
+    public void save() {
 
         if (perfiles.getNombrePerfil().equals("")) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Debe introducir un nombre");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            plCargarPerfilesAccesos();
+            loadPickListData();
         } else {
 
             Date fechaActual = new Date();
@@ -127,7 +127,6 @@ public class PerfilesBean implements Serializable {
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
                         sPerfilesAccesosJpa.create(perfilesAccesos);
                     }
-
                 } else {
 
                     sPerfilesJpa.edit(perfiles);
@@ -152,9 +151,9 @@ public class PerfilesBean implements Serializable {
                     }
 
                 }
-                nuevoPerfil();
-                cargarDatosPerfiles();
-                plCargarPerfilesAccesos();
+                newProfile();
+                loadProfileData();
+                loadPickListData();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Guardado exitoso");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception ex) {
@@ -166,11 +165,11 @@ public class PerfilesBean implements Serializable {
 
     }
 
-    public void eliminarPerfil() {
+    public void removeProfile() {
         if (perfiles.getIdPerfil() == null) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Requiere", "Se requiere tener un registro seleccionado");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "No ha seleccionado ningún registro");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            plCargarPerfilesAccesos();
+            loadPickListData();
         } else {
 
             try {
@@ -183,9 +182,9 @@ public class PerfilesBean implements Serializable {
                     sPerfilesAccesosJpa.destroy(perfilesAcceso);
                 }
                 sPerfilesJpa.destroy(perfiles.getIdPerfil());
-                nuevoPerfil();
-                cargarDatosPerfiles();
-                plCargarPerfilesAccesos();
+                newProfile();
+                loadProfileData();
+                loadPickListData();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Registro(s) eliminados correctamente");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (IllegalOrphanException | NonexistentEntityException ex) {
