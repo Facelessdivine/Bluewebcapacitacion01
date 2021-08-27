@@ -1,6 +1,8 @@
 package controllers;
 //<editor-fold defaultstate="collapsed" desc="imports">
+
 import entities.SAccesos;
+import sesiones.Sesion;
 import entities.SPerfiles;
 import entities.SPerfilesAccesos;
 import entities.SPerfilesAccesosPK;
@@ -11,16 +13,22 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import models.SAccesosJpaController;
 import models.SPerfilesAccesosJpaController;
 import models.SPerfilesJpaController;
+import models.exceptions.IllegalOrphanException;
+import models.exceptions.NonexistentEntityException;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
 //</editor-fold>
 
+/**
+ * Author: Raúl Herrera Macías Fecha:
+ */
 
-
+@ManagedBean(name = "PerfilesBean")
 public class PerfilesBean implements Serializable {
 
     private List<SPerfiles> listaPerfiles;
@@ -30,7 +38,7 @@ public class PerfilesBean implements Serializable {
     private DualListModel<SAccesos> plAccesos;
     private List<SAccesos> listaAccesosDisponibles;
     private List<SAccesos> listaAccesosActuales;
-
+    private Sesion s = new Sesion();
     private SPerfilesAccesos perfilesAccesos;
 
     public PerfilesBean() {
@@ -38,43 +46,32 @@ public class PerfilesBean implements Serializable {
         perfilesAccesos = new SPerfilesAccesos();
     }
 
-    /**
-     * Al cargar la pagina carga los datos del picklist
-     *
-     */
+    SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
+    SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
+    SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
+    SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
+
     public void plCargarPerfilesAccesos() {
         try {
-            SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
             listaAccesosDisponibles = sAccesosJpa.findSAccesosEntities();
             listaAccesosActuales = new ArrayList<>();
             plAccesos = new DualListModel<SAccesos>(listaAccesosDisponibles, listaAccesosActuales);
 
         } catch (Exception ex) {
-            Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    /**
-     * Al cargar la pagina carga los datos de la tabla
-     *
-     */
     public void cargarDatosPerfiles() {
         try {
-            SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
             listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
 
         } catch (Exception ex) {
-            Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Evento de seleccion en la tabla carga los datos al picklis del registro
-     * seleccionado y asigna a los campos los valores del registro seleccionado
-     *
-     * @param event
-     */
     public void onRowSelect(SelectEvent<SPerfiles> event) {
         try {
             perfiles = event.getObject();
@@ -82,46 +79,33 @@ public class PerfilesBean implements Serializable {
             listaAccesosDisponibles = new ArrayList<>();
             listaAccesosActuales = new ArrayList<>();
 
-            SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
-
             listaAccesosActuales = sAccesosJpa.traerAccesosActuales(perfiles);
             listaAccesosDisponibles = sAccesosJpa.traerAccesosDisponibles(perfiles);
             plAccesos = new DualListModel<>(listaAccesosDisponibles, listaAccesosActuales);
         } catch (Exception ex) {
-//            Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Limpia los campos y carga los datos por defecto del picklist
-     *
-     */
     public void nuevoPerfil() {
         try {
             perfiles = new SPerfiles();
             plCargarPerfilesAccesos();
         } catch (Exception ex) {
-            Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Guarda o actualiza un perfil ademas de que guarda los elementos del
-     * target en la tabla perfilesAccesos
-     *
-     */
     public void guardarPerfiles() {
 
         if (perfiles.getNombrePerfil().equals("")) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Requiere", "Se requiere el campo Nombre.");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Debe introducir un nombre");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             plCargarPerfilesAccesos();
         } else {
-            SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
-            SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
-            SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
+
             Date fechaActual = new Date();
-            int usuarioSesion = TraeDatoSesion.traerIdUsuario();
+            int usuarioSesion = s.getSesion("User").getId_usuario();
 
             perfiles.setFechaAlta(fechaActual);
             perfiles.setFechaServidor(fechaActual);
@@ -166,18 +150,17 @@ public class PerfilesBean implements Serializable {
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
                         sPerfilesAccesosJpa.create(perfilesAccesos);
                     }
-                    
 
                 }
                 nuevoPerfil();
                 cargarDatosPerfiles();
                 plCargarPerfilesAccesos();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Guardar", "Se guardó correctamente");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFO", "Guardado exitoso");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception ex) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Guardar", "Se produjo un error");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFO", "Se produjo un error");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -193,38 +176,31 @@ public class PerfilesBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             plCargarPerfilesAccesos();
         } else {
-            SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
-            SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
-            SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
+
             try {
                 List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
                 listaPerfilesAccesos = sAccesosJpa.traerAccesosByPerfil(perfiles);
 
                 for (int i = 0; i < listaPerfilesAccesos.size(); i++) {
-
-                    SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
-
                     perfilesAcceso.setIdAcceso(listaPerfilesAccesos.get(i).getSPerfilesAccesosPK().getIdAcceso());
                     perfilesAcceso.setIdPerfil(perfiles.getIdPerfil());
-
                     sPerfilesAccesosJpa.destroy(perfilesAcceso);
                 }
-
                 sPerfilesJpa.destroy(perfiles.getIdPerfil());
                 nuevoPerfil();
                 cargarDatosPerfiles();
                 plCargarPerfilesAccesos();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Eliminar", "Se eliminó correctamente");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFO", "Registro(s) eliminados correctamente");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-            } catch (Exception ex) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Eliminar", "Se produjo un error");
+            } catch (IllegalOrphanException | NonexistentEntityException ex) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFO", "Se produjo un error");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    //<editor-fold defaultstate="collapsed" desc="getters and stters">
+    //<editor-fold defaultstate="collapsed" desc="Gets y sets">
     public List<SPerfiles> getListaPerfiles() {
         return listaPerfiles;
     }
@@ -273,6 +249,14 @@ public class PerfilesBean implements Serializable {
         this.listaAccesosActuales = listaAccesosActuales;
     }
     
+    public Sesion getS() {
+        return s;
+    }
+    
+    public void setS(Sesion s) {
+        this.s = s;
+    }
+    
     public SPerfilesAccesos getPerfilesAccesos() {
         return perfilesAccesos;
     }
@@ -280,10 +264,39 @@ public class PerfilesBean implements Serializable {
     public void setPerfilesAccesos(SPerfilesAccesos perfilesAccesos) {
         this.perfilesAccesos = perfilesAccesos;
     }
+    
+    public SAccesosJpaController getsAccesosJpa() {
+        return sAccesosJpa;
+    }
+    
+    public void setsAccesosJpa(SAccesosJpaController sAccesosJpa) {
+        this.sAccesosJpa = sAccesosJpa;
+    }
+    
+    public SPerfilesJpaController getsPerfilesJpa() {
+        return sPerfilesJpa;
+    }
+    
+    public void setsPerfilesJpa(SPerfilesJpaController sPerfilesJpa) {
+        this.sPerfilesJpa = sPerfilesJpa;
+    }
+    
+    public SPerfilesAccesosJpaController getsPerfilesAccesosJpa() {
+        return sPerfilesAccesosJpa;
+    }
+    
+    public void setsPerfilesAccesosJpa(SPerfilesAccesosJpaController sPerfilesAccesosJpa) {
+        this.sPerfilesAccesosJpa = sPerfilesAccesosJpa;
+    }
+    
+    public SPerfilesAccesosPK getPerfilesAcceso() {
+        return perfilesAcceso;
+    }
+    
+    public void setPerfilesAcceso(SPerfilesAccesosPK perfilesAcceso) {
+        this.perfilesAcceso = perfilesAcceso;
+    }
 //</editor-fold>
     
+
 }
-
-    
-
-    

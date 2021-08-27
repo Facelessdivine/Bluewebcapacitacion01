@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SPerfilesAccesos.findByFechaServidor", query = "SELECT s FROM SPerfilesAccesos s WHERE s.fechaServidor = :fechaServidor"),
     @NamedQuery(name = "SPerfilesAccesos.findByIdUsuarioModifica", query = "SELECT s FROM SPerfilesAccesos s WHERE s.idUsuarioModifica = :idUsuarioModifica")})
 public class SPerfilesAccesos implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SPerfilesAccesosPK sPerfilesAccesosPK;

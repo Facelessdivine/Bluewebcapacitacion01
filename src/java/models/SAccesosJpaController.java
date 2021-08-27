@@ -6,17 +6,26 @@
 package models;
 
 import entities.SAccesos;
+import entities.SAccesos_;
+import entities.SPerfiles;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.SPerfilesAccesos;
+import entities.SPerfilesAccesos_;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CollectionJoin;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.JoinType;
 import models.exceptions.IllegalOrphanException;
 import models.exceptions.NonexistentEntityException;
 import models.exceptions.PreexistingEntityException;
@@ -24,14 +33,15 @@ import utils.LocalEntityManagerFactory;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 public class SAccesosJpaController implements Serializable {
 
     public SAccesosJpaController() {
-       this.emf = LocalEntityManagerFactory.getEntityManagerFactory();
+        this.emf = LocalEntityManagerFactory.getEntityManagerFactory();
     }
     private EntityManagerFactory emf = null;
+    private List<SAccesos> lista;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -207,9 +217,82 @@ public class SAccesosJpaController implements Serializable {
             em.close();
         }
     }
+
+   
+    public List<SAccesos> traerAccesosActuales(SPerfiles idPerfil) {
+        lista = new ArrayList<>();
+        EntityManager em = getEntityManager();
+        try {
+            em = getEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<SAccesos> query = cb.createQuery(SAccesos.class);
+            Root<SAccesos> perfil = query.from(SAccesos.class);
+            CollectionJoin<SAccesos, SPerfilesAccesos> usuarioPerfil = perfil
+                    .join(SAccesos_.sPerfilesAccesosCollection);
+            query.select(perfil).where(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), idPerfil));
+            TypedQuery<SAccesos> typedQuery = em.createQuery(query);
+
+            lista = typedQuery.getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return lista;
+    }
+
+  
+    public List<SAccesos> traerAccesosDisponibles(SPerfiles idPerfil) {
+        EntityManager em = getEntityManager();
+        lista = new ArrayList<>();
+        try {
+            em = getEntityManager();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<SAccesos> query = cb.createQuery(SAccesos.class);
+            Root<SAccesos> perfil = query.from(SAccesos.class);
+            CollectionJoin<SAccesos, SPerfilesAccesos> usuarioPerfil = perfil.join(SAccesos_.sPerfilesAccesosCollection,
+                    JoinType.INNER);
+            usuarioPerfil.on(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), idPerfil));
+            query.select(perfil).where(cb.isNull(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles)));
+            TypedQuery<SAccesos> typedQuery = em.createQuery(query);
+
+            lista = typedQuery.getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return lista;
+    }
+
+    public List<SPerfilesAccesos> traerAccesosByPerfil(SPerfiles perfil) {
+        List<SPerfilesAccesos> listaAccesos = new ArrayList<>();
+
+        if (perfil != null) {
+
+            EntityManager em = getEntityManager();
+            Query query = null;
+            try {
+
+                query = em.createNamedQuery("SPerfilesAccesos.findByIdPerfil", SPerfilesAccesos.class)
+                        .setParameter("idPerfil", perfil.getIdPerfil());
+
+                listaAccesos = query.getResultList();
+
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return listaAccesos;
+    }
+
 //    public void existOrder(){
 //        EntityManager em = getEntityManager();
 //        em.createNamedQuery("SELECT * alksjdl WHERE jalskdj").setParameter("","").getResultList();
 //    }
-    
 }

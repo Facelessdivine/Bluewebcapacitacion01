@@ -32,45 +32,26 @@
                                  paginator="true"
                                  filteredValue="#{PerfilesBean.filtroPerfiles}"
                                  filterEvent="keyup"
-                                 filterDelay="400"
-                                 
+                                 filterDelay="300"
                                  emptyMessage="No se encontraron registros"
                                  rows="10" paginatorPosition="bottom"
                                  rowKey="#{per.idAcceso}"
-                                 
+
                                  >
-
-
-
-                        <p:column headerText="Nombre Acceso" filterBy="#{per.nombreAcceso}" filterMatchMode="contains">
-
-                            <h:outputText value="#{per.nombreAcceso}"/> 
-
-
+                        <p:column headerText="Nombre" sortBy="#{per.nombrePerfil}" filterBy="#{per.nombrePerfil}">
+                            <h:outputText value="#{per.nombrePerfil}"/>
                         </p:column>
-
-                        <p:column headerText="Orden" filterBy="#{per.orden}" filterMatchMode="contains">
-
-                            <h:outputText value="#{per.orden}"/> 
-
+                        <p:column headerText="Descripción" sortBy="#{per.descripcion}" filterBy="#{per.descripcion}">
+                            <h:outputText value="#{per.descripcion}"/>
                         </p:column>
-                        <p:column headerText="Fecha Servidor" filterBy="#{per.fechaServidor}" filterMatchMode="contains">
-
-                            <h:outputText value="#{per.fechaServidor}"/> 
-
-                        </p:column>
-
-
-                        <p:column headerText="Estado"  filterBy="#{per.activo}" filterMatchMode="contains">
-
-                            <h:outputText value="ACTIVO" rendered="#{per.activo}"/> 
-                            <h:outputText value="DESACTIVADO" rendered="#{not per.activo}"/> 
+                        <p:column headerText="Estado" sortBy="#{per.activo}" filterBy="#{per.activo == true? 'Activo' : 'Inactivo'}">
+                            <h:outputText value="#{per.activo == true? 'Activo' : 'Inactivo'}" />
                         </p:column>
                         <p:defaultCommand target="delete" scope="dtPerfiles"/>
                         <p:column filterMatchMode="contains" id="columneditupdate">
 
                             <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" actionListener="#{PerfilesBean.eliminarAccesos(per)}" >
-                                
+
                                 <p:confirm header="Confirmation" id="confirm" message="¿Estás seguro que deseas eliminar este acceso?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
                             <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
@@ -103,8 +84,8 @@
                                 <div class="p-field">
                                     <p:outputLabel for="orden">Orden</p:outputLabel>
                                     <p:inputNumber value="#{PerfilesBean.perfiles.orden}"  id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ej: 45" maxValue="99" decimalPlaces="0"/>
-                                </div>
-                                &nbsp;
+                                </div> 
+                               &nbsp;
                             </p:outputPanel>
                         </p:outputPanel>
 
@@ -127,22 +108,21 @@
                                     <p:inputText value="#{PerfilesBean.perfiles.idAcceso}" type="hidden" />
                                 </div>
                                 <div class="p-field">
-                                   <p:outputLabel for="nombre_acceso2">Nombre Acceso</p:outputLabel>
-                                   <p:inputText  maxlength="30"  id="nombre_acceso2" value="#{PerfilesBean.perfiles.nombreAcceso}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
+                                    <p:outputLabel for="nombre_acceso2">Nombre Acceso</p:outputLabel>
+                                    <p:inputText  maxlength="30"  id="nombre_acceso2" value="#{PerfilesBean.perfiles.nombreAcceso}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
                                 </div>
                                 <div class="p-field">
                                     <p:outputLabel for="orden2">Orden</p:outputLabel>
                                     <p:inputNumber maxValue="99" value="#{PerfilesBean.perfiles.orden}" id="orden2" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ordden" />
                                 </div>
-                                
+
                                 <div class="p-field" style="hi">
                                     <p:outputLabel for="activo">Estado</p:outputLabel>  
                                     &nbsp;
 
                                     <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{PerfilesBean.perfiles.activo}"  
                                                            onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
-                                  </div>
- 
+                                </div> 
                             </p:outputPanel>
                         </p:outputPanel>
                         <f:facet name="footer">
