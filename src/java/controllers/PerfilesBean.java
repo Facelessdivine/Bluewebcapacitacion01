@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -29,6 +30,7 @@ import org.primefaces.model.DualListModel;
  */
 @ManagedBean(name = "PerfilesBean")
 public class PerfilesBean implements Serializable {
+
     //OBJETOS
     private SPerfiles perfiles;
     private SPerfilesAccesos perfilesAccesos;
@@ -55,25 +57,22 @@ public class PerfilesBean implements Serializable {
         Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    @PostConstruct
     public void loadPickListData() {
         try {
             listaAccesosDisponibles = sAccesosJpa.findSAccesosEntities();
             listaAccesosActuales = new ArrayList<>();
             plAccesos = new DualListModel<SAccesos>(listaAccesosDisponibles, listaAccesosActuales);
+            loadProfileData();
 
         } catch (Exception ex) {
             log(ex);
         }
-
     }
 
     public void loadProfileData() {
-        try {
-            listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
 
-        } catch (Exception ex) {
-            log(ex);
-        }
+        listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
     }
 
     public void onRowSelect(SelectEvent<SPerfiles> event) {
