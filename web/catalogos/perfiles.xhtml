@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Perfiles</title>
+    </h:head>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="form">
+                    <div class="card crud-demo">      
+                        <p:growl id="messages" showDetail="true">
+                            <p:autoUpdate/>
+                        </p:growl>
+                    </div>
+                    <p:toolbar>
+                        <p:toolbarGroup align="right" >
+                            <p:commandButton value="New" icon="pi pi-plus" actionListener="#{PerfilesBean.perfiles}" type="button" 
+                                             update=":form:dtPerfiles" onclick="PF('manageInsertDialog').show()"
+                                             styleClass="ui-button-success" style="margin-right: .6rem">
+                                <p:resetInput target=":form:dtPerfiles"/>
+                            </p:commandButton>
+
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="dtPerfiles" widgetVar="dtPerfiles" var="per" value="#{PerfilesBean.listaPerfiles}"
+                                 reflow="true" styleClass="products-table"
+                                 paginator="true"
+                                 filteredValue="#{PerfilesBean.filtroPerfiles}"
+                                 filterEvent="keyup"
+                                 filterDelay="400"
+                                 
+                                 emptyMessage="No se encontraron registros"
+                                 rows="10" paginatorPosition="bottom"
+                                 rowKey="#{per.idAcceso}"
+                                 
+                                 >
+
+
+
+                        <p:column headerText="Nombre Acceso" filterBy="#{per.nombreAcceso}" filterMatchMode="contains">
+
+                            <h:outputText value="#{per.nombreAcceso}"/> 
+
+
+                        </p:column>
+
+                        <p:column headerText="Orden" filterBy="#{per.orden}" filterMatchMode="contains">
+
+                            <h:outputText value="#{per.orden}"/> 
+
+                        </p:column>
+                        <p:column headerText="Fecha Servidor" filterBy="#{per.fechaServidor}" filterMatchMode="contains">
+
+                            <h:outputText value="#{per.fechaServidor}"/> 
+
+                        </p:column>
+
+
+                        <p:column headerText="Estado"  filterBy="#{per.activo}" filterMatchMode="contains">
+
+                            <h:outputText value="ACTIVO" rendered="#{per.activo}"/> 
+                            <h:outputText value="DESACTIVADO" rendered="#{not per.activo}"/> 
+                        </p:column>
+                        <p:defaultCommand target="delete" scope="dtPerfiles"/>
+                        <p:column filterMatchMode="contains" id="columneditupdate">
+
+                            <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update="form:messages,dtPerfiles" actionListener="#{PerfilesBean.eliminarAccesos(per)}" >
+                                
+                                <p:confirm header="Confirmation" id="confirm" message="¿Estás seguro que deseas eliminar este acceso?" icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
+                                             oncomplete="PF('manageUpdateTel').show()" 
+                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                <f:setPropertyActionListener value="#{per}" target="#{PerfilesBean.perfiles}"/>
+                                <p:resetInput target=":form:manageproductcontent"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                            </p:confirmDialog>
+
+
+                        </p:column>    
+                    </p:dataTable>
+                    <p:dialog id="dialogadd" header="Detalles de Telefonía" showEffect="fade" 
+                              widgetVar="manageInsertDialog" responsive="true" >
+                        <p:defaultCommand target="save" scope="dialogadd" />
+                        <p:outputPanel id="manageproductcontent" class="ui-fluid"  >
+                            <p:outputPanel >
+                                <div class="p-field" >
+
+                                    <p:inputText value="#{PerfilesBean.perfiles.idAcceso}" type="hidden" />
+                                </div>
+                                <div class="p-field">
+                                    <p:outputLabel for="nombre_perfil">Nombre Perfil</p:outputLabel>
+                                    <p:inputText  maxlength="30"  id="nombre_perfil" value="#{PerfilesBean.perfiles.nombreAcceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Nombre Perfil"/>
+                                </div>
+                                <div class="p-field">
+                                    <p:outputLabel for="orden">Orden</p:outputLabel>
+                                    <p:inputNumber value="#{PerfilesBean.perfiles.orden}"  id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ej: 45" maxValue="99" decimalPlaces="0"/>
+                                </div>
+                                &nbsp;
+                            </p:outputPanel>
+                        </p:outputPanel>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:manageproductcontent,dtPerfiles,messages" action="#{PerfilesBean.insertAccesos()}" 
+                                             process="@this manageproductcontent" onclick="PF('manageInsertDialog').hide()" />
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageInsertDialog').hide()" type="button"
+                                             class="ui-button-secondary">
+                                <p:resetInput target=":form:manageproductcontent"/>
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dialog>
+                    <p:dialog id="dialogadd2" header="Editar campos de Telefonia" showEffect="fade" 
+                              widgetVar="manageUpdateTel" responsive="true" >
+                        <p:defaultCommand target="save2" scope="dialogadd2" />
+                        <p:outputPanel id="manageproductcontent2" class="ui-fluid"  >
+                            <p:outputPanel >
+                                <div class="p-field" >
+
+                                    <p:inputText value="#{PerfilesBean.perfiles.idAcceso}" type="hidden" />
+                                </div>
+                                <div class="p-field">
+                                   <p:outputLabel for="nombre_acceso2">Nombre Acceso</p:outputLabel>
+                                   <p:inputText  maxlength="30"  id="nombre_acceso2" value="#{PerfilesBean.perfiles.nombreAcceso}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
+                                </div>
+                                <div class="p-field">
+                                    <p:outputLabel for="orden2">Orden</p:outputLabel>
+                                    <p:inputNumber maxValue="99" value="#{PerfilesBean.perfiles.orden}" id="orden2" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ordden" />
+                                </div>
+                                
+                                <div class="p-field" style="hi">
+                                    <p:outputLabel for="activo">Estado</p:outputLabel>  
+                                    &nbsp;
+
+                                    <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{PerfilesBean.perfiles.activo}"  
+                                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+                                  </div>
+ 
+                            </p:outputPanel>
+                        </p:outputPanel>
+                        <f:facet name="footer">
+                            <p:commandButton value="Save" id="save2" icon="pi pi-check" update=":form:manageproductcontent2,dtPerfiles,messages" actionListener="#{PerfilesBean.updateAccesos()}" 
+                                             process="manageproductcontent2 @this" onclick="PF('manageUpdateTel').hide()" />
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUpdateTel').hide()"  type="button" update=":form:manageproductcontent2"
+                                             class="ui-button-secondary">
+                                <p:resetInput target=":form:manageproductcontent2"/>
+                            </p:commandButton>
+                        </f:facet>
+                    </p:dialog>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

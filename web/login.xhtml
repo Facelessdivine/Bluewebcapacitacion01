@@ -89,11 +89,11 @@
                         </div>
 
                        
-
+                        <p:defaultCommand target="btnlogin" />
                         <div class="buttons">
-                            <p:commandButton value="Login" action="#{loginBean.login()}" icon="pi pi-check"/>
+                            <p:commandButton value="Login" id="btnlogin" action="#{loginBean.login()}" icon="pi pi-check" />
                         </div>
-                        <pe:blockUI target="form"/>
+                        <pe:blockUI target=":form" />
                     </h:form>
                 </div>
             </div>
