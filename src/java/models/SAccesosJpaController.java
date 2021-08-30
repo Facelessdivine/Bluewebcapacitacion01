@@ -253,7 +253,7 @@ public class SAccesosJpaController implements Serializable {
             CriteriaQuery<SAccesos> query = cb.createQuery(SAccesos.class);
             Root<SAccesos> perfil = query.from(SAccesos.class);
             CollectionJoin<SAccesos, SPerfilesAccesos> usuarioPerfil = perfil.join(SAccesos_.sPerfilesAccesosCollection,
-                    JoinType.INNER);
+                    JoinType.LEFT);
             usuarioPerfil.on(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), idPerfil));
             query.select(perfil).where(cb.isNull(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles)));
             TypedQuery<SAccesos> typedQuery = em.createQuery(query);

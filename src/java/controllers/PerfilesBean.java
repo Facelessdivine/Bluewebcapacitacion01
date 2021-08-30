@@ -37,6 +37,7 @@ public class PerfilesBean implements Serializable {
     private SPerfiles seleccionPerfiles;
     //LISTAS
     private List<SPerfiles> listaPerfiles;
+    private List<SPerfiles> filtroPerfiles;
     private DualListModel<SAccesos> plAccesos;
     private List<SAccesos> listaAccesosDisponibles;
     private List<SAccesos> listaAccesosActuales;
@@ -155,7 +156,7 @@ public class PerfilesBean implements Serializable {
                 newProfile();
                 loadProfileData();
                 loadPickListData();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Guardado exitoso");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Guardado exitoso");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception ex) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Se produjo un error");
@@ -186,7 +187,7 @@ public class PerfilesBean implements Serializable {
                 newProfile();
                 loadProfileData();
                 loadPickListData();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Registro(s) eliminados correctamente");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Registro(s) eliminados correctamente");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (IllegalOrphanException | NonexistentEntityException ex) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "Se produjo un error");
@@ -292,6 +293,16 @@ public class PerfilesBean implements Serializable {
     public void setPerfilesAcceso(SPerfilesAccesosPK perfilesAcceso) {
         this.perfilesAcceso = perfilesAcceso;
     }
+    
+    public List<SPerfiles> getFiltroPerfiles() {
+        return filtroPerfiles;
+    }
+
+    public void setFiltroPerfiles(List<SPerfiles> filtroPerfiles) {
+        this.filtroPerfiles = filtroPerfiles;
+    }
+    
 //</editor-fold>
+
 
 }

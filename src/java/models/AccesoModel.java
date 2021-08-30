@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 public class AccesoModel {
 
