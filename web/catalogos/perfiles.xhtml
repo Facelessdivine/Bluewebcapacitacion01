@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"    
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions">
     <h:head>
         <title>Perfiles</title>
     </h:head>
@@ -19,29 +20,27 @@
 
                             <div class="p-col-12 p-md-4">
 
+                                    <p:outputLabel  for="nombre_perfil" value="Nombre perfil" style="font-size: 14px"/>
                                 <span class="ui-float-label">
-                                    <p:inputText id="float-input" value="#{PerfilesBean.perfiles.nombrePerfil}"/>
-                                    <p:outputLabel for="@previous" value="Nombre perfil" style="font-size: 14px"/>
+                                    <p:inputText value="#{PerfilesBean.perfiles.idPerfil}" type="hidden"/>
+                                    <p:inputText id="nombre_perfil" value="#{PerfilesBean.perfiles.nombrePerfil}"/>
                                 </span>
                             </div>
 
                             <div class="p-col-12 p-md-4">
-
+                                    <p:outputLabel for="description" value="Descripción" style="font-size: 14px"/>
                                 <span class="ui-float-label">
-                                    <p:inputText id="float-input2" value="#{PerfilesBean.perfiles.descripcion}"/>
-                                    <p:outputLabel for="@previous" value="Descripción" style="font-size: 14px"/>
+                                    <p:inputText id="description" value="#{PerfilesBean.perfiles.descripcion}"/>
                                 </span>
                             </div>
                             <p:menuButton value="Options" >
-                            <p:menuitem value="New" style="font-size:19px;" action="#{PerfilesBean.newProfile()}"  update="@this" icon="pi pi-file">
+                            <p:menuitem value="New" style="font-size:19px;" action="#{PerfilesBean.newProfile()}"  update=":form" icon="pi pi-file">
                                 <p:ajax process="@this"  />
                             </p:menuitem>
-                            <p:menuitem value="Save"  style="font-size:19px;" action="#{PerfilesBean.save()}" update="@this, :form:msgs" icon="pi pi-save"/>
+                                <p:menuitem value="Save"  style="font-size:19px;" action="#{PerfilesBean.save()}" update=":form:dtperfiles :form:msgs, :form" id="save4" icon="pi pi-save"/>
                             <p:menuitem value="Delete" style="font-size:19px;" onclick="PF('wdialogo').show();" icon="pi pi-trash"/>
                         </p:menuButton>
                         </div>
-
-
 
                         <br/><br/>
 
@@ -79,11 +78,11 @@
 
 
                         <p:dialog id="dialogoEliminar" widgetVar="wdialogo" header="Confirmar Eliminación" height="80" width="350">
-                            <p:commandButton value="Aceptar" ajax="false" action="#{PerfilesBean.removeProfile()}" update="@this, :form:msgs" oncomplete="PF('wdialogo').hide();" />
+                            <p:commandButton value="Aceptar" ajax="false" action="#{PerfilesBean.removeProfile()}" update=":form:dtperfiles, :form:msgs" oncomplete="PF('wdialogo').hide();" />
                             <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('wdialogo').hide();" />
-
                         </p:dialog>
                     </div>
+                    
                 </h:form>
             </h:body>
         </ui:define>

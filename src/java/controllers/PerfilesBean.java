@@ -116,6 +116,7 @@ public class PerfilesBean implements Serializable {
             perfiles.setIdUsuarioModifica(usuarioSesion);
 
             try {
+                List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
                 if (perfiles.getIdPerfil() == null) {
                     sPerfilesJpa.create(perfiles);
 
@@ -130,11 +131,9 @@ public class PerfilesBean implements Serializable {
                     }
                 } else {
 
-                    sPerfilesJpa.edit(perfiles);
-
-                    List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
                     listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);
-
+                    perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
+                    sPerfilesJpa.edit(perfiles);
                     for (int i = 0; i < listaPerfilesAccesos.size(); i++) {
                         perfilesAcceso.setIdAcceso(listaPerfilesAccesos.get(i).getSPerfilesAccesosPK().getIdAcceso());
                         perfilesAcceso.setIdPerfil(perfiles.getIdPerfil());
@@ -152,7 +151,7 @@ public class PerfilesBean implements Serializable {
                         sPerfilesAccesosJpa.create(perfilesAccesos);
                     }
 
-                }
+                } 
                 newProfile();
                 loadProfileData();
                 loadPickListData();
@@ -169,7 +168,7 @@ public class PerfilesBean implements Serializable {
 
     public void removeProfile() {
         if (perfiles.getIdPerfil() == null) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "INFO", "No ha seleccionado ningún registro");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "No ha seleccionado ningún registro");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             loadPickListData();
         } else {
