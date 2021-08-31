@@ -46,7 +46,7 @@
 
                         <p:pickList id="plPerfilesAccesos" value="#{PerfilesBean.plAccesos}" 
                                     var="accesos" itemLabel="#{accesos.nombreAcceso}" 
-                                    itemValue="#{accesos.idAcceso}" responsive="true"
+                                    itemValue="#{accesos}" responsive="true" converter="sAccesoConverter"
                                     addLabel="Añadir" addAllLabel="Añadir todos"
                                     removeLabel="Quitar" removeAllLabel="Quitar todos"
                                     style="text-align:center;">
@@ -62,8 +62,8 @@
 
                         <p:dataTable id="dtperfiles" var="perfiles"  value="#{PerfilesBean.listaPerfiles}" emptyMessage="No se encontraron registros." reflow="true"
                                      selectionMode="single" selection="#{PerfilesBean.seleccionPerfiles}" rowKey="#{perfiles.idPerfil}"
-                                     paginator="true" rows="6" sortMode="single" widgetVar="perfilTabla">
-                            <p:ajax event="rowSelect" listener="#{PerfilesBean.onRowSelect}" update=":form"/>
+                                     paginator="true" paginatorPosition="bottom"  rows="6" sortMode="single" widgetVar="perfilTabla">
+                            <p:ajax event="rowSelect" listener="#{PerfilesBean.onRowSelect}" update=":form" />
 
                             <p:column headerText="Nombre" sortBy="#{perfiles.nombrePerfil}" filterBy="#{perfiles.nombrePerfil}" >
                                 <h:outputText value="#{perfiles.nombrePerfil}"/>

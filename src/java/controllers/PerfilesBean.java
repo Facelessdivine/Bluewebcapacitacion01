@@ -48,13 +48,13 @@ public class PerfilesBean implements Serializable {
         perfiles = new SPerfiles();
         perfilesAccesos = new SPerfilesAccesos();
     }
-    
+
     //MODELS
     SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
     SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
     SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
     SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
-    
+
     @PostConstruct
     public void loadPickListData() {
         try {
@@ -71,10 +71,10 @@ public class PerfilesBean implements Serializable {
     public void loadProfileData() {
         listaPerfiles = sPerfilesJpa.findSPerfilesEntities();
     }
+
     public void log(Exception ex) {
         Logger.getLogger(PerfilesBean.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
 
     public void onRowSelect(SelectEvent<SPerfiles> event) {
         try {
@@ -119,18 +119,21 @@ public class PerfilesBean implements Serializable {
                 List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
                 if (perfiles.getIdPerfil() == null) {
 
-                    for (Object acc : plAccesos.getTarget()) {
-                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
+                    sPerfilesJpa.create(perfiles);
+                    for (SAccesos acc : plAccesos.getTarget()) {
+//                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt((String) acc));
                         //Datos estáticos que se insertan directamente al objeto de la base de datos
+                        SPerfilesAccesosPK perfilaccesoPK = new SPerfilesAccesosPK();
                         perfilesAccesos.setSPerfiles(perfiles);
-                        perfilesAccesos.setSAccesos(acceso);
+                        perfilesAccesos.setSAccesos(acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
+                        perfilaccesoPK.setIdAcceso(acc.getIdAcceso());
+                        perfilaccesoPK.setIdPerfil(perfiles.getIdPerfil());
                         listaPerfilesAccesos.add(perfilesAccesos);
 //                        sPerfilesAccesosJpa.create(perfilesAccesos);
                     }
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
-                    sPerfilesJpa.create(perfiles);
                 } else {
 
                     listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);
@@ -153,7 +156,7 @@ public class PerfilesBean implements Serializable {
                         sPerfilesAccesosJpa.create(perfilesAccesos);
                     }
 
-                } 
+                }
                 newProfile();
                 loadProfileData();
                 loadPickListData();
@@ -294,7 +297,7 @@ public class PerfilesBean implements Serializable {
     public void setPerfilesAcceso(SPerfilesAccesosPK perfilesAcceso) {
         this.perfilesAcceso = perfilesAcceso;
     }
-    
+
     public List<SPerfiles> getFiltroPerfiles() {
         return filtroPerfiles;
     }
@@ -302,8 +305,6 @@ public class PerfilesBean implements Serializable {
     public void setFiltroPerfiles(List<SPerfiles> filtroPerfiles) {
         this.filtroPerfiles = filtroPerfiles;
     }
-    
+
 //</editor-fold>
-
-
 }

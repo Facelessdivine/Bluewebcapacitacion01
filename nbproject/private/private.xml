@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="15">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
         <file>
             <url>web/catalogos/acceso.xhtml</url>
             <bookmark id="14">
@@ -12,11 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/TipoTelefoniaBean.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/models/AccesoModel.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/sesiones/Sesion.java</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/web/catalogos/telefonia.xhtml</file>
-            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/AccesoBean.java</file>
+            <file>file:/C:/Users/Blueweb/Documents/NetBeansProjects/capacitacion/src/java/controllers/PerfilesBean.java</file>
         </group>
     </open-files>
 </project-private>
