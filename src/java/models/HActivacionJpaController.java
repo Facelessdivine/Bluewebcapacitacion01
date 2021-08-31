@@ -309,13 +309,20 @@ public class HActivacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             CriteriaBuilder cb = em.getCriteriaBuilder();
+            
             CriteriaQuery<HActivacion> query = cb.createQuery(HActivacion.class);
+            
             Root<HActivacion> hactivacion = query.from(HActivacion.class);
-            restrictions.add(cb.between(hactivacion.<Date>get(HActivacion_.fechaPeticion), startDate, endDate));
-            query.select(hactivacion);
+
             Join<HActivacion, SUsuarios> user = hactivacion.join(HActivacion_.idUsuario);
+            
             query.select(hactivacion).where(cb.equal(user.get(SUsuarios_.idUsuario), idUsuario));
+            restrictions.add(cb.equal(hactivacion.get(HActivacion_.idUsuario), idUsuario));
+            restrictions.add(cb.between(hactivacion.<Date>get(HActivacion_.fechaPeticion), startDate, endDate));
             query.where(restrictions.toArray(new Predicate[restrictions.size()]));
+            
+            
+            
             TypedQuery<HActivacion> typedQuery = em.createQuery(query);
             lista = typedQuery.getResultList();
         } catch (Exception ex) {
