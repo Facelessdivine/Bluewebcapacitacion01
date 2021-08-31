@@ -18,7 +18,7 @@ import javax.faces.convert.Converter;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 @FacesConverter (value = "sAccesoConverter")
 public class SAccesoConverter implements Converter {
@@ -27,8 +27,6 @@ public class SAccesoConverter implements Converter {
         // Convert the unique String representation of Foo to the actual Foo object.
 
         if(value == null || value.trim().equals("")){
-            return null;
-        }else if (value.trim().equals("NA")){
             return null;
         }
 
