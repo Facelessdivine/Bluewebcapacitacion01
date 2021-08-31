@@ -11,10 +11,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,12 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SPerfiles.findByFechaServidor", query = "SELECT s FROM SPerfiles s WHERE s.fechaServidor = :fechaServidor"),
     @NamedQuery(name = "SPerfiles.findByIdUsuarioModifica", query = "SELECT s FROM SPerfiles s WHERE s.idUsuarioModifica = :idUsuarioModifica")})
 public class SPerfiles implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false) 
+    @Basic(optional = false)
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PERFIL")
     private Integer idPerfil;
     @Basic(optional = false)
@@ -84,6 +80,8 @@ public class SPerfiles implements Serializable {
     private int idUsuarioModifica;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sPerfiles")
     private Collection<SPerfilesAccesos> sPerfilesAccesosCollection;
+    @OneToMany(mappedBy = "idPerfil")
+    private Collection<SUsuarios> sUsuariosCollection;
 
     public SPerfiles() {
     }
@@ -172,6 +170,15 @@ public class SPerfiles implements Serializable {
 
     public void setSPerfilesAccesosCollection(Collection<SPerfilesAccesos> sPerfilesAccesosCollection) {
         this.sPerfilesAccesosCollection = sPerfilesAccesosCollection;
+    }
+
+    @XmlTransient
+    public Collection<SUsuarios> getSUsuariosCollection() {
+        return sUsuariosCollection;
+    }
+
+    public void setSUsuariosCollection(Collection<SUsuarios> sUsuariosCollection) {
+        this.sUsuariosCollection = sUsuariosCollection;
     }
 
     @Override

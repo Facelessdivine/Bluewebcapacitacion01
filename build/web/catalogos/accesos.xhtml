@@ -69,11 +69,11 @@
                         <p:defaultCommand target="delete" scope="dtAccesos"/>
                         <p:column filterMatchMode="contains" id="columneditupdate">
 
-                            <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update="form:messages,dtAccesos" actionListener="#{AccesosBean.eliminarAccesos(ac)}" >
+                            <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update=":form:messages,:form:dtAccesos" actionListener="#{AccesosBean.eliminarAccesos(ac)}" >
                                 
                                 <p:confirm header="Confirmation" id="confirm" message="¿Estás seguro que deseas eliminar este acceso?" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
-                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2"
+                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2, :form:dtAccesos"
                                              oncomplete="PF('manageUpdateTel').show()" 
                                              styleClass="edit-button rounded-button ui-button-success" process="@this">
                                 <f:setPropertyActionListener value="#{ac}" target="#{AccesosBean.accesos}"/>

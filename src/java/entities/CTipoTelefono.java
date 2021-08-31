@@ -6,23 +6,24 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,7 +45,6 @@ public class CTipoTelefono implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     @Size(max = 50)
@@ -61,6 +61,8 @@ public class CTipoTelefono implements Serializable {
     @JoinColumn(name = "ID_TELEFONIA", referencedColumnName = "ID_TELEFONIA")
     @ManyToOne
     private CTelefonia idTelefonia;
+    @OneToMany(mappedBy = "idTipoTelefonia")
+    private Collection<HActivacion> hActivacionCollection;
 
     public CTipoTelefono() {
     }
@@ -115,6 +117,15 @@ public class CTipoTelefono implements Serializable {
 
     public void setIdTelefonia(CTelefonia idTelefonia) {
         this.idTelefonia = idTelefonia;
+    }
+
+    @XmlTransient
+    public Collection<HActivacion> getHActivacionCollection() {
+        return hActivacionCollection;
+    }
+
+    public void setHActivacionCollection(Collection<HActivacion> hActivacionCollection) {
+        this.hActivacionCollection = hActivacionCollection;
     }
 
     @Override

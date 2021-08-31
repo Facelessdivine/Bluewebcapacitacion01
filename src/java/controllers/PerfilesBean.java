@@ -6,6 +6,7 @@ import sesiones.Sesion;
 import entities.SPerfiles;
 import entities.SPerfilesAccesos;
 import entities.SPerfilesAccesosPK;
+import entities.SUsuarios;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +16,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import entities.HActivacion;
 import javax.faces.context.FacesContext;
+import models.SUsuariosJpaController;
+import models.HActivacionJpaController;
 import models.SAccesosJpaController;
 import models.SPerfilesAccesosJpaController;
 import models.SPerfilesJpaController;
@@ -43,17 +47,25 @@ public class PerfilesBean implements Serializable {
     private List<SAccesos> listaAccesosActuales;
     //SESIÓN
     private Sesion s = new Sesion();
-
-    public PerfilesBean() {
-        perfiles = new SPerfiles();
-        perfilesAccesos = new SPerfilesAccesos();
-    }
-
     //MODELS
     SAccesosJpaController sAccesosJpa = new SAccesosJpaController();
     SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
     SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
     SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
+//    nuevo
+    private SUsuarios user = new SUsuarios();
+    HActivacionJpaController hactivacion = new HActivacionJpaController();
+    private HActivacion hactivacionList;
+.SUsuariosJpaController usuarios .SUsuariosJpaController;
+    public PerfilesBean() {
+        perfiles = new SPerfiles();
+        perfilesAccesos = new SPerfilesAccesos();
+
+        user.setIdUsuario(2);
+        Date fechainicial = new Date(116, 0, 15);
+        hactivacion.getActivationsByDate(user, fechainicial, new Date());
+//        System.out.println(hactivacionList);
+    }
 
     @PostConstruct
     public void loadPickListData() {
@@ -147,10 +159,10 @@ public class PerfilesBean implements Serializable {
                     }
 
                     for (Object acc : plAccesos.getTarget()) {
-                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
+//                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
                         //Datos estáticos que se insertan directamente al objeto de la base de datos
                         perfilesAccesos.setSPerfiles(perfiles);
-                        perfilesAccesos.setSAccesos(acceso);
+                        perfilesAccesos.setSAccesos((SAccesos) acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
                         sPerfilesAccesosJpa.create(perfilesAccesos);

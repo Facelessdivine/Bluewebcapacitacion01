@@ -43,13 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SAccesos.findByFechaBaja", query = "SELECT s FROM SAccesos s WHERE s.fechaBaja = :fechaBaja")})
 public class SAccesos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_ACCESO")
-    private Integer idAcceso;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
@@ -68,6 +61,14 @@ public class SAccesos implements Serializable {
     @Column(name = "FECHA_SERVIDOR")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaServidor;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_ACCESO")
+    private Integer idAcceso;
     @Column(name = "FECHA_BAJA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaBaja;
@@ -105,21 +106,6 @@ public class SAccesos implements Serializable {
         this.nombreAcceso = nombreAcceso;
     }
 
-    public short getOrden() {
-        return orden;
-    }
-
-    public void setOrden(short orden) {
-        this.orden = orden;
-    }
-
-    public boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
 
     public Date getFechaServidor() {
         return fechaServidor;
@@ -170,5 +156,24 @@ public class SAccesos implements Serializable {
     public String toString() {
         return "entities.SAccesos[ idAcceso=" + idAcceso + " ]";
     }
-    
+
+ 
+
+    public short getOrden() {
+        return orden;
+    }
+
+    public void setOrden(short orden) {
+        this.orden = orden;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+ 
 }

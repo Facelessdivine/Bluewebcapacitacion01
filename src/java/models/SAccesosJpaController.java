@@ -280,6 +280,7 @@ public class SAccesosJpaController implements Serializable {
 
                 query = em.createNamedQuery("SPerfilesAccesos.findByIdPerfil", SPerfilesAccesos.class)
                         .setParameter("idPerfil", perfil.getIdPerfil());
+                
 
                 listaAccesos = query.getResultList();
 

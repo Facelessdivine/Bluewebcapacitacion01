@@ -7,6 +7,11 @@
     <class>entities.SPerfilesAccesos</class>
     <class>entities.SAccesos</class>
     <class>entities.SPerfiles</class>
+    <class>entities.CDistribuidor</class>
+    <class>entities.SUsuarios</class>
+    <class>entities.CCiudad</class>
+    <class>entities.HActivacion</class>
+    <class>entities.CClientes</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://192.168.98.224;databaseName=ACTIVACION"/>
