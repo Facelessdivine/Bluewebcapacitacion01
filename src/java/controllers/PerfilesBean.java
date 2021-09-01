@@ -52,19 +52,12 @@ public class PerfilesBean implements Serializable {
     SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
     SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
     SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
-    SUsuariosJpaController usuariosModel = new SUsuariosJpaController();
+    
 //    nuevo
-    private SUsuarios user = new SUsuarios();
-    HActivacionJpaController hactivacion = new HActivacionJpaController();
-    private HActivacion hactivacionList;
     public PerfilesBean() {
         perfiles = new SPerfiles();
         perfilesAccesos = new SPerfilesAccesos();
-        user = usuariosModel.findSUsuarios(2);
         
-        Date fechainicial = new Date(116, 0, 15);
-        hactivacion.getActivationsByDate(user, fechainicial, new Date());
-//        System.out.println(hactivacionList);
     }
 
     @PostConstruct
