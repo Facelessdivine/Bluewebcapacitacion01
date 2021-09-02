@@ -6,7 +6,6 @@ import sesiones.Sesion;
 import entities.SPerfiles;
 import entities.SPerfilesAccesos;
 import entities.SPerfilesAccesosPK;
-import entities.SUsuarios;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,10 +15,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import entities.HActivacion;
 import javax.faces.context.FacesContext;
-import models.SUsuariosJpaController;
-import models.HActivacionJpaController;
 import models.SAccesosJpaController;
 import models.SPerfilesAccesosJpaController;
 import models.SPerfilesJpaController;
@@ -52,12 +48,11 @@ public class PerfilesBean implements Serializable {
     SPerfilesJpaController sPerfilesJpa = new SPerfilesJpaController();
     SPerfilesAccesosJpaController sPerfilesAccesosJpa = new SPerfilesAccesosJpaController();
     SPerfilesAccesosPK perfilesAcceso = new SPerfilesAccesosPK();
-    
-//    nuevo
+
     public PerfilesBean() {
         perfiles = new SPerfiles();
         perfilesAccesos = new SPerfilesAccesos();
-        
+
     }
 
     @PostConstruct
@@ -122,23 +117,24 @@ public class PerfilesBean implements Serializable {
 
             try {
                 List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
+                
                 if (perfiles.getIdPerfil() == null) {
 
-                    sPerfilesJpa.create(perfiles);
                     for (SAccesos acc : plAccesos.getTarget()) {
-//                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt((String) acc));
-                        //Datos estáticos que se insertan directamente al objeto de la base de datos
-                        SPerfilesAccesosPK perfilaccesoPK = new SPerfilesAccesosPK();
+
                         perfilesAccesos.setSPerfiles(perfiles);
                         perfilesAccesos.setSAccesos(acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
-                        perfilaccesoPK.setIdAcceso(acc.getIdAcceso());
-                        perfilaccesoPK.setIdPerfil(perfiles.getIdPerfil());
+                        
                         listaPerfilesAccesos.add(perfilesAccesos);
-//                        sPerfilesAccesosJpa.create(perfilesAccesos);
+                        
                     }
+                    
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
+                    
+                    sPerfilesJpa.create(perfiles);
+
                 } else {
 
                     listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);

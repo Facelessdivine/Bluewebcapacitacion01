@@ -5,6 +5,7 @@
  */
 package models;
 
+import controllers.PerfilesBean;
 import entities.SPerfiles;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -15,6 +16,8 @@ import entities.SPerfilesAccesos;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import models.exceptions.IllegalOrphanException;
@@ -45,9 +48,10 @@ public class SPerfilesJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            
             Collection<SPerfilesAccesos> attachedSPerfilesAccesosCollection = new ArrayList<SPerfilesAccesos>();
             for (SPerfilesAccesos SPerfilesAccesosCollectionSPerfilesAccesosToAttach : SPerfiles.getSPerfilesAccesosCollection()) {
-                SPerfilesAccesosCollectionSPerfilesAccesosToAttach = em.getReference(SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getClass(), SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getSPerfilesAccesosPK());
+//                SPerfilesAccesosCollectionSPerfilesAccesosToAttach = em.getReference(SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getClass(), SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getSPerfilesAccesosPK());
                 attachedSPerfilesAccesosCollection.add(SPerfilesAccesosCollectionSPerfilesAccesosToAttach);
             }
             SPerfiles.setSPerfilesAccesosCollection(attachedSPerfilesAccesosCollection);
@@ -63,6 +67,7 @@ public class SPerfilesJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
+            Logger.getLogger(SPerfilesAccesosJpaController.class.getName()).log(Level.SEVERE, null, ex);
             if (findSPerfiles(SPerfiles.getIdPerfil()) != null) {
                 throw new PreexistingEntityException("SPerfiles " + SPerfiles + " already exists.", ex);
             }

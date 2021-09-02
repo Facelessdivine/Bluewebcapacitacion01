@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
 @Entity
 @Table(name = "S_ACCESOS")

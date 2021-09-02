@@ -36,14 +36,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SPerfilesAccesos.findByIdUsuarioModifica", query = "SELECT s FROM SPerfilesAccesos s WHERE s.idUsuarioModifica = :idUsuarioModifica")})
 public class SPerfilesAccesos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected SPerfilesAccesosPK sPerfilesAccesosPK;
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_SERVIDOR")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaServidor;
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SPerfilesAccesosPK sPerfilesAccesosPK;
     @Column(name = "ID_USUARIO_MODIFICA")
     private Integer idUsuarioModifica;
     @JoinColumn(name = "ID_ACCESO", referencedColumnName = "ID_ACCESO", insertable = false, updatable = false)
@@ -133,6 +133,5 @@ public class SPerfilesAccesos implements Serializable {
     public String toString() {
         return "entities.SPerfilesAccesos[ sPerfilesAccesosPK=" + sPerfilesAccesosPK + " ]";
     }
-
 
 }
