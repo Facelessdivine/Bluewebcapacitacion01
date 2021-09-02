@@ -17,143 +17,78 @@
                             <p:autoUpdate/>
                         </p:growl>
                     </div>
-                    <p:toolbar>
-                        <p:toolbarGroup align="right" >
-                            <p:commandButton value="New" icon="pi pi-plus" actionListener="#{AccesosBean.accesos}" type="button" 
-                                             update=":form:dtAccesos" onclick="PF('manageInsertDialog').show()"
-                                             styleClass="ui-button-success" style="margin-right: .6rem">
-                                <p:resetInput target=":form:dtAccesos"/>
-                            </p:commandButton>
-
+                         
+                         <p:toolbar id="tool">
+                        <p:toolbarGroup id="toolFilter" styleClass="ui-panelgrid-blank ui-fluid" style="width: 100%">
+                            <div class="p-field p-col-15 p-md-3">
+                                <p:outputLabel for="navigator1" value="Rnago de fechas"/>
+                                <p:datePicker id="navigator1" value="#{HactivacionBean.range}" monthNavigator="true" yearNavigator="true" showWeek="false" showTime="true" selectionMode="range" required="true" requiredMessage="Necesita introducir el rango de fechas para poder filtrar"  placeholder="Rango de fechas"/>
+                            </div>
+                            <div class="p-field p-col-10 p-md-3">
+                                
+                                <p:outputLabel for="option" value="Usuario"/>
+                                <p:selectOneMenu id="option" value="#{HactivacionBean.idUsuario}"  >
+                                    <f:selectItem itemLabel="Selecciona un usuario" itemValue="0"/>
+                                    <f:selectItems value="#{HactivacionBean.comboUsuarios}" var="hactivacion"
+                                                   itemLabel="#{hactivacion.usuario}" itemValue="#{hactivacion.idUsuario}" />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:toolFilter,dtHactivacion,messages" action="#{HactivacionBean.filterUsersActivation()}" 
+                                             process="@this toolFilter" onclick="PF('manageInsertDialog').hide()" />
+                            
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                
+                                <p:commandButton value="Clear" action="#{HactivacionBean.newFilter()}" update=":form,dtHactivacion,:form:toolFilter" />
+                            </div>
                         </p:toolbarGroup>
                     </p:toolbar>
-                    <p:dataTable id="dtAccesos" widgetVar="dtAccesos" var="ac" value="#{AccesosBean.listaAccesos}"
+
+                    <p:dataTable id="dtHactivacion" widgetVar="dtHactivacion2" var="ha" value="#{HactivacionBean.listaHactivacion}" rendered="#{not empty HactivacionBean.listaHactivacion}"
                                  reflow="true" styleClass="products-table"
                                  paginator="true"
-                                 filteredValue="#{AccesosBean.filtroAccesos}"
-                                 filterEvent="keyup"
-                                 filterDelay="400"
-                                 
+                                 filteredValue="#{HactivacionBean.filtroHactivacion}"
+                                 filterDelay="300"
                                  emptyMessage="No se encontraron registros"
                                  rows="10" paginatorPosition="bottom"
-                                 rowKey="#{ac.idAcceso}"
+                                 rowKey="#{ha.idActivacion}"
                                  
                                  >
 
 
 
-                        <p:column headerText="Nombre Acceso" filterBy="#{ac.nombreAcceso}" filterMatchMode="contains">
+                        <p:column headerText="Descripción" filterBy="#{ha.descripcionTipo}" filterMatchMode="contains">
 
-                            <h:outputText value="#{ac.nombreAcceso}"/> 
+                            <h:outputText value="#{ha.descripcionTipo}"/> 
 
 
                         </p:column>
 
-                        <p:column headerText="Orden" filterBy="#{ac.orden}" filterMatchMode="contains">
+                        <p:column headerText="Respuesta Aplicación" filterBy="#{ha.respuestaAplicacion}" filterMatchMode="contains">
 
-                            <h:outputText value="#{ac.orden}"/> 
-
-                        </p:column>
-                        <p:column headerText="Fecha Servidor" filterBy="#{ac.fechaServidor}" filterMatchMode="contains">
-
-                            <h:outputText value="#{ac.fechaServidor}"/> 
+                            <h:outputText value="#{ha.respuestaAplicacion}"/> 
 
                         </p:column>
+                        <p:column headerText="Teléfono" filterBy="#{ha.telefono}" filterMatchMode="contains">
 
+                            <h:outputText value="#{ha.telefono}"/> 
 
-                        <p:column headerText="Estado"  filterBy="#{ac.activo}" filterMatchMode="contains">
-
-                            <h:outputText value="ACTIVO" rendered="#{ac.activo}"/> 
-                            <h:outputText value="DESACTIVADO" rendered="#{not ac.activo}"/> 
                         </p:column>
-                        <p:defaultCommand target="delete" scope="dtAccesos"/>
-                        <p:column filterMatchMode="contains" id="columneditupdate">
+                        <p:column headerText="Nombre Usuario" filterBy="#{ha.idUsuario.nombreUsuario}" filterMatchMode="contains" >
 
-                            <p:commandButton class="ui-button-warning rounded-button"  id="delete" icon="pi pi-trash" process="@this" update=":form:messages,:form:dtAccesos" actionListener="#{AccesosBean.eliminarAccesos(ac)}" >
-                                
-                                <p:confirm header="Confirmation" id="confirm" message="¿Estás seguro que deseas eliminar este acceso?" icon="pi pi-exclamation-triangle" />
-                            </p:commandButton>
-                            <p:commandButton icon="pi pi-pencil"  update=":form:dialogadd2, :form:dtAccesos"
-                                             oncomplete="PF('manageUpdateTel').show()" 
-                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
-                                <f:setPropertyActionListener value="#{ac}" target="#{AccesosBean.accesos}"/>
-                                <p:resetInput target=":form:manageproductcontent"/>
-                            </p:commandButton>
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-                            </p:confirmDialog>
+                            <h:outputText value="#{ha.idUsuario.nombreUsuario}"/> 
+
+                        </p:column>
+                        <p:column headerText="Fecha Petición" filterBy="#{ha.fechaPeticion}" filterMatchMode="contains">
+
+                            <h:outputText value="#{ha.fechaPeticion}"/> 
+
+                        </p:column>
 
 
-                        </p:column>    
                     </p:dataTable>
-                    <p:dialog id="dialogadd" header="Detalles de Telefonía" showEffect="fade" 
-                              widgetVar="manageInsertDialog" responsive="true" >
-                        <p:defaultCommand target="save" scope="dialogadd" />
-                        <p:outputPanel id="manageproductcontent" class="ui-fluid"  >
-                            <p:outputPanel >
-                                <div class="p-field" >
 
-                                    <p:inputText value="#{AccesosBean.accesos.idAcceso}" type="hidden" />
-                                </div>
-                                <div class="p-field">
-                                    <p:outputLabel for="nombre_acceso">Nombre acceso</p:outputLabel>
-                                    <p:inputText  maxlength="30"  id="nombre_acceso" value="#{AccesosBean.accesos.nombreAcceso}"  required="true"  requiredMessage="El nombre de acceso no puede ser nulo" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Acceso a catálogo"/>
-                                </div>
-                                <div class="p-field">
-                                    <p:outputLabel for="orden">Orden</p:outputLabel>
-                                    <p:inputNumber value="#{AccesosBean.accesos.orden}"  id="orden" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ej: 45" maxValue="99" decimalPlaces="0"/>
-                                </div>
-                                &nbsp;
-                            </p:outputPanel>
-                        </p:outputPanel>
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:manageproductcontent,dtAccesos,messages" action="#{AccesosBean.insertAccesos()}" 
-                                             process="@this manageproductcontent" onclick="PF('manageInsertDialog').hide()" />
-                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageInsertDialog').hide()" type="button"
-                                             class="ui-button-secondary">
-                                <p:resetInput target=":form:manageproductcontent"/>
-                            </p:commandButton>
-                        </f:facet>
-                    </p:dialog>
-                    <p:dialog id="dialogadd2" header="Editar campos de Telefonia" showEffect="fade" 
-                              widgetVar="manageUpdateTel" responsive="true" >
-                        <p:defaultCommand target="save2" scope="dialogadd2" />
-                        <p:outputPanel id="manageproductcontent2" class="ui-fluid"  >
-                            <p:outputPanel >
-                                <div class="p-field" >
-
-                                    <p:inputText value="#{AccesosBean.accesos.idAcceso}" type="hidden" />
-                                </div>
-                                <div class="p-field">
-                                   <p:outputLabel for="nombre_acceso2">Nombre Acceso</p:outputLabel>
-                                   <p:inputText  maxlength="30"  id="nombre_acceso2" value="#{AccesosBean.accesos.nombreAcceso}"  required="true"  requiredMessage="La descripción de telefonía no puede ser nula" validatorMessage="Debe contener menos de 30 caracteres" placeholder="Descripción"/>
-                                </div>
-                                <div class="p-field">
-                                    <p:outputLabel for="orden2">Orden</p:outputLabel>
-                                    <p:inputNumber maxValue="99" value="#{AccesosBean.accesos.orden}" id="orden2" required="true"  requiredMessage="El número de orden no puede ser nulo" validatorMessage="Solo puede aceptar hasta 2 caracteres numericos"  placeholder="ordden" />
-                                </div>
-                                
-                                <div class="p-field" style="hi">
-                                    <p:outputLabel for="activo">Estado</p:outputLabel>  
-                                    &nbsp;
-
-                                    <p:selectBooleanButton id="activo" onLabel="Activo"  offLabel="Inactivo"  value="#{AccesosBean.accesos.activo}"  
-                                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
-                                  </div>
- 
-                            </p:outputPanel>
-                        </p:outputPanel>
-                        <f:facet name="footer">
-                            <p:commandButton value="Save" id="save2" icon="pi pi-check" update=":form:manageproductcontent2,dtAccesos,messages" actionListener="#{AccesosBean.updateAccesos()}" 
-                                             process="manageproductcontent2 @this" onclick="PF('manageUpdateTel').hide()" />
-                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUpdateTel').hide()"  type="button" update=":form:manageproductcontent2"
-                                             class="ui-button-secondary">
-                                <p:resetInput target=":form:manageproductcontent2"/>
-                            </p:commandButton>
-                        </f:facet>
-                    </p:dialog>
 
                 </h:form>
             </h:body>
