@@ -55,16 +55,16 @@ public class SPerfilesJpaController implements Serializable {
                 attachedSPerfilesAccesosCollection.add(SPerfilesAccesosCollectionSPerfilesAccesosToAttach);
             }
             SPerfiles.setSPerfilesAccesosCollection(attachedSPerfilesAccesosCollection);
-            em.persist(SPerfiles);
-            for (SPerfilesAccesos SPerfilesAccesosCollectionSPerfilesAccesos : SPerfiles.getSPerfilesAccesosCollection()) {
-                SPerfiles oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = SPerfilesAccesosCollectionSPerfilesAccesos.getSPerfiles();
-                SPerfilesAccesosCollectionSPerfilesAccesos.setSPerfiles(SPerfiles);
-                SPerfilesAccesosCollectionSPerfilesAccesos = em.merge(SPerfilesAccesosCollectionSPerfilesAccesos);
-                if (oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos != null) {
-                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos.getSPerfilesAccesosCollection().remove(SPerfilesAccesosCollectionSPerfilesAccesos);
-                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = em.merge(oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos);
-                }
-            }
+            em.merge(SPerfiles);
+//            for (SPerfilesAccesos SPerfilesAccesosCollectionSPerfilesAccesos : SPerfiles.getSPerfilesAccesosCollection()) {
+//                SPerfiles oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = SPerfilesAccesosCollectionSPerfilesAccesos.getSPerfiles();
+//                SPerfilesAccesosCollectionSPerfilesAccesos.setSPerfiles(SPerfiles);
+//                SPerfilesAccesosCollectionSPerfilesAccesos = em.merge(SPerfilesAccesosCollectionSPerfilesAccesos);
+//                if (oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos != null) {
+//                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos.getSPerfilesAccesosCollection().remove(SPerfilesAccesosCollectionSPerfilesAccesos);
+//                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = em.merge(oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos);
+//                }
+//            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             Logger.getLogger(SPerfilesAccesosJpaController.class.getName()).log(Level.SEVERE, null, ex);
