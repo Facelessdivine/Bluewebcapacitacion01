@@ -18,6 +18,7 @@ import entities.HActivacion;
 import entities.HActivacion_;
 import entities.SUsuarios_;
 import entities.SUsuarios;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,13 +26,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import models.exceptions.NonexistentEntityException;
 import models.exceptions.PreexistingEntityException;
-import static org.primefaces.model.FilterMeta.builder;
 import utils.LocalEntityManagerFactory;
 
 /**
@@ -301,6 +302,7 @@ public class HActivacionJpaController implements Serializable {
             em.close();
         }
     }
+
     public List<HActivacion> getActivationsByDate(SUsuarios idUsuario, final Date startDate, final Date endDate) {
 
         lista = new ArrayList<>();
@@ -309,20 +311,18 @@ public class HActivacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            
+
             CriteriaQuery<HActivacion> query = cb.createQuery(HActivacion.class);
-            
+
             Root<HActivacion> hactivacion = query.from(HActivacion.class);
 
             Join<HActivacion, SUsuarios> user = hactivacion.join(HActivacion_.idUsuario);
-            
+
             query.select(hactivacion).where(cb.equal(user.get(SUsuarios_.idUsuario), idUsuario));
             restrictions.add(cb.equal(hactivacion.get(HActivacion_.idUsuario), idUsuario));
             restrictions.add(cb.between(hactivacion.<Date>get(HActivacion_.fechaPeticion), startDate, endDate));
             query.where(restrictions.toArray(new Predicate[restrictions.size()]));
-            
-            
-            
+
             TypedQuery<HActivacion> typedQuery = em.createQuery(query);
             lista = typedQuery.getResultList();
         } catch (Exception ex) {
@@ -333,6 +333,38 @@ public class HActivacionJpaController implements Serializable {
             }
         }
         return lista;
+    }
+
+    public List<HActivacion> getActivationsById(SUsuarios user) {
+        HActivacion activaciones;
+        List<HActivacion> result = new ArrayList<HActivacion>();
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction();
+            StoredProcedureQuery query = em.createNamedStoredProcedureQuery("r_activacionesbyuser");
+
+            query.setParameter("id", user.getIdUsuario());
+            query.execute();
+            List<Object[]> resultado = query.getResultList();
+
+            for (Object[] i : resultado) {
+                activaciones = new HActivacion();
+                activaciones.setDescripcionTipo(i[0].toString());
+                activaciones.setRespuestaAplicacion(i[1].toString());
+                activaciones.setTelefono(i[2].toString());
+                activaciones.setIdUsuario(user);
+                result.add(activaciones);
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return result;
     }
 
 }

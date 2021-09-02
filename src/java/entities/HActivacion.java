@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,8 +27,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Blueweb
+ * @author Raúl Herrera Macías
  */
+
+            
 @Entity
 @Table(name = "H_ACTIVACION")
 @XmlRootElement
@@ -45,6 +50,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HActivacion.findByFechaPeticion", query = "SELECT h FROM HActivacion h WHERE h.fechaPeticion = :fechaPeticion"),
     @NamedQuery(name = "HActivacion.findByFechaRespuesta", query = "SELECT h FROM HActivacion h WHERE h.fechaRespuesta = :fechaRespuesta"),
     @NamedQuery(name = "HActivacion.findByFechaServidor", query = "SELECT h FROM HActivacion h WHERE h.fechaServidor = :fechaServidor")})
+@NamedStoredProcedureQuery(
+    name = "r_activacionesbyuser", 
+    procedureName = "r_activacionesbyuser", 
+    parameters = { 
+        @StoredProcedureParameter(mode = ParameterMode.IN, type = Integer.class, name = "id"), 
+    }
+)
 public class HActivacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -106,6 +118,8 @@ public class HActivacion implements Serializable {
     private CTipoTelefono idTipoTelefonia;
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne
+    
+    
     private SUsuarios idUsuario;
 
     public HActivacion() {

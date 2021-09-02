@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Reporte Activaciones</title>
+    </h:head>
+    <ui:composition template="/WEB-INF/template.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="form">
+                    <div class="card crud-demo">      
+                        <p:growl id="messages" showDetail="true">
+                            <p:autoUpdate/>
+                        </p:growl>
+                    </div>
+                         
+                         <p:toolbar id="tool">
+                        <p:toolbarGroup id="toolFilter" styleClass="ui-panelgrid-blank ui-fluid" style="width: 100%">
+                            
+                            <div class="p-field p-col-10 p-md-3">
+                                
+                                <p:outputLabel for="option" value="Seleccione un usuario para Filtrar" rendered="#{empty rActivacionBean.listaHactivacion}"/>
+                                <p:outputLabel for="option" value="Usuario" rendered="#{not empty rActivacionBean.listaHactivacion}"/>
+                                <p:selectOneMenu id="option" value="#{rActivacionBean.user}"  >
+                                   
+                                    <f:selectItems value="#{rActivacionBean.comboUsuarios}" var="hactivacion"
+                                                   itemLabel="#{hactivacion.usuario}" itemValue="#{hactivacion}" />
+                                    <f:converter converterId="userConverter"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                            <p:commandButton value="Save" id="save" icon="pi pi-check" update=":form:toolFilter,dtHactivacion,messages" action="#{rActivacionBean.filterUsersActivation()}" 
+                                             process="@this toolFilter" onclick="PF('manageInsertDialog').hide()" />
+                            
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                
+                                <p:commandButton value="Clear" action="#{rActivacionBean.newFilter()}" update=":form,dtHactivacion,:form:toolFilter" />
+                            </div>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                    <p:dataTable id="dtHactivacion" widgetVar="dtHactivacion2" var="ha" value="#{rActivacionBean.listaHactivacion}" rendered="#{not empty rActivacionBean.listaHactivacion}"
+                                 reflow="true" styleClass="products-table"
+                                 paginator="true"
+                                 filteredValue="#{rActivacionBean.filtroHactivacion}"
+                                 filterDelay="300"
+                                 emptyMessage="No se encontraron registros"
+                                 rows="10" paginatorPosition="bottom"
+                                 rowKey="#{ha.idActivacion}"
+                                 
+                                 >
+
+
+
+                        <p:column headerText="Descripción" filterBy="#{ha.descripcionTipo}" filterMatchMode="contains">
+
+                            <h:outputText value="#{ha.descripcionTipo}"/> 
+
+
+                        </p:column>
+
+                        <p:column headerText="Respuesta Aplicación" filterBy="#{ha.respuestaAplicacion}" filterMatchMode="contains">
+
+                            <h:outputText value="#{ha.respuestaAplicacion}"/> 
+
+                        </p:column>
+                        <p:column headerText="Teléfono" filterBy="#{ha.telefono}" filterMatchMode="contains">
+
+                            <h:outputText value="#{ha.telefono}"/> 
+
+                        </p:column>
+                        <p:column headerText="Nombre Usuario" filterBy="#{ha.idUsuario.nombreUsuario}" filterMatchMode="contains" >
+
+                            <h:outputText value="#{ha.idUsuario.nombreUsuario}"/> 
+
+                        </p:column>
+                        
+
+
+                    </p:dataTable>
+
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

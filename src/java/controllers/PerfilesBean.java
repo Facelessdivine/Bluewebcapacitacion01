@@ -117,7 +117,7 @@ public class PerfilesBean implements Serializable {
 
             try {
                 List<SPerfilesAccesos> listaPerfilesAccesos = new ArrayList<>();
-                
+
                 if (perfiles.getIdPerfil() == null) {
 
                     for (SAccesos acc : plAccesos.getTarget()) {
@@ -126,13 +126,13 @@ public class PerfilesBean implements Serializable {
                         perfilesAccesos.setSAccesos(acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
-                        
+
                         listaPerfilesAccesos.add(perfilesAccesos);
-                        
+
                     }
-                    
+
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
-                    
+
                     sPerfilesJpa.create(perfiles);
 
                 } else {
