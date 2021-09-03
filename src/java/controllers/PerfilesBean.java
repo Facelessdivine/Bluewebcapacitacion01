@@ -122,15 +122,17 @@ public class PerfilesBean implements Serializable {
 
                     for (SAccesos acc : plAccesos.getTarget()) {
 
+                        perfilesAccesos = new SPerfilesAccesos();
+
                         perfilesAccesos.setSPerfiles(perfiles);
                         perfilesAccesos.setSAccesos(acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
-//                        perfilesAcceso.setIdAcceso(acc.getIdAcceso());
-//                        perfilesAcceso.setIdPerfil(perfiles.getIdPerfil());
+
                         listaPerfilesAccesos.add(perfilesAccesos);
 
                     }
+
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
 
                     sPerfilesJpa.create(perfiles);
@@ -140,22 +142,21 @@ public class PerfilesBean implements Serializable {
                     listaPerfilesAccesos = sAccesosJpa.getAccessByProfile(perfiles);
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
                     sPerfilesJpa.edit(perfiles);
-                    for (int i = 0; i < listaPerfilesAccesos.size(); i++) {
-                        perfilesAcceso.setIdAcceso(listaPerfilesAccesos.get(i).getSPerfilesAccesosPK().getIdAcceso());
-                        perfilesAcceso.setIdPerfil(perfiles.getIdPerfil());
-
-                        sPerfilesAccesosJpa.destroy(perfilesAcceso);
-                    }
 
                     for (Object acc : plAccesos.getTarget()) {
-//                        SAccesos acceso = sAccesosJpa.findSAccesos(Integer.parseInt(acc.toString()));
+                        
                         //Datos estáticos que se insertan directamente al objeto de la base de datos
+                        perfilesAccesos = new SPerfilesAccesos();
+
                         perfilesAccesos.setSPerfiles(perfiles);
                         perfilesAccesos.setSAccesos((SAccesos) acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
-                        sPerfilesAccesosJpa.create(perfilesAccesos);
+                        
                     }
+                    
+                    perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
+                    sPerfilesJpa.edit(perfiles);
 
                 }
                 newProfile();
@@ -171,6 +172,8 @@ public class PerfilesBean implements Serializable {
         }
 
     }
+
+
 
     public void removeProfile() {
         if (perfiles.getIdPerfil() == null) {

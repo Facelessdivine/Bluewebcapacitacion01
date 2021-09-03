@@ -5,7 +5,6 @@
  */
 package models;
 
-import controllers.PerfilesBean;
 import entities.SPerfiles;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -13,6 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.SPerfilesAccesos;
+import entities.SPerfilesAccesosPK;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,32 +40,40 @@ public class SPerfilesJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(SPerfiles SPerfiles) throws PreexistingEntityException, Exception {
+       public void create(SPerfiles SPerfiles) throws PreexistingEntityException, Exception {
         if (SPerfiles.getSPerfilesAccesosCollection() == null) {
             SPerfiles.setSPerfilesAccesosCollection(new ArrayList<SPerfilesAccesos>());
         }
         EntityManager em = null;
         try {
+
             em = getEntityManager();
             em.getTransaction().begin();
-            
-            Collection<SPerfilesAccesos> attachedSPerfilesAccesosCollection = new ArrayList<SPerfilesAccesos>();
-            for (SPerfilesAccesos SPerfilesAccesosCollectionSPerfilesAccesosToAttach : SPerfiles.getSPerfilesAccesosCollection()) {
-//                SPerfilesAccesosCollectionSPerfilesAccesosToAttach = em.getReference(SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getClass(), SPerfilesAccesosCollectionSPerfilesAccesosToAttach.getSPerfilesAccesosPK());
-                attachedSPerfilesAccesosCollection.add(SPerfilesAccesosCollectionSPerfilesAccesosToAttach);
+
+            Collection<SPerfilesAccesos> attachedListaSPerfilesAccesos = new ArrayList<>();
+            for (SPerfilesAccesos finalSPerfilesAccesosAttached : SPerfiles.getSPerfilesAccesosCollection()) {
+                attachedListaSPerfilesAccesos.add(finalSPerfilesAccesosAttached);
             }
-            SPerfiles.setSPerfilesAccesosCollection(attachedSPerfilesAccesosCollection);
+
+            SPerfiles.setSPerfilesAccesosCollection(new ArrayList<>());
+            em.persist(SPerfiles);
+            em.flush();
+
+            SPerfilesAccesosPK sPerfilAccesoPK;
+            for (SPerfilesAccesos RPerfilAccesoCollectionRPerfilAcceso : attachedListaSPerfilesAccesos) {
+
+                RPerfilAccesoCollectionRPerfilAcceso.setSPerfiles(SPerfiles);
+
+                sPerfilAccesoPK = new SPerfilesAccesosPK();
+                sPerfilAccesoPK.setIdPerfil(SPerfiles.getIdPerfil());
+                sPerfilAccesoPK.setIdAcceso(RPerfilAccesoCollectionRPerfilAcceso.getSAccesos().getIdAcceso());
+                RPerfilAccesoCollectionRPerfilAcceso.setSPerfilesAccesosPK(sPerfilAccesoPK);
+            }
+
+            SPerfiles.setSPerfilesAccesosCollection(attachedListaSPerfilesAccesos);
             em.merge(SPerfiles);
-//            for (SPerfilesAccesos SPerfilesAccesosCollectionSPerfilesAccesos : SPerfiles.getSPerfilesAccesosCollection()) {
-//                SPerfiles oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = SPerfilesAccesosCollectionSPerfilesAccesos.getSPerfiles();
-//                SPerfilesAccesosCollectionSPerfilesAccesos.setSPerfiles(SPerfiles);
-//                SPerfilesAccesosCollectionSPerfilesAccesos = em.merge(SPerfilesAccesosCollectionSPerfilesAccesos);
-//                if (oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos != null) {
-//                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos.getSPerfilesAccesosCollection().remove(SPerfilesAccesosCollectionSPerfilesAccesos);
-//                    oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos = em.merge(oldSPerfilesOfSPerfilesAccesosCollectionSPerfilesAccesos);
-//                }
-//            }
             em.getTransaction().commit();
+
         } catch (Exception ex) {
             Logger.getLogger(SPerfilesAccesosJpaController.class.getName()).log(Level.SEVERE, null, ex);
             if (findSPerfiles(SPerfiles.getIdPerfil()) != null) {
