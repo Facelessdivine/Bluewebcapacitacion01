@@ -319,7 +319,9 @@ public class HActivacionJpaController implements Serializable {
             Join<HActivacion, SUsuarios> user = hactivacion.join(HActivacion_.idUsuario);
 
             query.select(hactivacion).where(cb.equal(user.get(SUsuarios_.idUsuario), idUsuario));
+            if(idUsuario != null){
             restrictions.add(cb.equal(hactivacion.get(HActivacion_.idUsuario), idUsuario));
+            }
             restrictions.add(cb.between(hactivacion.<Date>get(HActivacion_.fechaPeticion), startDate, endDate));
             query.where(restrictions.toArray(new Predicate[restrictions.size()]));
 

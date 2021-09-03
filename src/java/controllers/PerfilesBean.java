@@ -126,11 +126,11 @@ public class PerfilesBean implements Serializable {
                         perfilesAccesos.setSAccesos(acc);
                         perfilesAccesos.setFechaServidor(fechaActual);
                         perfilesAccesos.setIdUsuarioModifica(usuarioSesion);
-
+//                        perfilesAcceso.setIdAcceso(acc.getIdAcceso());
+//                        perfilesAcceso.setIdPerfil(perfiles.getIdPerfil());
                         listaPerfilesAccesos.add(perfilesAccesos);
 
                     }
-
                     perfiles.setSPerfilesAccesosCollection(listaPerfilesAccesos);
 
                     sPerfilesJpa.create(perfiles);
