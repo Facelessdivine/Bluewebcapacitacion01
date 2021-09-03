@@ -46,7 +46,8 @@ public class ReporteActivacionesBean {
         FacesMessage msg = null;
         try {
             listaHactivacion = controllerHactivacion.getActivationsById(user);
-            msg = (!listaHactivacion.isEmpty()) ? new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Filtrado exitoso") : new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se encontraron Activaciones para el usuario: " + user.getNombreUsuario());
+            msg = (!listaHactivacion.isEmpty()) ? new FacesMessage(FacesMessage.SEVERITY_INFO, "INFO", "Filtrado exitoso")
+                    : new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "No se encontraron Activaciones para el usuario: " + user.getNombreUsuario());
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Se produjo un error");
         } finally {
